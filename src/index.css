@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Softer Dark Mode (Charcoal base instead of pitch black) */
+    --background: 240 10% 8%;
+    --foreground: 142 60% 70%;
+    /* softened neon green */
+
+    --card: 240 10% 10%;
+    --card-foreground: 142 60% 70%;
+
+    --popover: 240 10% 8%;
+    --popover-foreground: 142 60% 70%;
+
+    --primary: 142 60% 60%;
+    --primary-foreground: 240 10% 8%;
+
+    --secondary: 240 10% 15%;
+    --secondary-foreground: 142 60% 70%;
+
+    --muted: 240 10% 12%;
+    --muted-foreground: 142 30% 50%;
+
+    --accent: 142 60% 20%;
+    --accent-foreground: 142 60% 70%;
+
+    --destructive: 0 80% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 142 60% 20%;
+    --input: 142 60% 20%;
+    --ring: 142 60% 60%;
+    --radius: 0rem;
+  }
+
+  .light {
+    /* Light Theme (Clean technical paper look) */
+    --background: 240 10% 98%;
+    --foreground: 240 10% 30%;
+
+    --card: 240 5% 96%;
+    --card-foreground: 240 10% 30%;
+
+    --popover: 240 10% 98%;
+    --popover-foreground: 240 10% 30%;
+
+    --primary: 142 70% 40%;
+    /* Darker green for contrast on white */
+    --primary-foreground: 240 10% 98%;
+
+    --secondary: 240 10% 90%;
+    --secondary-foreground: 240 10% 30%;
+
+    --muted: 240 10% 92%;
+    --muted-foreground: 240 10% 50%;
+
+    --accent: 142 50% 90%;
+    --accent-foreground: 142 70% 40%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 142 30% 80%;
+    --input: 142 30% 80%;
+    --ring: 142 70% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    letter-spacing: -0.02em;
+    overscroll-behavior-y: none;
+  }
+}
+
+@layer utilities {
+  .image-pixelated {
+    image-rendering: pixelated;
+  }
+
+  .blend-screen {
+    mix-blend-mode: screen;
+  }
+}
+
+.terminal-window {
+  @apply bg-card border border-primary/30 shadow-lg;
+}
+
+.terminal-header {
+  @apply bg-primary/20 border-b border-primary/30 px-3 py-1 flex items-center gap-1.5;
+}
+
+.dot {
+  @apply w-2 h-2 rounded-full;
+}
+
+.scanline {
+  width: 100%;
+  height: 100px;
+  z-index: 10;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(34, 197, 94, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0.1;
+  position: absolute;
+  bottom: 0%;
+  animation: scanline 10s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    bottom: 100%;
+  }
+
+  100% {
+    bottom: -100%;
+  }
+}
+
+.glow-text {
+  text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+}
+
+::selection {
+  @apply bg-primary text-background;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/20 hover:bg-primary/40;
+}
