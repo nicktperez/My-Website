@@ -23,7 +23,12 @@ const IncidentModal: React.FC<IncidentModalProps> = ({ isOpen, onClose, project 
 
     return (
         <AnimatePresence>
-            <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6">
+            <div
+                className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="incident-modal-title"
+            >
                 {/* Backdrop */}
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -31,6 +36,7 @@ const IncidentModal: React.FC<IncidentModalProps> = ({ isOpen, onClose, project 
                     exit={{ opacity: 0 }}
                     onClick={onClose}
                     className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+                    aria-hidden="true"
                 />
 
                 {/* Modal Content - Declassified Document Style */}
@@ -43,12 +49,12 @@ const IncidentModal: React.FC<IncidentModalProps> = ({ isOpen, onClose, project 
                     {/* Header */}
                     <div className="flex items-center justify-between p-4 border-b border-primary/20 bg-primary/5">
                         <div className="flex items-center gap-3">
-                            <ShieldAlert className="text-red-500 animate-pulse" size={20} />
-                            <span className="font-mono text-xs font-bold tracking-[0.2em] text-red-500">
+                            <ShieldAlert className="text-red-500 animate-pulse" size={20} aria-hidden="true" />
+                            <span id="incident-modal-title" className="font-mono text-xs font-bold tracking-[0.2em] text-red-500">
                                 INCIDENT_REPORT_#2026-X1 // CLASSIFIED
                             </span>
                         </div>
-                        <button onClick={onClose} className="text-primary/60 hover:text-red-500 transition-colors">
+                        <button onClick={onClose} className="text-primary/60 hover:text-red-500 transition-colors" aria-label="Close Modal">
                             <X size={24} />
                         </button>
                     </div>

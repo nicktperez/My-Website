@@ -31,6 +31,8 @@ import EncryptedDownloadButton from './components/EncryptedDownloadButton';
 import HexBadge from './components/HexBadge';
 import IncidentModal from './components/IncidentModal';
 import ThemeToggle from './components/ThemeToggle';
+import ContactForm from './components/ContactForm';
+import ThreatMap from './components/ThreatMap';
 
 const KonamiHackerOverlay = ({ onComplete }: { onComplete: () => void }) => {
   const [typedLines, setTypedLines] = useState<string[]>([]);
@@ -283,6 +285,9 @@ const App = () => {
         {showEasterEgg && <KonamiHackerOverlay onComplete={() => setShowEasterEgg(false)} />}
       </AnimatePresence>
 
+      {/* Live Threat Map Background */}
+      <ThreatMap />
+
       {/* Easter Egg: Hidden Flag in HTML comment */}
       {/* <!-- FLAG: 53 45 43 55 52 49 54 59 5f 4d 49 4e 44 53 45 54 (Hex for SECURITY_MINDSET) --> */}
 
@@ -497,6 +502,9 @@ const App = () => {
             ))}
           </div>
         </section>
+
+        {/* Contact Form */}
+        <ContactForm />
 
         {/* Footer */}
         <footer className="mt-40 pt-16 border-t border-primary/20 flex flex-col items-center gap-8 opacity-60 text-center">
