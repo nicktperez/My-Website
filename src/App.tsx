@@ -349,7 +349,7 @@ const App = () => {
 
         <section className="section section-tinted" id="experience">
           <div className="page-width">
-            <div className="section-heading" data-reveal="heading">
+            <div className="section-heading">
               <div>
                 <p className="section-label">Experience</p>
                 <h2>A decade of dependable IT delivery.</h2>
@@ -370,7 +370,6 @@ const App = () => {
                   <article
                     className={`timeline-item${index === 0 ? ' is-current' : ''}${isExpanded ? ' is-expanded' : ''}`}
                     key={`${experience.company}-${experience.period}`}
-                    data-reveal="timeline"
                   >
                     <div className="timeline-meta">
                       <p>{experience.period}</p>
