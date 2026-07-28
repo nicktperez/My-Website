@@ -2,10 +2,18 @@ import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ShieldAlert, FileText, CheckCircle, ExternalLink } from 'lucide-react';
 
+interface SecurityProject {
+    title: string;
+    status: string;
+    github: string;
+    description: string;
+    highlights: string[];
+}
+
 interface IncidentModalProps {
     isOpen: boolean;
     onClose: () => void;
-    project: any;
+    project: SecurityProject;
 }
 
 const IncidentModal: React.FC<IncidentModalProps> = ({ isOpen, onClose, project }) => {

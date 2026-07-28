@@ -27,13 +27,8 @@ const SpriteCharacter: React.FC<SpriteCharacterProps> = ({ state, className }) =
     const frameRef = useRef(0);
 
     useEffect(() => {
-        // Reset frame when state changes
-        setFrameIndex(0);
         frameRef.current = 0;
         lastUpdateRef.current = performance.now();
-    }, [state]);
-
-    useEffect(() => {
         let animationFrameId: number;
 
         const animate = (time: number) => {
@@ -51,7 +46,7 @@ const SpriteCharacter: React.FC<SpriteCharacterProps> = ({ state, className }) =
 
         animationFrameId = requestAnimationFrame(animate);
         return () => cancelAnimationFrame(animationFrameId);
-    }, [config]);
+    }, [config, state]);
 
     // Calculate background position
     // CSS sprites with N frames: position = index * (100 / (N - 1))%

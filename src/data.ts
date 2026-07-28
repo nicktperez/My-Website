@@ -4,8 +4,8 @@ export const portfolioData = {
     email: "nicktperez@gmail.com",
     phone: "916-307-9709",
     location: "Sacramento, CA",
-    hybridStatus: "Open to hybrid work in SF / Bay Area",
-    summary: "Internal IT Support Engineer with 10+ years of experience delivering onsite hardware, software, and network troubleshooting. Specializing in macOS/Windows administration, MDM automation, and Cybersecurity Operations. Currently building advanced SIEM monitoring pipelines and pursuing CompTIA Security+.",
+    hybridStatus: "Open to hybrid roles in the San Francisco Bay Area",
+    summary: "IT systems professional with 10+ years of experience supporting people, endpoints, identity, and workplace technology. Combines high-trust support with automation and practical security operations.",
     skills: [
         { name: "macOS & Windows Admin", icon: "Monitor" },
         { name: "Jamf & Intune (MDM)", icon: "Shield" },
@@ -20,12 +20,12 @@ export const portfolioData = {
         title: "SIEM Home Lab",
         status: "In Progress",
         github: "https://github.com/nicktperez/siem-home-lab",
-        description: "Built a security monitoring lab leveraging Elastic Stack (Elasticsearch, Logstash, Kibana) to monitor enterprise-grade endpoints.",
+        description: "Built a reproducible Elastic Stack lab for log collection, parsing, detection engineering, and dashboard-driven investigation.",
         highlights: [
-            "Configured Winlogbeat, Sysmon, and Windows Event Forwarding for deep telemetry.",
-            "Developed Kibana dashboards for brute force, privilege escalation, and persistence detection.",
-            "Simulated adversary behavior to validate detection rules and SOC workflows.",
-            "Documented full lab setup and ingestion pipelines on GitHub."
+            "Deployed a Docker-based Elastic Stack with Filebeat and custom Logstash pipelines.",
+            "Simulated SSH brute-force attempts and generated threshold-based alerts for repeated failures.",
+            "Built and exported Kibana views for top attacker IPs and alert activity over time.",
+            "Added a prompt-injection log generator and detection pipeline for emerging AI threats."
         ]
     },
     experience: [

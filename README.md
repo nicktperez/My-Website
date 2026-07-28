@@ -1,6 +1,22 @@
-# React + TypeScript + Vite
+# Nicholas Perez — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Professional portfolio for Nicholas Perez, an IT Systems & Security Engineer specializing in workplace technology, endpoint management, identity, automation, and security operations.
+
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+## Quality checks
+
+```bash
+npm run lint
+npm run build
+```
+
+The site is built with React, TypeScript, Vite, and Tailwind CSS.
 
 Currently, two official plugins are available:
 
