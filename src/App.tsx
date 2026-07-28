@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ArrowDown,
   ArrowUpRight,
   Check,
   Clipboard,
-  Download,
   ExternalLink,
+  FileText,
   Github,
+  Linkedin,
   Mail,
   MapPin,
+  Menu,
   Phone,
+  X,
 } from 'lucide-react';
 import { portfolioData } from './data';
 import ContactForm from './components/ContactForm';
@@ -21,6 +24,8 @@ const navigation = [
   { label: 'Capabilities', href: '#capabilities' },
   { label: 'Contact', href: '#contact' },
 ];
+
+const linkedInUrl = 'https://www.linkedin.com/in/nicholas-perez-47748773/';
 
 const capabilityGroups = [
   {
@@ -68,6 +73,17 @@ const CopyEmailButton = () => {
 };
 
 const App = () => {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMobileNavOpen(false);
+    };
+
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, []);
+
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">Skip to content</a>
@@ -88,7 +104,36 @@ const App = () => {
             ))}
           </nav>
 
-          <ThemeToggle />
+          <div className="header-actions">
+            <button
+              className="mobile-nav-trigger"
+              type="button"
+              aria-expanded={mobileNavOpen}
+              aria-controls="mobile-navigation"
+              aria-label={mobileNavOpen ? 'Close navigation' : 'Open navigation'}
+              onClick={() => setMobileNavOpen((open) => !open)}
+            >
+              {mobileNavOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+            </button>
+            <ThemeToggle />
+          </div>
+
+          <nav
+            className={`mobile-nav${mobileNavOpen ? ' is-open' : ''}`}
+            id="mobile-navigation"
+            aria-label="Mobile navigation"
+          >
+            {navigation.map((item) => (
+              <a key={item.href} href={item.href} onClick={() => setMobileNavOpen(false)}>
+                {item.label}
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            ))}
+            <a href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer" onClick={() => setMobileNavOpen(false)}>
+              View résumé
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          </nav>
         </div>
       </header>
 
@@ -111,9 +156,9 @@ const App = () => {
                 View experience
                 <ArrowDown size={17} aria-hidden="true" />
               </a>
-              <a className="button button-secondary" href="/NicholasPerezResume.pdf" download>
-                <Download size={17} aria-hidden="true" />
-                Download résumé
+              <a className="button button-secondary" href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">
+                <FileText size={17} aria-hidden="true" />
+                View résumé
               </a>
             </div>
 
@@ -121,6 +166,10 @@ const App = () => {
               <a href={`mailto:${portfolioData.email}`}>
                 <Mail size={16} aria-hidden="true" />
                 {portfolioData.email}
+              </a>
+              <a href={linkedInUrl} target="_blank" rel="me noreferrer">
+                <Linkedin size={16} aria-hidden="true" />
+                LinkedIn
               </a>
               <a href={`tel:${portfolioData.phone.replace(/\D/g, '')}`}>
                 <Phone size={16} aria-hidden="true" />
@@ -180,32 +229,20 @@ const App = () => {
           </div>
 
           <article className="case-study">
-            <div className="case-visual" aria-label="SIEM data workflow">
-              <div className="visual-topline">
-                <span>SIEM home lab</span>
-                <span>In development</span>
-              </div>
-              <div className="pipeline" role="img" aria-label="Endpoints flow through collection and analysis to detections">
-                {[
-                  ['01', 'Generate', 'System + test logs'],
-                  ['02', 'Collect', 'Filebeat + TCP'],
-                  ['03', 'Analyze', 'Logstash + Kibana'],
-                  ['04', 'Detect', 'SSH + AI threats'],
-                ].map(([number, title, detail], index) => (
-                  <div className="pipeline-step" key={title}>
-                    <span>{number}</span>
-                    <strong>{title}</strong>
-                    <small>{detail}</small>
-                    {index < 3 ? <ArrowUpRight size={16} aria-hidden="true" /> : null}
-                  </div>
-                ))}
-              </div>
-              <div className="signal-bars" aria-hidden="true">
-                {[44, 70, 52, 86, 61, 92, 68, 78, 55, 88, 72, 96].map((height, index) => (
-                  <span key={`${height}-${index}`} style={{ height: `${height}%` }} />
-                ))}
-              </div>
-            </div>
+            <figure className="case-visual">
+              <img
+                src="/siem-kibana-dashboard.png"
+                alt="Kibana visualization showing counts of simulated failed SSH authentication events"
+                width="2644"
+                height="1392"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span>Real project evidence</span>
+                Kibana visualization built from simulated SSH authentication failures
+              </figcaption>
+            </figure>
 
             <div className="case-copy">
               <div>
@@ -318,8 +355,9 @@ const App = () => {
           </div>
           <div className="footer-links">
             <a href={`mailto:${portfolioData.email}`}>Email</a>
+            <a href={linkedInUrl} target="_blank" rel="me noreferrer">LinkedIn</a>
             <a href={portfolioData.securityProject.github} target="_blank" rel="noreferrer">GitHub</a>
-            <a href="/NicholasPerezResume.pdf" download>Résumé</a>
+            <a href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">Résumé</a>
             <CopyEmailButton />
           </div>
           <p className="copyright">© {new Date().getFullYear()} Nicholas Perez</p>

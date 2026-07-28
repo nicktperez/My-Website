@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { ArrowUpRight, Mail } from 'lucide-react';
+import { ArrowUpRight, Linkedin, Mail } from 'lucide-react';
 import { portfolioData } from '../data';
+
+const linkedInUrl = 'https://www.linkedin.com/in/nicholas-perez-47748773/';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -33,10 +35,16 @@ const ContactForm = () => {
             I’m open to IT systems, workplace technology, and security-focused
             opportunities in the San Francisco Bay Area.
           </p>
-          <a href={`mailto:${portfolioData.email}`}>
-            <Mail size={18} aria-hidden="true" />
-            {portfolioData.email}
-          </a>
+          <div className="contact-methods">
+            <a href={`mailto:${portfolioData.email}`}>
+              <Mail size={18} aria-hidden="true" />
+              {portfolioData.email}
+            </a>
+            <a href={linkedInUrl} target="_blank" rel="me noreferrer">
+              <Linkedin size={18} aria-hidden="true" />
+              Connect on LinkedIn
+            </a>
+          </div>
         </div>
 
         <form className="contact-form" onSubmit={handleSubmit}>
