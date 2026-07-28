@@ -3,6 +3,7 @@ import {
   ArrowDown,
   ArrowUpRight,
   Check,
+  ChevronDown,
   Clipboard,
   ExternalLink,
   FileText,
@@ -95,6 +96,8 @@ const CopyEmailButton = () => {
 
 const App = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [expandedExperience, setExpandedExperience] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -104,6 +107,49 @@ const App = () => {
     window.addEventListener('keydown', closeOnEscape);
     return () => window.removeEventListener('keydown', closeOnEscape);
   }, []);
+
+  useEffect(() => {
+    const sections = navigation
+      .map((item) => document.querySelector<HTMLElement>(item.href))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSection = entries.find((entry) => entry.isIntersecting);
+        if (visibleSection?.target.id) setActiveSection(visibleSection.target.id);
+      },
+      { rootMargin: '-28% 0px -62%', threshold: 0 },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const elements = document.querySelectorAll<HTMLElement>('[data-reveal]');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '0px 0px -8%', threshold: 0.12 },
+    );
+
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
+  const toggleExperience = (index: number) => {
+    setExpandedExperience((current) => ({
+      ...current,
+      [index]: !current[index],
+    }));
+  };
 
   return (
     <div className="site-shell">
@@ -121,7 +167,14 @@ const App = () => {
 
           <nav className="desktop-nav" aria-label="Primary navigation">
             {navigation.map((item) => (
-              <a key={item.href} href={item.href}>{item.label}</a>
+              <a
+                className={activeSection === item.href.slice(1) ? 'is-active' : undefined}
+                key={item.href}
+                href={item.href}
+                aria-current={activeSection === item.href.slice(1) ? 'location' : undefined}
+              >
+                {item.label}
+              </a>
             ))}
           </nav>
 
@@ -145,7 +198,13 @@ const App = () => {
             aria-label="Mobile navigation"
           >
             {navigation.map((item) => (
-              <a key={item.href} href={item.href} onClick={() => setMobileNavOpen(false)}>
+              <a
+                className={activeSection === item.href.slice(1) ? 'is-active' : undefined}
+                key={item.href}
+                href={item.href}
+                aria-current={activeSection === item.href.slice(1) ? 'location' : undefined}
+                onClick={() => setMobileNavOpen(false)}
+              >
                 {item.label}
                 <ArrowUpRight size={16} aria-hidden="true" />
               </a>
@@ -234,7 +293,7 @@ const App = () => {
         </section>
 
         <section className="section page-width" id="work">
-          <div className="section-heading">
+          <div className="section-heading" data-reveal="heading">
             <div>
               <p className="section-label">Selected work</p>
               <h2>Security monitoring, made operational.</h2>
@@ -245,7 +304,7 @@ const App = () => {
             </p>
           </div>
 
-          <article className="case-study">
+          <article className="case-study" data-reveal="case">
             <figure className="case-visual">
               <img
                 src="/siem-kibana-dashboard.png"
@@ -255,8 +314,9 @@ const App = () => {
                 loading="lazy"
                 decoding="async"
               />
+              <span className="evidence-badge">Simulated dataset</span>
               <figcaption>
-                <span>Real project evidence</span>
+                <span>Verified project artifact</span>
                 Kibana visualization built from simulated SSH authentication failures
               </figcaption>
             </figure>
@@ -289,7 +349,7 @@ const App = () => {
 
         <section className="section section-tinted" id="experience">
           <div className="page-width">
-            <div className="section-heading">
+            <div className="section-heading" data-reveal="heading">
               <div>
                 <p className="section-label">Experience</p>
                 <h2>A decade of dependable IT delivery.</h2>
@@ -301,28 +361,53 @@ const App = () => {
             </div>
 
             <div className="timeline">
-              {portfolioData.experience.map((experience) => (
-                <article className="timeline-item" key={`${experience.company}-${experience.period}`}>
-                  <div className="timeline-meta">
-                    <p>{experience.period}</p>
-                    <h3>{experience.company}</h3>
-                  </div>
-                  <div className="timeline-content">
-                    <h4>{experience.role}</h4>
-                    <ul>
-                      {experience.highlights.map((highlight) => (
-                        <li key={highlight}>{highlight}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
-              ))}
+              {portfolioData.experience.map((experience, index) => {
+                const hasAdditionalDetails = index > 0 && experience.highlights.length > 2;
+                const isExpanded = Boolean(expandedExperience[index]);
+                const detailsId = `experience-details-${index}`;
+
+                return (
+                  <article
+                    className={`timeline-item${index === 0 ? ' is-current' : ''}${isExpanded ? ' is-expanded' : ''}`}
+                    key={`${experience.company}-${experience.period}`}
+                    data-reveal="timeline"
+                  >
+                    <div className="timeline-meta">
+                      <p>{experience.period}</p>
+                      <h3>{experience.company}</h3>
+                    </div>
+                    <div className="timeline-marker" aria-hidden="true" />
+                    <div className="timeline-content">
+                      <h4>{experience.role}</h4>
+                      <ul id={detailsId}>
+                        {experience.highlights.map((highlight, highlightIndex) => (
+                          <li className={highlightIndex > 1 ? 'timeline-extra' : undefined} key={highlight}>
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                      {hasAdditionalDetails ? (
+                        <button
+                          className="timeline-toggle"
+                          type="button"
+                          aria-controls={detailsId}
+                          aria-expanded={isExpanded}
+                          onClick={() => toggleExperience(index)}
+                        >
+                          {isExpanded ? 'Hide details' : 'View details'}
+                          <ChevronDown size={16} aria-hidden="true" />
+                        </button>
+                      ) : null}
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
 
         <section className="section page-width" id="capabilities">
-          <div className="section-heading">
+          <div className="section-heading" data-reveal="heading">
             <div>
               <p className="section-label">Capabilities</p>
               <h2>Broad technical range, grounded in service.</h2>
@@ -347,7 +432,7 @@ const App = () => {
             ))}
           </div>
 
-          <div className="credentials">
+          <div className="credentials" data-reveal="credentials">
             <div>
               <p className="section-label">Education</p>
               <h3>Associate of Science, Computer Science</h3>
