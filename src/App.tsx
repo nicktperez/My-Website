@@ -50,6 +50,27 @@ const capabilityGroups = [
   },
 ];
 
+const SystemsMotif = () => (
+  <div className="systems-motif" aria-hidden="true">
+    <svg viewBox="0 0 420 96" role="presentation">
+      <path
+        className="systems-flow systems-flow-muted"
+        d="M8 69C71 13 132 20 184 49s99 38 154 4c26-16 49-22 74-18"
+      />
+      <path
+        className="systems-flow systems-flow-active"
+        d="M8 27c63 48 126 52 185 17s123-35 219 23"
+      />
+      <circle className="systems-node" cx="48" cy="50" r="4" />
+      <circle className="systems-node" cx="116" cy="27" r="4" />
+      <circle className="systems-node systems-node-accent" cx="184" cy="49" r="5" />
+      <circle className="systems-node" cx="258" cy="65" r="4" />
+      <circle className="systems-node" cx="337" cy="53" r="4" />
+      <circle className="systems-node systems-node-accent systems-node-delayed" cx="389" cy="54" r="4" />
+    </svg>
+  </div>
+);
+
 const CopyEmailButton = () => {
   const [copied, setCopied] = useState(false);
 
@@ -140,10 +161,6 @@ const App = () => {
       <main id="main-content">
         <section className="hero page-width" id="top">
           <div className="hero-copy">
-            <p className="availability">
-              <span aria-hidden="true" />
-              Open to hybrid roles in the San Francisco Bay Area
-            </p>
             <h1>IT systems that help people do their best work.</h1>
             <p className="hero-summary">
               I’m Nicholas Perez, an IT systems professional with 10+ years of experience
@@ -183,9 +200,9 @@ const App = () => {
           </div>
 
           <aside className="profile-brief" aria-label="Professional overview">
+            <SystemsMotif />
             <div className="brief-heading">
               <span>Professional overview</span>
-              <span className="brief-status">Available</span>
             </div>
             <dl>
               <div>

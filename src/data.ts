@@ -4,7 +4,6 @@ export const portfolioData = {
     email: "nicktperez@gmail.com",
     phone: "916-307-9709",
     location: "Sacramento, CA",
-    hybridStatus: "Open to hybrid roles in the San Francisco Bay Area",
     summary: "IT systems professional with 10+ years of experience supporting people, endpoints, identity, and workplace technology. Combines high-trust support with automation and practical security operations.",
     skills: [
         { name: "macOS & Windows Admin", icon: "Monitor" },
