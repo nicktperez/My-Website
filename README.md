@@ -1,5 +1,7 @@
 # Nicholas Perez | Professional Portfolio
 
+[![CI](https://github.com/nicktperez/My-Website/actions/workflows/ci.yml/badge.svg)](https://github.com/nicktperez/My-Website/actions/workflows/ci.yml)
+
 The source for [nicholastperez.com](https://nicholastperez.com), my professional portfolio focused on IT systems, endpoint and identity administration, automation, and security operations.
 
 The site presents my experience in government, startup, and enterprise IT alongside hands-on security work such as my Elastic Stack SIEM home lab.
