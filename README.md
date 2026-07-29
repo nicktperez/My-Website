@@ -1,10 +1,33 @@
-# Nicholas Perez — Portfolio
+# Nicholas Perez | Professional Portfolio
 
-Professional portfolio for Nicholas Perez, an IT Systems & Security Engineer specializing in workplace technology, endpoint management, identity, automation, and security operations.
+The source for [nicholastperez.com](https://nicholastperez.com), my professional portfolio focused on IT systems, endpoint and identity administration, automation, and security operations.
+
+The site presents my experience in government, startup, and enterprise IT alongside hands-on security work such as my Elastic Stack SIEM home lab.
+
+## Highlights
+
+- Recruiter-focused overview of more than 10 years in IT operations
+- Selected security project with a verified Kibana artifact
+- Experience timeline covering systems administration and technical support
+- Capabilities across endpoint management, identity, cloud collaboration, automation, and security operations
+- Accessible responsive navigation, keyboard support, and semantic content
+- Downloadable resume and direct contact options
+- Light and dark themes
+
+## Technology
+
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Lucide icons
 
 ## Local development
 
 ```bash
+git clone https://github.com/nicktperez/My-Website.git
+cd My-Website
 npm install
 npm run dev
 ```
@@ -16,74 +39,10 @@ npm run lint
 npm run build
 ```
 
-The site is built with React, TypeScript, Vite, and Tailwind CSS.
+## Project goals
 
-Currently, two official plugins are available:
+This portfolio is intentionally concise. It is designed to give hiring teams a quick, evidence-based view of my background, the environments I have supported, and the security operations skills I am developing through practical projects.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Related project
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- [SIEM Home Lab](https://github.com/nicktperez/siem-home-lab)
