@@ -125,25 +125,6 @@ const App = () => {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const elements = document.querySelectorAll<HTMLElement>('[data-reveal]');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-revealed');
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: '0px 0px -8%', threshold: 0.12 },
-    );
-
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
-
   const toggleExperience = (index: number) => {
     setExpandedExperience((current) => ({
       ...current,
@@ -293,7 +274,7 @@ const App = () => {
         </section>
 
         <section className="section page-width" id="work">
-          <div className="section-heading" data-reveal="heading">
+          <div className="section-heading">
             <div>
               <p className="section-label">Selected work</p>
               <h2>Security monitoring, made operational.</h2>
@@ -304,7 +285,7 @@ const App = () => {
             </p>
           </div>
 
-          <article className="case-study" data-reveal="case">
+          <article className="case-study">
             <figure className="case-visual">
               <img
                 src="/siem-kibana-dashboard.png"
@@ -406,7 +387,7 @@ const App = () => {
         </section>
 
         <section className="section page-width" id="capabilities">
-          <div className="section-heading" data-reveal="heading">
+          <div className="section-heading">
             <div>
               <p className="section-label">Capabilities</p>
               <h2>Broad technical range, grounded in service.</h2>
@@ -431,7 +412,7 @@ const App = () => {
             ))}
           </div>
 
-          <div className="credentials" data-reveal="credentials">
+          <div className="credentials">
             <div>
               <p className="section-label">Education</p>
               <h3>Associate of Science, Computer Science</h3>

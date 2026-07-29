@@ -27,7 +27,7 @@ const ContactForm = () => {
 
   return (
     <section className="contact-section" id="contact">
-      <div className="page-width contact-layout" data-reveal="contact">
+      <div className="page-width contact-layout">
         <div className="contact-intro">
           <p className="section-label">Contact</p>
           <h2>Let’s make work run better.</h2>
