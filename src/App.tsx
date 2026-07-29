@@ -12,7 +12,6 @@ import {
   Mail,
   MapPin,
   Menu,
-  Phone,
   X,
 } from 'lucide-react';
 import { portfolioData } from './data';
@@ -227,10 +226,6 @@ const App = () => {
               <a href={linkedInUrl} target="_blank" rel="me noreferrer">
                 <Linkedin size={16} aria-hidden="true" />
                 LinkedIn
-              </a>
-              <a href={`tel:${portfolioData.phone.replace(/\D/g, '')}`}>
-                <Phone size={16} aria-hidden="true" />
-                {portfolioData.phone}
               </a>
               <span>
                 <MapPin size={16} aria-hidden="true" />
