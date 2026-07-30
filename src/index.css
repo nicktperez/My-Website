@@ -799,12 +799,8 @@ li {
 
 .project-pair {
   display: grid;
-  grid-template-columns: 1.08fr 0.92fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(1.5rem, 4vw, 3.5rem);
-}
-
-.project-story:nth-child(2) {
-  padding-top: clamp(4rem, 9vw, 8rem);
 }
 
 .project-story-visual {
@@ -1405,9 +1401,6 @@ li {
     gap: 4rem;
   }
 
-  .project-story:nth-child(2) {
-    padding-top: 0;
-  }
 }
 
 @media (max-width: 640px) {
