@@ -54,31 +54,63 @@ const projectCases = [
     image: portfolioData.featuredProject.image,
     imageAlt: portfolioData.featuredProject.imageAlt,
     github: portfolioData.featuredProject.github,
+    lead: undefined,
+    description: undefined,
     problem: 'Endpoint activity is noisy. The useful signal is usually buried across processes, files, and network events.',
     action: portfolioData.featuredProject.description,
     outcome: 'Faster triage, clearer context, and a local-first investigation workflow that explains what deserves attention.',
+    metrics: undefined,
+    footnote: undefined,
+    experiment: undefined,
     stack: portfolioData.featuredProject.stack,
     note: 'Signal over noise. Context before conclusions.',
     featured: true,
+    isOrbitLab: false,
   },
-  ...portfolioData.projects.map((project, index) => ({
-    number: `0${index + 2}`,
-    title: project.title,
-    category: project.category,
-    image: project.image,
-    imageAlt: project.imageAlt,
-    github: project.github,
-    problem: index === 0
-      ? 'Detection ideas are hard to trust without a safe place to generate data and investigate the result.'
-      : 'Complex systems are easier to understand when you can change one variable and watch the system respond.',
-    action: project.description,
-    outcome: project.outcome,
-    stack: project.stack,
-    note: index === 0
-      ? 'Better questions make better detections.'
-      : 'Model it. Test it. Learn from it.',
-    featured: false,
-  })),
+  ...portfolioData.projects.map((project, index) => {
+    const isOrbitLab = project.title === 'OrbitLab';
+
+    return {
+      number: `0${index + 2}`,
+      title: project.title,
+      category: isOrbitLab ? 'Numerical systems · experimental methods' : project.category,
+      image: project.image,
+      imageAlt: project.imageAlt,
+      github: project.github,
+      lead: isOrbitLab ? 'Can a simulator recognize when precision matters?' : undefined,
+      description: isOrbitLab
+        ? 'I built a native C++20 N-body workbench, then developed an experimental timestep controller that concentrates computation around the most demanding parts of an orbit.'
+        : undefined,
+      problem: isOrbitLab
+        ? 'Fixed timesteps force a tradeoff: waste computation across an entire orbit or lose accuracy where the physics changes fastest.'
+        : 'Detection ideas are hard to trust without a safe place to generate data and investigate the result.',
+      action: isOrbitLab
+        ? 'I developed the OrbitLab Adaptive Fidelity Method, combining acceleration, changing acceleration, and closing-encounter timescales into a deterministic timestep controller.'
+        : project.description,
+      outcome: isOrbitLab
+        ? 'In a reproducible eccentric-orbit benchmark, it delivered 650× lower final-position error and 1,100× lower energy drift than coarse stepping while using 98% fewer steps than the fine baseline.'
+        : project.outcome,
+      metrics: isOrbitLab
+        ? [
+            { value: '650×', label: 'lower final-position error*' },
+            { value: '1,100×', label: 'lower energy drift*' },
+            { value: '98%', label: 'fewer steps than the fine baseline†' },
+          ]
+        : undefined,
+      footnote: isOrbitLab
+        ? 'A reproducible eccentric-orbit benchmark using RK4. * Compared with coarse fixed stepping. † Compared with fine fixed stepping.'
+        : undefined,
+      experiment: isOrbitLab
+        ? 'https://github.com/nicktperez/OrbitLab/blob/main/docs/ORBITLAB_METHOD.md'
+        : undefined,
+      stack: project.stack,
+      note: isOrbitLab
+        ? 'Form a hypothesis. Run it. Keep the failure.'
+        : 'Better questions make better detections.',
+      featured: false,
+      isOrbitLab,
+    };
+  }),
 ];
 
 const demoReels = [
@@ -394,12 +426,30 @@ const App = () => {
 
             <div className="case-files">
               {projectCases.map((project) => (
-                <article className={`case-file${project.featured ? ' is-featured' : ''}`} key={project.title}>
+                <article
+                  className={`case-file${project.featured ? ' is-featured' : ''}${project.isOrbitLab ? ' is-orbitlab' : ''}`}
+                  key={project.title}
+                >
                   <div className="case-index" aria-hidden="true">{project.number}</div>
                   <div className="case-summary">
                     <p className="case-category">{project.category}</p>
                     <h3>{project.title}</h3>
-                    <dl>
+                    {project.lead && <p className="case-lead">{project.lead}</p>}
+                    {project.description && <p className="case-description">{project.description}</p>}
+                    {project.metrics && (
+                      <>
+                        <dl className="case-metrics" aria-label="OrbitLab benchmark results">
+                          {project.metrics.map((metric) => (
+                            <div key={metric.value}>
+                              <dt>{metric.label}</dt>
+                              <dd>{metric.value}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                        <p className="case-benchmark-note">{project.footnote}</p>
+                      </>
+                    )}
+                    <dl className="case-details">
                       <div>
                         <dt>Problem</dt>
                         <dd>{project.problem}</dd>
@@ -413,11 +463,32 @@ const App = () => {
                         <dd>{project.outcome}</dd>
                       </div>
                     </dl>
-                    <a className="project-link" href={project.github} target="_blank" rel="noreferrer">
-                      <Github size={17} aria-hidden="true" />
-                      View project
-                      <ArrowUpRight size={15} aria-hidden="true" />
-                    </a>
+                    <div className="project-links">
+                      <a
+                        aria-label={`View the ${project.title} project on GitHub`}
+                        className="project-link"
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <Github size={17} aria-hidden="true" />
+                        View project
+                        <ArrowUpRight size={15} aria-hidden="true" />
+                      </a>
+                      {project.experiment && (
+                        <a
+                          aria-label="View the OrbitLab Adaptive Fidelity Method experiment on GitHub"
+                          className="project-link"
+                          href={project.experiment}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <FileText size={17} aria-hidden="true" />
+                          View experiment
+                          <ArrowUpRight size={15} aria-hidden="true" />
+                        </a>
+                      )}
+                    </div>
                   </div>
 
                   <figure className="case-visual">
