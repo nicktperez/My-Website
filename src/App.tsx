@@ -102,13 +102,24 @@ const demoReels = [
     stack: ['Go', 'React', 'SQLite', 'SSE', 'React Flow'],
     note: 'A failure is more useful when the chain is visible.',
   },
+  {
+    title: 'OrbitLab',
+    category: 'N-body simulation · numerical systems',
+    video: '/media/orbitlab-demo.mp4',
+    poster: '/media/orbitlab-poster.jpg',
+    description: 'A native C++20 workbench that turns three-dimensional gravitational systems into controllable, inspectable experiments.',
+    outcome: 'It compares integrators and gravity solvers while exposing orbital elements, numerical drift, performance, and the live state behind every body.',
+    stack: ['C++20', 'SDL3', 'Dear ImGui', 'CMake', 'Catch2'],
+    note: 'Change the model. Watch the system answer.',
+  },
 ];
 
 type DemoReelProps = (typeof demoReels)[number] & {
+  featured?: boolean;
   number: string;
 };
 
-const DemoReel = ({ number, title, category, video, poster, description, outcome, stack, note }: DemoReelProps) => {
+const DemoReel = ({ featured = false, number, title, category, video, poster, description, outcome, stack, note }: DemoReelProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [reducedMotion, setReducedMotion] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
@@ -137,7 +148,7 @@ const DemoReel = ({ number, title, category, video, poster, description, outcome
   }, [reducedMotion]);
 
   return (
-    <article className="demo-reel">
+    <article className={`demo-reel${featured ? ' demo-reel--featured' : ''}`}>
       <div className="demo-reel-heading">
         <span>{number}</span>
         <div>
@@ -445,14 +456,12 @@ const App = () => {
                 {demoReels.map((demo, index) => (
                   <DemoReel
                     {...demo}
+                    featured={index === demoReels.length - 1}
                     key={demo.title}
                     number={`M${String(index + 1).padStart(2, '0')}`}
                   />
                 ))}
               </div>
-              <p className="motion-evidence-note">
-                OrbitLab flight recording pending.
-              </p>
             </section>
 
             <div className="more-work">
