@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowUpRight, Linkedin, Mail } from 'lucide-react';
+import { ArrowUpRight, Check, Clipboard, Linkedin, Mail } from 'lucide-react';
 import { portfolioData } from '../data';
 
 const linkedInUrl = 'https://www.linkedin.com/in/nicholas-perez-47748773/';
@@ -12,6 +12,7 @@ const ContactForm = () => {
     message: '',
   });
   const [status, setStatus] = useState('');
+  const [copied, setCopied] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,8 +22,19 @@ const ContactForm = () => {
       `Hi Nicholas,\n\n${formData.message}\n\nBest,\n${formData.name}\n${formData.email}`,
     );
 
-    setStatus('Your email app is opening with this message ready to send.');
+    setStatus(`Your email app is opening. If it does not, copy ${portfolioData.email} below.`);
     window.location.href = `mailto:${portfolioData.email}?subject=${subject}&body=${body}`;
+  };
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(portfolioData.email);
+      setCopied(true);
+      setStatus('Email address copied.');
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setStatus(`Copying is unavailable here. Email me directly at ${portfolioData.email}.`);
+    }
   };
 
   return (
@@ -32,8 +44,8 @@ const ContactForm = () => {
           <p className="section-label">Contact</p>
           <h2>Let’s make work run better.</h2>
           <p>
-            I’m open to IT systems, workplace technology, and security-focused
-            opportunities in the San Francisco Bay Area.
+            I’m a Sacramento-based IT Systems Engineer open to Bay Area hybrid
+            and remote opportunities.
           </p>
           <div className="contact-methods">
             <a href={`mailto:${portfolioData.email}`}>
@@ -44,6 +56,10 @@ const ContactForm = () => {
               <Linkedin size={18} aria-hidden="true" />
               Connect on LinkedIn
             </a>
+            <button type="button" onClick={copyEmail}>
+              {copied ? <Check size={18} aria-hidden="true" /> : <Clipboard size={18} aria-hidden="true" />}
+              {copied ? 'Email copied' : 'Copy email address'}
+            </button>
           </div>
         </div>
 

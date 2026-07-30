@@ -373,7 +373,7 @@ const MoreWork = () => (
 
 const SelectedWork = () => {
   const selectedProjects = projectCases.filter((project) => (
-    project.title === 'MacTrace' || project.title === 'OrbitLab'
+    project.title === 'MacTrace'
   ));
 
   return (
@@ -386,8 +386,8 @@ const SelectedWork = () => {
           </div>
           <div>
             <p>
-              Two builds that show how I investigate: one follows endpoint behavior,
-              the other tests a numerical hypothesis.
+              Two records of the same habit: solve the immediate problem, then leave
+              the system clearer and easier to support.
             </p>
             <a className="text-link" href="/work">
               Explore all projects
@@ -428,6 +428,50 @@ const SelectedWork = () => {
               </div>
             </article>
           ))}
+
+          <article className="selected-record selected-record--operations">
+            <figure>
+              <div className="case-window-label">
+                <span>Operational record</span>
+                <span>Public-sector IT · 180+ staff</span>
+              </div>
+              <div className="process-evidence" role="img" aria-label="A support improvement record showing recurring issues converted into documentation and training, resulting in 30 percent fewer repeat tickets">
+                <div>
+                  <span>Observed</span>
+                  <strong>Recurring support issues</strong>
+                </div>
+                <div aria-hidden="true">→</div>
+                <div>
+                  <span>Changed</span>
+                  <strong>Documentation + onboarding</strong>
+                </div>
+                <div aria-hidden="true">→</div>
+                <div className="process-evidence-result">
+                  <span>Measured</span>
+                  <strong>30% fewer repeat tickets</strong>
+                </div>
+              </div>
+              <figcaption className="hand-note">Turn the fix into a system.</figcaption>
+            </figure>
+            <div className="selected-record-copy">
+              <p className="case-category">Service operations · documentation · enablement</p>
+              <h3>Reducing repeat support work</h3>
+              <p className="selected-record-lead">A solved ticket should make the next ticket less likely.</p>
+              <p>
+                I identified recurring support patterns, turned the fixes into usable
+                documentation, and built them into onboarding and staff training.
+                The result was a 30% reduction in repeat tickets and a clearer path
+                for people to solve common problems.
+              </p>
+              <p className="selected-record-context">
+                Scope: frontline support for 180+ staff and contractors.
+              </p>
+              <a className="project-link" href="#experience">
+                See the service record
+                <ArrowDown size={15} aria-hidden="true" />
+              </a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -456,26 +500,102 @@ const CopyEmailButton = () => {
   );
 };
 
+type ExperienceItemProps = {
+  experience: (typeof portfolioData.experience)[number];
+  index: number;
+  expanded: boolean;
+  onToggle: (index: number) => void;
+};
+
+const ExperienceItem = ({ experience, index, expanded, onToggle }: ExperienceItemProps) => {
+  const hasAdditionalDetails = index > 0 && experience.highlights.length > 2;
+  const detailsId = `experience-details-${index}`;
+
+  return (
+    <article
+      className={`timeline-item${index === 0 ? ' is-current' : ''}${expanded ? ' is-expanded' : ''}`}
+    >
+      <div className="timeline-meta">
+        <p>{experience.period}</p>
+        <h3>{experience.company}</h3>
+      </div>
+      <div className="timeline-content">
+        <h4>{experience.role}</h4>
+        <ul id={detailsId}>
+          {experience.highlights.map((highlight, highlightIndex) => (
+            <li className={highlightIndex > 1 ? 'timeline-extra' : undefined} key={highlight}>
+              {highlight}
+            </li>
+          ))}
+        </ul>
+        {hasAdditionalDetails ? (
+          <button
+            className="timeline-toggle"
+            type="button"
+            aria-controls={detailsId}
+            aria-expanded={expanded}
+            onClick={() => onToggle(index)}
+          >
+            {expanded ? 'Hide details' : 'View details'}
+            <ChevronDown size={16} aria-hidden="true" />
+          </button>
+        ) : null}
+      </div>
+    </article>
+  );
+};
+
 const App = () => {
   const isWorkPage = window.location.pathname.replace(/\/+$/, '') === '/work';
   const navigation = isWorkPage ? workNavigation : homeNavigation;
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(isWorkPage ? 'work' : '');
   const [expandedExperience, setExpandedExperience] = useState<Record<number, boolean>>({});
+  const [showEarlierExperience, setShowEarlierExperience] = useState(false);
+  const mobileNavTriggerRef = useRef<HTMLButtonElement>(null);
+  const mobileNavRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMobileNavOpen(false);
+      if (event.key === 'Escape' && mobileNavOpen) {
+        setMobileNavOpen(false);
+        window.requestAnimationFrame(() => mobileNavTriggerRef.current?.focus());
+      }
     };
 
     window.addEventListener('keydown', closeOnEscape);
     return () => window.removeEventListener('keydown', closeOnEscape);
-  }, []);
+  }, [mobileNavOpen]);
+
+  useEffect(() => {
+    if (!mobileNavOpen) return;
+
+    const menu = mobileNavRef.current;
+    const focusable = menu?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+    const first = focusable?.[0];
+    const last = focusable?.[focusable.length - 1];
+    first?.focus();
+
+    const containFocus = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab' || !first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    menu?.addEventListener('keydown', containFocus);
+    return () => menu?.removeEventListener('keydown', containFocus);
+  }, [mobileNavOpen]);
 
   useEffect(() => {
     document.title = isWorkPage
       ? 'Project Archive | Nicholas Perez'
-      : 'Nicholas Perez | IT Systems & Security Engineer';
+      : 'Nicholas Perez | IT Systems Engineer';
   }, [isWorkPage]);
 
   useEffect(() => {
@@ -518,7 +638,7 @@ const App = () => {
             <span className="brand-monogram">NP</span>
             <span className="brand-copy">
               <strong>Nicholas Perez</strong>
-              <small>IT systems · security · service</small>
+              <small>IT Systems Engineer · Sacramento, CA</small>
             </span>
           </a>
 
@@ -542,6 +662,7 @@ const App = () => {
             </a>
             <ThemeToggle />
             <button
+              ref={mobileNavTriggerRef}
               className="mobile-nav-trigger"
               type="button"
               aria-expanded={mobileNavOpen}
@@ -554,6 +675,7 @@ const App = () => {
           </div>
 
           <nav
+            ref={mobileNavRef}
             className={`mobile-nav${mobileNavOpen ? ' is-open' : ''}`}
             id="mobile-navigation"
             aria-label="Mobile navigation"
@@ -611,12 +733,14 @@ const App = () => {
           <>
         <section className="hero page-width" id="top">
           <div className="hero-copy">
+            <p className="hero-role">IT Systems Engineer · Sacramento, California</p>
             <h1>
               <span>Technology breaks.</span>
               <em>I’m the one people call.</em>
             </h1>
             <p className="hero-summary">
-              I solve the problem in front of me, then build systems that prevent the next one.
+              I solve problems across endpoints, identity, and workplace systems—then
+              improve the process so the next one is less likely.
             </p>
 
             <div className="hero-actions">
@@ -681,50 +805,42 @@ const App = () => {
                   A decade of increasing responsibility across public service,
                   startups, managed environments, and customer-facing operations.
                 </p>
-                <p className="operator-principles">Take ownership. Stay clear. Follow through.</p>
               </div>
             </div>
 
             <div className="timeline">
-              {portfolioData.experience.map((experience, index) => {
-                const hasAdditionalDetails = index > 0 && experience.highlights.length > 2;
-                const isExpanded = Boolean(expandedExperience[index]);
-                const detailsId = `experience-details-${index}`;
-
-                return (
-                  <article
-                    className={`timeline-item${index === 0 ? ' is-current' : ''}${isExpanded ? ' is-expanded' : ''}`}
-                    key={`${experience.company}-${experience.period}`}
-                  >
-                    <div className="timeline-meta">
-                      <p>{experience.period}</p>
-                      <h3>{experience.company}</h3>
-                    </div>
-                    <div className="timeline-content">
-                      <h4>{experience.role}</h4>
-                      <ul id={detailsId}>
-                        {experience.highlights.map((highlight, highlightIndex) => (
-                          <li className={highlightIndex > 1 ? 'timeline-extra' : undefined} key={highlight}>
-                            {highlight}
-                          </li>
-                        ))}
-                      </ul>
-                      {hasAdditionalDetails ? (
-                        <button
-                          className="timeline-toggle"
-                          type="button"
-                          aria-controls={detailsId}
-                          aria-expanded={isExpanded}
-                          onClick={() => toggleExperience(index)}
-                        >
-                          {isExpanded ? 'Hide details' : 'View details'}
-                          <ChevronDown size={16} aria-hidden="true" />
-                        </button>
-                      ) : null}
-                    </div>
-                  </article>
-                );
-              })}
+              {portfolioData.experience.slice(0, 3).map((experience, index) => (
+                <ExperienceItem
+                  experience={experience}
+                  expanded={Boolean(expandedExperience[index])}
+                  index={index}
+                  key={`${experience.company}-${experience.period}`}
+                  onToggle={toggleExperience}
+                />
+              ))}
+              {showEarlierExperience
+                ? portfolioData.experience.slice(3).map((experience, offset) => {
+                    const index = offset + 3;
+                    return (
+                      <ExperienceItem
+                        experience={experience}
+                        expanded={Boolean(expandedExperience[index])}
+                        index={index}
+                        key={`${experience.company}-${experience.period}`}
+                        onToggle={toggleExperience}
+                      />
+                    );
+                  })
+                : null}
+              <button
+                className="earlier-experience-toggle"
+                type="button"
+                aria-expanded={showEarlierExperience}
+                onClick={() => setShowEarlierExperience((visible) => !visible)}
+              >
+                {showEarlierExperience ? 'Hide earlier experience' : 'View earlier experience'}
+                <ChevronDown size={17} aria-hidden="true" />
+              </button>
             </div>
           </div>
         </section>
@@ -768,9 +884,8 @@ const App = () => {
               <div>
                 <span>In progress</span>
                 <h3>CompTIA Security+</h3>
-                <p>Expected 2026</p>
+                <p>Currently pursuing certification</p>
               </div>
-              <p className="operator-principles credentials-note">Always learning. Always building.</p>
             </div>
           </div>
         </section>
@@ -784,7 +899,7 @@ const App = () => {
         <div className="page-width footer-inner">
           <div>
             <strong>Nicholas Perez</strong>
-            <p>IT Systems &amp; Security Engineer · Sacramento, California</p>
+            <p>IT Systems Engineer · Sacramento, California</p>
           </div>
           <div className="footer-links">
             <a href={`mailto:${portfolioData.email}`}>Email</a>
@@ -798,17 +913,6 @@ const App = () => {
         </div>
       </footer>
 
-      <nav className="section-tabs" aria-label="Page sections">
-        {navigation.map((item) => (
-          <a
-            className={isNavigationActive(item.label, item.href) ? 'is-active' : undefined}
-            key={item.href}
-            href={item.href}
-          >
-            {item.label}
-          </a>
-        ))}
-      </nav>
     </div>
   );
 };

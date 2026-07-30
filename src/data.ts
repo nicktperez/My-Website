@@ -1,6 +1,6 @@
 export const portfolioData = {
     name: "Nicholas Perez",
-    title: "IT Systems & Security Engineer",
+    title: "IT Systems Engineer",
     email: "nicktperez@gmail.com",
     location: "Sacramento, CA",
     github: "https://github.com/nicktperez",
@@ -136,7 +136,7 @@ export const portfolioData = {
         {
             school: "CompTIA",
             degree: "Security+ Certification",
-            status: "Pursuing (Expected 2026)"
+            status: "In progress"
         }
     ]
 };
