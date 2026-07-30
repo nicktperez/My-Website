@@ -199,11 +199,9 @@ const App = () => {
       <main id="main-content">
         <section className="hero page-width" id="top">
           <div className="hero-copy">
-            <h1>I help teams get more from the technology they rely on.</h1>
+            <h1>Technology breaks. I’m the one people call.</h1>
             <p className="hero-summary">
-              For more than a decade, I’ve supported the people, devices, and systems that
-              keep organizations moving. I bring that operational experience to endpoint
-              security, automation, and hands-on software projects.
+              I solve the problem in front of me, then build systems that prevent the next one.
             </p>
 
             <div className="hero-actions">
