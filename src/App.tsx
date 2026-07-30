@@ -5,7 +5,6 @@ import {
   Check,
   ChevronDown,
   Clipboard,
-  ExternalLink,
   FileText,
   Github,
   Linkedin,
@@ -203,13 +202,13 @@ const App = () => {
             <h1>IT systems that help people do their best work.</h1>
             <p className="hero-summary">
               I’m Nicholas Perez, an IT systems professional with 10+ years of experience
-              supporting people, endpoints, identity, and workplace technology. I combine
-              high-trust support with automation and practical security operations.
+              supporting people, endpoints, identity, and workplace technology—and building
+              practical security tools that make complex activity easier to investigate.
             </p>
 
             <div className="hero-actions">
-              <a className="button button-primary" href="#experience">
-                View experience
+              <a className="button button-primary" href="#work">
+                Explore selected work
                 <ArrowDown size={17} aria-hidden="true" />
               </a>
               <a className="button button-secondary" href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">
@@ -250,7 +249,7 @@ const App = () => {
               </div>
               <div>
                 <dt>Current focus</dt>
-                <dd>Endpoint management, identity, automation, and SIEM operations</dd>
+                <dd>Endpoint visibility, identity, automation, and security operations</dd>
               </div>
             </dl>
             <a href="#contact">
@@ -268,59 +267,125 @@ const App = () => {
           </div>
         </section>
 
-        <section className="section page-width" id="work">
-          <div className="section-heading">
-            <div>
-              <p className="section-label">Selected work</p>
-              <h2>Security monitoring, made operational.</h2>
+        <section className="work-section" id="work">
+          <div className="page-width">
+            <div className="work-heading">
+              <p className="work-kicker">Selected work</p>
+              <h2>Systems built to investigate, automate, and explain.</h2>
+              <p>
+                From endpoint telemetry to numerical simulation, these projects turn
+                complicated systems into tools people can actually understand and use.
+              </p>
             </div>
-            <p>
-              A hands-on lab connecting endpoint telemetry, detection engineering,
-              and documented incident workflows.
-            </p>
-          </div>
 
-          <article className="case-study">
-            <figure className="case-visual">
-              <img
-                src="/siem-kibana-dashboard.png"
-                alt="Kibana visualization showing counts of simulated failed SSH authentication events"
-                width="2644"
-                height="1392"
-                loading="lazy"
-                decoding="async"
-              />
-              <span className="evidence-badge">Simulated dataset</span>
-              <figcaption>
-                <span>Verified project artifact</span>
-                Kibana visualization built from simulated SSH authentication failures
-              </figcaption>
-            </figure>
-
-            <div className="case-copy">
-              <div>
-                <p className="section-label">Elastic Stack · Filebeat · Logstash</p>
-                <h3>SIEM Home Lab</h3>
-                <p>
-                  Built a reproducible monitoring environment to collect and parse logs,
-                  generate realistic security events, and validate detection workflows.
-                </p>
+            <article className="featured-project">
+              <div className="project-window">
+                <div className="window-bar" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                  <p>localhost · synthetic investigation</p>
+                </div>
+                <img
+                  src={portfolioData.featuredProject.image}
+                  alt={portfolioData.featuredProject.imageAlt}
+                  width="1440"
+                  height="1100"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="project-status">{portfolioData.featuredProject.status}</span>
               </div>
-              <ul>
-                {portfolioData.securityProject.highlights.map((highlight) => (
-                  <li key={highlight}>
-                    <Check size={17} aria-hidden="true" />
-                    <span>{highlight}</span>
-                  </li>
-                ))}
-              </ul>
-              <a className="text-link" href={portfolioData.securityProject.github} target="_blank" rel="noreferrer">
-                <Github size={18} aria-hidden="true" />
-                View project on GitHub
-                <ExternalLink size={14} aria-hidden="true" />
-              </a>
+
+              <div className="featured-project-copy">
+                <div className="project-title-row">
+                  <div>
+                    <p>{portfolioData.featuredProject.category}</p>
+                    <h3>{portfolioData.featuredProject.title}</h3>
+                  </div>
+                  <a
+                    className="project-link"
+                    href={portfolioData.featuredProject.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`View ${portfolioData.featuredProject.title} on GitHub`}
+                  >
+                    <Github size={19} aria-hidden="true" />
+                    GitHub
+                    <ArrowUpRight size={16} aria-hidden="true" />
+                  </a>
+                </div>
+                <p className="featured-description">{portfolioData.featuredProject.description}</p>
+                <ul className="project-highlights">
+                  {portfolioData.featuredProject.highlights.map((highlight) => (
+                    <li key={highlight}>
+                      <Check size={16} aria-hidden="true" />
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+                <ul className="project-stack" aria-label={`${portfolioData.featuredProject.title} technology`}>
+                  {portfolioData.featuredProject.stack.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              </div>
+            </article>
+
+            <div className="project-pair">
+              {portfolioData.projects.map((project) => (
+                <article className="project-story" key={project.title}>
+                  <a
+                    className="project-story-visual"
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`View ${project.title} on GitHub`}
+                  >
+                    <img
+                      src={project.image}
+                      alt={project.imageAlt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <span>
+                      Open repository
+                      <ArrowUpRight size={16} aria-hidden="true" />
+                    </span>
+                  </a>
+                  <div className="project-story-copy">
+                    <p>{project.category}</p>
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <strong>{project.outcome}</strong>
+                    <ul className="project-stack" aria-label={`${project.title} technology`}>
+                      {project.stack.map((item) => <li key={item}>{item}</li>)}
+                    </ul>
+                  </div>
+                </article>
+              ))}
             </div>
-          </article>
+
+            <div className="more-work">
+              <div className="more-work-heading">
+                <h3>More builds, same curiosity.</h3>
+                <a href={portfolioData.github} target="_blank" rel="noreferrer">
+                  All repositories
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+              </div>
+              <div className="more-work-list">
+                {portfolioData.moreProjects.map((project) => (
+                  <a href={project.github} target="_blank" rel="noreferrer" key={project.title}>
+                    <div>
+                      <h4>{project.title}</h4>
+                      <p>{project.description}</p>
+                    </div>
+                    <span>{project.stack}</span>
+                    <ArrowUpRight size={20} aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
         </section>
 
         <section className="section section-tinted" id="experience">
@@ -433,7 +498,7 @@ const App = () => {
           <div className="footer-links">
             <a href={`mailto:${portfolioData.email}`}>Email</a>
             <a href={linkedInUrl} target="_blank" rel="me noreferrer">LinkedIn</a>
-            <a href={portfolioData.securityProject.github} target="_blank" rel="noreferrer">GitHub</a>
+            <a href={portfolioData.github} target="_blank" rel="noreferrer">GitHub</a>
             <a href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">Résumé</a>
             <CopyEmailButton />
           </div>

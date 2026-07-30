@@ -3,6 +3,7 @@ export const portfolioData = {
     title: "IT Systems & Security Engineer",
     email: "nicktperez@gmail.com",
     location: "Sacramento, CA",
+    github: "https://github.com/nicktperez",
     summary: "IT systems professional with 10+ years of experience supporting people, endpoints, identity, and workplace technology. Combines high-trust support with automation and practical security operations.",
     skills: [
         { name: "macOS & Windows Admin", icon: "Monitor" },
@@ -14,18 +15,64 @@ export const portfolioData = {
         { name: "Network Security", icon: "Network" },
         { name: "Incident Response", icon: "Activity" },
     ],
-    securityProject: {
-        title: "SIEM Home Lab",
-        status: "In Progress",
-        github: "https://github.com/nicktperez/siem-home-lab",
-        description: "Built a reproducible Elastic Stack lab for log collection, parsing, detection engineering, and dashboard-driven investigation.",
+    featuredProject: {
+        title: "MacTrace",
+        category: "Endpoint security · macOS · Python",
+        status: "Open source",
+        github: "https://github.com/nicktperez/MacTrace",
+        image: "/mactrace-dashboard.png",
+        imageAlt: "MacTrace endpoint security dashboard showing synthetic risk, detections, event volume, and severity",
+        description: "A local-first macOS endpoint activity monitor that turns process, network, and persistence metadata into explainable investigation priorities.",
         highlights: [
-            "Deployed a Docker-based Elastic Stack with Filebeat and custom Logstash pipelines.",
-            "Simulated SSH brute-force attempts and generated threshold-based alerts for repeated failures.",
-            "Built and exported Kibana views for top attacker IPs and alert activity over time.",
-            "Added a prompt-injection log generator and detection pipeline for emerging AI threats."
-        ]
+            "Correlates related endpoint activity across eight explainable detection rules.",
+            "Streams live events through FastAPI and WebSockets into a responsive investigation dashboard.",
+            "Protects privacy with local-only storage, secret redaction, bounded retention, and sanitized exports.",
+            "Ships with deterministic demo data, automated tests, CI, and an optional native menu-bar controller."
+        ],
+        stack: ["Python", "FastAPI", "WebSockets", "SQLite", "macOS"]
     },
+    projects: [
+        {
+            title: "SIEM Home Lab",
+            category: "Detection engineering",
+            github: "https://github.com/nicktperez/siem-home-lab",
+            image: "/siem-kibana-dashboard.png",
+            imageAlt: "Kibana visualization showing counts of simulated failed SSH authentication events",
+            description: "A reproducible Elastic Stack lab for log collection, threshold detections, dashboard-driven triage, and documented incident investigation.",
+            outcome: "Built the full path from synthetic telemetry to analyst-ready evidence.",
+            stack: ["Elastic Stack", "Filebeat", "Logstash", "Docker", "Python"]
+        },
+        {
+            title: "OrbitLab",
+            category: "Systems engineering",
+            github: "https://github.com/nicktperez/OrbitLab",
+            image: "/orbitlab-screenshot.png",
+            imageAlt: "OrbitLab desktop application simulating a three-dimensional orbital system",
+            description: "A portable C++20 N-body workbench with multiple integrators and gravity solvers, collision models, diagnostics, persistence, and a native SDL 3 interface.",
+            outcome: "Designed as an engineering sample with deterministic tests, profiling, concurrency, and reproducible numerical validation.",
+            stack: ["C++20", "SDL 3", "Dear ImGui", "CMake", "Catch2"]
+        }
+    ],
+    moreProjects: [
+        {
+            title: "AI Resume Tailor",
+            description: "AI-assisted resume tailoring with authentication, Stripe, history, and security controls.",
+            stack: "Next.js · OpenAI · Prisma",
+            github: "https://github.com/nicktperez/AI-Resume-Builder"
+        },
+        {
+            title: "ListGenie",
+            description: "An AI-powered real-estate listing assistant with authentication, persistence, and subscription billing.",
+            stack: "Next.js · Supabase · Stripe",
+            github: "https://github.com/nicktperez/listgenie-app"
+        },
+        {
+            title: "QuestBond",
+            description: "A native SwiftUI matching experience for connecting tabletop players and groups.",
+            stack: "SwiftUI · MapKit · Supabase",
+            github: "https://github.com/nicktperez/RollTogether"
+        }
+    ],
     experience: [
         {
             company: "County of El Dorado - Behavioral Health",
