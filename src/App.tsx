@@ -7,9 +7,6 @@ import {
   Clipboard,
   FileText,
   Github,
-  Linkedin,
-  Mail,
-  MapPin,
   Menu,
   X,
 } from 'lucide-react';
@@ -29,46 +26,60 @@ const linkedInUrl = 'https://www.linkedin.com/in/nicholas-perez-47748773/';
 const capabilityGroups = [
   {
     title: 'Workplace technology',
-    description: 'Reliable, well-documented support for the devices and tools people use every day.',
+    description: 'Reliable support for the devices and tools people count on every day.',
     items: ['macOS & Windows', 'Jamf & Intune', 'Hardware lifecycle', 'Executive support'],
   },
   {
     title: 'Identity & collaboration',
-    description: 'Practical access management that supports both security and a smooth employee experience.',
+    description: 'Access management that protects the business without getting in people’s way.',
     items: ['Azure AD / Entra ID', 'Okta SSO', 'Microsoft 365', 'Google Workspace'],
   },
   {
     title: 'Security operations',
-    description: 'Hands-on security foundations informed by years of endpoint and support experience.',
+    description: 'Security foundations shaped by years of endpoint and support experience.',
     items: ['Elastic Stack', 'Sysmon telemetry', 'Incident response', 'Network security'],
   },
   {
     title: 'Automation & service',
-    description: 'Repeatable processes that reduce friction, improve consistency, and make teams more effective.',
+    description: 'Repeatable processes that reduce friction and give teams time back.',
     items: ['Bash & PowerShell', 'Onboarding workflows', 'Knowledge management', 'Ticket operations'],
   },
 ];
 
-const SystemsMotif = () => (
-  <div className="systems-motif" aria-hidden="true">
-    <svg viewBox="0 0 420 96" role="presentation">
-      <path
-        className="systems-flow systems-flow-muted"
-        d="M8 69C71 13 132 20 184 49s99 38 154 4c26-16 49-22 74-18"
-      />
-      <path
-        className="systems-flow systems-flow-active"
-        d="M8 27c63 48 126 52 185 17s123-35 219 23"
-      />
-      <circle className="systems-node" cx="48" cy="50" r="4" />
-      <circle className="systems-node" cx="116" cy="27" r="4" />
-      <circle className="systems-node systems-node-accent" cx="184" cy="49" r="5" />
-      <circle className="systems-node" cx="258" cy="65" r="4" />
-      <circle className="systems-node" cx="337" cy="53" r="4" />
-      <circle className="systems-node systems-node-accent systems-node-delayed" cx="389" cy="54" r="4" />
-    </svg>
-  </div>
-);
+const projectCases = [
+  {
+    number: '01',
+    title: portfolioData.featuredProject.title,
+    category: 'Endpoint visibility & response',
+    image: portfolioData.featuredProject.image,
+    imageAlt: portfolioData.featuredProject.imageAlt,
+    github: portfolioData.featuredProject.github,
+    problem: 'Endpoint activity is noisy. The useful signal is usually buried across processes, files, and network events.',
+    action: portfolioData.featuredProject.description,
+    outcome: 'Faster triage, clearer context, and a local-first investigation workflow that explains what deserves attention.',
+    stack: portfolioData.featuredProject.stack,
+    note: 'Signal over noise. Context before conclusions.',
+    featured: true,
+  },
+  ...portfolioData.projects.map((project, index) => ({
+    number: `0${index + 2}`,
+    title: project.title,
+    category: project.category,
+    image: project.image,
+    imageAlt: project.imageAlt,
+    github: project.github,
+    problem: index === 0
+      ? 'Detection ideas are hard to trust without a safe place to generate data and investigate the result.'
+      : 'Complex systems are easier to understand when you can change one variable and watch the system respond.',
+    action: project.description,
+    outcome: project.outcome,
+    stack: project.stack,
+    note: index === 0
+      ? 'Better questions make better detections.'
+      : 'Model it. Test it. Learn from it.',
+    featured: false,
+  })),
+];
 
 const CopyEmailButton = () => {
   const [copied, setCopied] = useState(false);
@@ -137,10 +148,10 @@ const App = () => {
       <header className="site-header">
         <div className="page-width header-inner">
           <a className="brand-mark" href="#top" aria-label="Nicholas Perez, home">
-            <span>NP</span>
+            <span className="brand-monogram">NP</span>
             <span className="brand-copy">
               <strong>Nicholas Perez</strong>
-              <small>IT Systems &amp; Security Engineer</small>
+              <small>IT systems · security · service</small>
             </span>
           </a>
 
@@ -158,6 +169,11 @@ const App = () => {
           </nav>
 
           <div className="header-actions">
+            <a className="header-resume" href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">
+              Résumé
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </a>
+            <ThemeToggle />
             <button
               className="mobile-nav-trigger"
               type="button"
@@ -168,7 +184,6 @@ const App = () => {
             >
               {mobileNavOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
             </button>
-            <ThemeToggle />
           </div>
 
           <nav
@@ -199,173 +214,131 @@ const App = () => {
       <main id="main-content">
         <section className="hero page-width" id="top">
           <div className="hero-copy">
-            <h1>Technology breaks. I’m the one people call.</h1>
+            <h1>
+              <span>Technology breaks.</span>
+              <em>I’m the one people call.</em>
+            </h1>
             <p className="hero-summary">
               I solve the problem in front of me, then build systems that prevent the next one.
             </p>
 
             <div className="hero-actions">
-              <a className="button button-primary" href="#work">
-                Explore selected work
-                <ArrowDown size={17} aria-hidden="true" />
-              </a>
-              <a className="button button-secondary" href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">
+              <a className="button button-primary" href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">
                 <FileText size={17} aria-hidden="true" />
                 View résumé
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+              <a className="text-link" href="#work">
+                See the work
+                <ArrowDown size={16} aria-hidden="true" />
               </a>
             </div>
 
-            <div className="contact-links" aria-label="Contact details">
-              <a href={`mailto:${portfolioData.email}`}>
-                <Mail size={16} aria-hidden="true" />
-                {portfolioData.email}
-              </a>
-              <a href={linkedInUrl} target="_blank" rel="me noreferrer">
-                <Linkedin size={16} aria-hidden="true" />
-                LinkedIn
-              </a>
-              <span>
-                <MapPin size={16} aria-hidden="true" />
-                {portfolioData.location}
-              </span>
-            </div>
+            <p className="hand-note hero-note">
+              Calm in the incident.<br />
+              Curious after it.
+            </p>
           </div>
 
-          <aside className="profile-brief" aria-label="Professional overview">
-            <SystemsMotif />
-            <div className="brief-heading">
-              <span>Professional overview</span>
+          <aside className="evidence-board" aria-label="A contact sheet of selected projects">
+            <div className="evidence-heading">
+              <span>Field record · selected builds</span>
+              <span>NP / 2026</span>
             </div>
-            <dl>
-              <div>
-                <dt>Experience</dt>
-                <dd>10+ years across internal IT, executive support, and service operations</dd>
-              </div>
-              <div>
-                <dt>Scale</dt>
-                <dd>3,000+ tickets resolved annually and 1,000+ devices migrated</dd>
-              </div>
-              <div>
-                <dt>Current focus</dt>
-                <dd>Endpoint visibility, identity, automation, and security operations</dd>
-              </div>
-            </dl>
-            <a href="#contact">
-              Start a conversation
-              <ArrowUpRight size={16} aria-hidden="true" />
-            </a>
+            <div className="contact-sheet">
+              <figure className="contact-frame frame-mactrace">
+                <img src="/mactrace-dashboard.png" alt="" />
+                <figcaption>Endpoint visibility</figcaption>
+              </figure>
+              <figure className="contact-frame frame-siem">
+                <img src="/siem-kibana-dashboard.png" alt="" />
+                <figcaption>Detection lab</figcaption>
+              </figure>
+              <figure className="contact-frame frame-orbit">
+                <img src="/orbitlab-screenshot.png" alt="" />
+                <figcaption>Systems thinking</figcaption>
+              </figure>
+            </div>
+            <p className="hand-note evidence-note">Real systems. Real questions. Document everything.</p>
           </aside>
         </section>
 
-        <section className="impact-band" aria-label="Areas of impact">
-          <div className="page-width impact-grid">
-            <p><strong>Support with context.</strong> Clear communication for everyone from frontline staff to executives.</p>
-            <p><strong>Systems that scale.</strong> Automation, documentation, and repeatable onboarding workflows.</p>
-            <p><strong>Security that works.</strong> Practical controls built around real people and real operations.</p>
+        <section className="field-strip" aria-label="Professional summary">
+          <div className="page-width field-strip-inner">
+            <p><strong>10+ years</strong><span>supporting people and systems</span></p>
+            <p><strong>3,000+</strong><span>tickets resolved annually</span></p>
+            <p><strong>1,000+</strong><span>devices migrated</span></p>
+            <p className="field-strip-note">Preparation is how I stay lucky.</p>
           </div>
         </section>
 
         <section className="work-section" id="work">
           <div className="page-width">
             <div className="work-heading">
-              <p className="work-kicker">Selected work</p>
-              <h2>I build to understand how systems behave.</h2>
+              <div>
+                <span className="index-tab">Case files</span>
+                <h2>Evidence over noise.</h2>
+              </div>
               <p>
-                These projects let me explore endpoint security, detection engineering,
-                and systems design—then turn what I learn into tools other people can
-                inspect and use.
+                I build small, serious systems to understand how technology behaves,
+                where it fails, and how to make the next response faster.
               </p>
             </div>
 
-            <article className="featured-project">
-              <div className="project-window">
-                <div className="window-bar" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                  <p>localhost · synthetic investigation</p>
-                </div>
-                <img
-                  src={portfolioData.featuredProject.image}
-                  alt={portfolioData.featuredProject.imageAlt}
-                  width="1440"
-                  height="1100"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span className="project-status">{portfolioData.featuredProject.status}</span>
-              </div>
-
-              <div className="featured-project-copy">
-                <div className="project-title-row">
-                  <div>
-                    <p>{portfolioData.featuredProject.category}</p>
-                    <h3>{portfolioData.featuredProject.title}</h3>
+            <div className="case-files">
+              {projectCases.map((project) => (
+                <article className={`case-file${project.featured ? ' is-featured' : ''}`} key={project.title}>
+                  <div className="case-index" aria-hidden="true">{project.number}</div>
+                  <div className="case-summary">
+                    <p className="case-category">{project.category}</p>
+                    <h3>{project.title}</h3>
+                    <dl>
+                      <div>
+                        <dt>Problem</dt>
+                        <dd>{project.problem}</dd>
+                      </div>
+                      <div>
+                        <dt>Action</dt>
+                        <dd>{project.action}</dd>
+                      </div>
+                      <div>
+                        <dt>Outcome</dt>
+                        <dd>{project.outcome}</dd>
+                      </div>
+                    </dl>
+                    <a className="project-link" href={project.github} target="_blank" rel="noreferrer">
+                      <Github size={17} aria-hidden="true" />
+                      View project
+                      <ArrowUpRight size={15} aria-hidden="true" />
+                    </a>
                   </div>
-                  <a
-                    className="project-link"
-                    href={portfolioData.featuredProject.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`View ${portfolioData.featuredProject.title} on GitHub`}
-                  >
-                    <Github size={19} aria-hidden="true" />
-                    GitHub
-                    <ArrowUpRight size={16} aria-hidden="true" />
-                  </a>
-                </div>
-                <p className="featured-description">{portfolioData.featuredProject.description}</p>
-                <ul className="project-highlights">
-                  {portfolioData.featuredProject.highlights.map((highlight) => (
-                    <li key={highlight}>
-                      <Check size={16} aria-hidden="true" />
-                      <span>{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-                <ul className="project-stack" aria-label={`${portfolioData.featuredProject.title} technology`}>
-                  {portfolioData.featuredProject.stack.map((item) => <li key={item}>{item}</li>)}
-                </ul>
-              </div>
-            </article>
 
-            <div className="project-pair">
-              {portfolioData.projects.map((project) => (
-                <article className="project-story" key={project.title}>
-                  <a
-                    className="project-story-visual"
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`View ${project.title} on GitHub`}
-                  >
+                  <figure className="case-visual">
+                    <div className="case-window-label">
+                      <span>Exhibit {project.number}</span>
+                      <span>Captured locally</span>
+                    </div>
                     <img
                       src={project.image}
                       alt={project.imageAlt}
-                      loading="lazy"
+                      loading={project.featured ? 'eager' : 'lazy'}
                       decoding="async"
                     />
-                    <span>
-                      Open repository
-                      <ArrowUpRight size={16} aria-hidden="true" />
-                    </span>
-                  </a>
-                  <div className="project-story-copy">
-                    <p>{project.category}</p>
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                    <strong>{project.outcome}</strong>
-                    <ul className="project-stack" aria-label={`${project.title} technology`}>
-                      {project.stack.map((item) => <li key={item}>{item}</li>)}
-                    </ul>
-                  </div>
+                    <figcaption className="hand-note">{project.note}</figcaption>
+                  </figure>
+
+                  <ul className="project-stack" aria-label={`${project.title} technology`}>
+                    {project.stack.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
                 </article>
               ))}
             </div>
 
             <div className="more-work">
               <div className="more-work-heading">
-                <h3>More builds, same curiosity.</h3>
+                <div>
+                  <h3>More builds, same curiosity.</h3>
+                </div>
                 <a href={portfolioData.github} target="_blank" rel="noreferrer">
                   All repositories
                   <ArrowUpRight size={16} aria-hidden="true" />
@@ -387,17 +360,20 @@ const App = () => {
           </div>
         </section>
 
-        <section className="section section-tinted" id="experience">
+        <section className="section experience-section" id="experience">
           <div className="page-width">
             <div className="section-heading">
               <div>
-                <p className="section-label">Experience</p>
-                <h2>A decade of dependable IT delivery.</h2>
+                <span className="index-tab">Service record</span>
+                <h2>Dependable is a practice.</h2>
               </div>
-              <p>
-                Progressively broader responsibility across public service, startups,
-                managed environments, and customer-facing operations.
-              </p>
+              <div>
+                <p>
+                  A decade of increasing responsibility across public service,
+                  startups, managed environments, and customer-facing operations.
+                </p>
+                <p className="operator-principles">Take ownership. Stay clear. Follow through.</p>
+              </div>
             </div>
 
             <div className="timeline">
@@ -415,7 +391,6 @@ const App = () => {
                       <p>{experience.period}</p>
                       <h3>{experience.company}</h3>
                     </div>
-                    <div className="timeline-marker" aria-hidden="true" />
                     <div className="timeline-content">
                       <h4>{experience.role}</h4>
                       <ul id={detailsId}>
@@ -445,42 +420,46 @@ const App = () => {
           </div>
         </section>
 
-        <section className="section page-width" id="capabilities">
-          <div className="section-heading">
-            <div>
-              <p className="section-label">Capabilities</p>
-              <h2>Broad technical range, grounded in service.</h2>
+        <section className="section capabilities-section" id="capabilities">
+          <div className="page-width">
+            <div className="section-heading capabilities-heading">
+              <div>
+                <span className="index-tab">Field kit</span>
+                <h2>Broad range. Human center.</h2>
+              </div>
+              <p>
+                Tools change. Diagnosis, communication, documentation, and thoughtful
+                execution are the skills that keep paying off.
+              </p>
             </div>
-            <p>
-              Tools change. The durable skills are diagnosis, communication,
-              documentation, and thoughtful execution.
-            </p>
-          </div>
 
-          <div className="capability-list">
-            {capabilityGroups.map((group) => (
-              <article key={group.title}>
-                <div>
-                  <h3>{group.title}</h3>
-                  <p>{group.description}</p>
-                </div>
-                <ul aria-label={`${group.title} tools and skills`}>
-                  {group.items.map((item) => <li key={item}>{item}</li>)}
-                </ul>
-              </article>
-            ))}
-          </div>
-
-          <div className="credentials">
-            <div>
-              <p className="section-label">Education</p>
-              <h3>Associate of Science, Computer Science</h3>
-              <p>Cosumnes River College · Certificates in Web Publishing &amp; Web Programming</p>
+            <div className="capability-list">
+              {capabilityGroups.map((group, index) => (
+                <article key={group.title}>
+                  <span className="capability-number">{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <h3>{group.title}</h3>
+                    <p>{group.description}</p>
+                  </div>
+                  <ul aria-label={`${group.title} tools and skills`}>
+                    {group.items.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </article>
+              ))}
             </div>
-            <div>
-              <p className="section-label">Certification</p>
-              <h3>CompTIA Security+</h3>
-              <p>In progress · Expected 2026</p>
+
+            <div className="credentials">
+              <div>
+                <span>Education</span>
+                <h3>Associate of Science, Computer Science</h3>
+                <p>Cosumnes River College · Web Publishing &amp; Web Programming certificates</p>
+              </div>
+              <div>
+                <span>In progress</span>
+                <h3>CompTIA Security+</h3>
+                <p>Expected 2026</p>
+              </div>
+              <p className="operator-principles credentials-note">Always learning. Always building.</p>
             </div>
           </div>
         </section>
@@ -501,9 +480,21 @@ const App = () => {
             <a href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">Résumé</a>
             <CopyEmailButton />
           </div>
-          <p className="copyright">© {new Date().getFullYear()} Nicholas Perez</p>
+          <p className="copyright">© {new Date().getFullYear()} Nicholas Perez · Built with care, not hype.</p>
         </div>
       </footer>
+
+      <nav className="section-tabs" aria-label="Page sections">
+        {navigation.map((item) => (
+          <a
+            className={activeSection === item.href.slice(1) ? 'is-active' : undefined}
+            key={item.href}
+            href={item.href}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
     </div>
   );
 };

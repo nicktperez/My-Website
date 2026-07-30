@@ -6,7 +6,7 @@ type Theme = 'light' | 'dark';
 const getInitialTheme = (): Theme => {
   const savedTheme = window.localStorage.getItem('portfolio-theme');
   if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return 'light';
 };
 
 const ThemeToggle = () => {
