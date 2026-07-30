@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -80,6 +80,102 @@ const projectCases = [
     featured: false,
   })),
 ];
+
+const demoReels = [
+  {
+    title: 'Runtime Atlas',
+    category: 'JavaScript runtimes · deterministic replay',
+    video: '/media/runtime-atlas-demo.mp4',
+    poster: '/media/runtime-atlas-poster.jpg',
+    description: 'An interactive execution laboratory that makes JavaScript order visible across source, runtime state, and an event timeline.',
+    outcome: 'It turns stack frames, scopes, heap references, queues, console output, and scheduler decisions into one replayable story.',
+    stack: ['React', 'TypeScript', 'Web Workers', 'Acorn', 'IndexedDB'],
+    note: 'Step through the cause, not just the output.',
+  },
+  {
+    title: 'NetScope',
+    category: 'Network observability · incident simulation',
+    video: '/media/netscope-demo.mp4',
+    poster: '/media/netscope-poster.jpg',
+    description: 'A local-first observability application that connects live health signals and service dependencies into an explainable incident.',
+    outcome: 'It safely simulates failures, shows the downstream blast radius, and identifies probable root cause using dependency and timing evidence.',
+    stack: ['Go', 'React', 'SQLite', 'SSE', 'React Flow'],
+    note: 'A failure is more useful when the chain is visible.',
+  },
+];
+
+type DemoReelProps = (typeof demoReels)[number] & {
+  number: string;
+};
+
+const DemoReel = ({ number, title, category, video, poster, description, outcome, stack, note }: DemoReelProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [reducedMotion, setReducedMotion] = useState(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  );
+
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePreference = () => setReducedMotion(preference.matches);
+
+    preference.addEventListener('change', updatePreference);
+    return () => preference.removeEventListener('change', updatePreference);
+  }, []);
+
+  useEffect(() => {
+    const media = videoRef.current;
+    if (!media) return;
+
+    if (reducedMotion) {
+      media.pause();
+      media.currentTime = 0;
+    } else {
+      void media.play().catch(() => {
+        // Browser autoplay policy can require the visitor to press play.
+      });
+    }
+  }, [reducedMotion]);
+
+  return (
+    <article className="demo-reel">
+      <div className="demo-reel-heading">
+        <span>{number}</span>
+        <div>
+          <p>{category}</p>
+          <h4>{title}</h4>
+        </div>
+      </div>
+      <figure className="demo-reel-visual">
+        <div className="case-window-label">
+          <span>Motion exhibit {number}</span>
+          <span>{reducedMotion ? 'Press play to view' : 'Playing locally'}</span>
+        </div>
+        <video
+          ref={videoRef}
+          aria-label={`${title} product demonstration`}
+          autoPlay={!reducedMotion}
+          controls
+          loop
+          muted
+          playsInline
+          poster={poster}
+          preload="metadata"
+        >
+          <source src={video} type="video/mp4" />
+          Your browser does not support embedded video.
+        </video>
+        <figcaption className="hand-note">{note}</figcaption>
+      </figure>
+      <div className="demo-reel-copy">
+        <p>{description}</p>
+        <strong>{outcome}</strong>
+        <ul aria-label={`${title} technology`}>
+          {stack.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+      </div>
+    </article>
+  );
+};
 
 const CopyEmailButton = () => {
   const [copied, setCopied] = useState(false);
@@ -333,6 +429,31 @@ const App = () => {
                 </article>
               ))}
             </div>
+
+            <section className="motion-evidence" aria-labelledby="motion-evidence-title">
+              <div className="motion-evidence-heading">
+                <div>
+                  <span className="index-tab">Demo bench</span>
+                  <h3 id="motion-evidence-title">Systems in motion.</h3>
+                </div>
+                <p>
+                  Static screens show the interface. These short recordings show
+                  the systems changing state, explaining cause, and recovering.
+                </p>
+              </div>
+              <div className="demo-reel-list">
+                {demoReels.map((demo, index) => (
+                  <DemoReel
+                    {...demo}
+                    key={demo.title}
+                    number={`M${String(index + 1).padStart(2, '0')}`}
+                  />
+                ))}
+              </div>
+              <p className="motion-evidence-note">
+                OrbitLab flight recording pending.
+              </p>
+            </section>
 
             <div className="more-work">
               <div className="more-work-heading">
