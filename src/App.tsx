@@ -14,14 +14,23 @@ import { portfolioData } from './data';
 import ContactForm from './components/ContactForm';
 import ThemeToggle from './components/ThemeToggle';
 
-const navigation = [
-  { label: 'Work', href: '#work' },
+const homeNavigation = [
   { label: 'Experience', href: '#experience' },
+  { label: 'Work', href: '#work' },
   { label: 'Capabilities', href: '#capabilities' },
   { label: 'Contact', href: '#contact' },
 ];
 
+const workNavigation = [
+  { label: 'Home', href: '/' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'Work', href: '/work' },
+  { label: 'Capabilities', href: '/#capabilities' },
+  { label: 'Contact', href: '/#contact' },
+];
+
 const linkedInUrl = 'https://www.linkedin.com/in/nicholas-perez-47748773/';
+const projectId = (title: string) => title.toLowerCase().replaceAll(' ', '-');
 
 const capabilityGroups = [
   {
@@ -220,6 +229,211 @@ const DemoReel = ({ featured = false, number, title, category, video, poster, de
   );
 };
 
+const ProjectCaseFiles = () => (
+  <div className="case-files">
+    {projectCases.map((project) => (
+      <article
+        className={`case-file${project.featured ? ' is-featured' : ''}${project.isOrbitLab ? ' is-orbitlab' : ''}`}
+        id={projectId(project.title)}
+        key={project.title}
+      >
+        <div className="case-index" aria-hidden="true">{project.number}</div>
+        <div className="case-summary">
+          <p className="case-category">{project.category}</p>
+          <h3>{project.title}</h3>
+          {project.lead && <p className="case-lead">{project.lead}</p>}
+          {project.description && <p className="case-description">{project.description}</p>}
+          {project.metrics && (
+            <>
+              <dl className="case-metrics" aria-label="OrbitLab benchmark results">
+                {project.metrics.map((metric) => (
+                  <div key={metric.value}>
+                    <dt>{metric.label}</dt>
+                    <dd>{metric.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="case-benchmark-note">{project.footnote}</p>
+            </>
+          )}
+          <dl className="case-details">
+            <div>
+              <dt>Problem</dt>
+              <dd>{project.problem}</dd>
+            </div>
+            <div>
+              <dt>Action</dt>
+              <dd>{project.action}</dd>
+            </div>
+            <div>
+              <dt>Outcome</dt>
+              <dd>{project.outcome}</dd>
+            </div>
+          </dl>
+          <div className="project-links">
+            <a
+              aria-label={`View the ${project.title} project on GitHub`}
+              className="project-link"
+              href={project.github}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Github size={17} aria-hidden="true" />
+              View project
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </a>
+            {project.experiment && (
+              <a
+                aria-label="View the OrbitLab Adaptive Fidelity Method experiment on GitHub"
+                className="project-link"
+                href={project.experiment}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FileText size={17} aria-hidden="true" />
+                View experiment
+                <ArrowUpRight size={15} aria-hidden="true" />
+              </a>
+            )}
+          </div>
+        </div>
+
+        <figure className="case-visual">
+          <div className="case-window-label">
+            <span>Exhibit {project.number}</span>
+            <span>Captured locally</span>
+          </div>
+          <img
+            src={project.image}
+            alt={project.imageAlt}
+            loading={project.featured ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+          <figcaption className="hand-note">{project.note}</figcaption>
+        </figure>
+
+        <ul className="project-stack" aria-label={`${project.title} technology`}>
+          {project.stack.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+      </article>
+    ))}
+  </div>
+);
+
+const MotionEvidence = () => (
+  <section className="motion-evidence" aria-labelledby="motion-evidence-title">
+    <div className="motion-evidence-heading">
+      <div>
+        <span className="index-tab">Demo bench</span>
+        <h2 id="motion-evidence-title">Systems in motion.</h2>
+      </div>
+      <p>
+        Static screens show the interface. These short recordings show
+        the systems changing state, explaining cause, and recovering.
+      </p>
+    </div>
+    <div className="demo-reel-list">
+      {demoReels.map((demo, index) => (
+        <DemoReel
+          {...demo}
+          featured={index === demoReels.length - 1}
+          key={demo.title}
+          number={`M${String(index + 1).padStart(2, '0')}`}
+        />
+      ))}
+    </div>
+  </section>
+);
+
+const MoreWork = () => (
+  <div className="more-work">
+    <div className="more-work-heading">
+      <div>
+        <h2>More builds, same curiosity.</h2>
+      </div>
+      <a href={portfolioData.github} target="_blank" rel="noreferrer">
+        All repositories
+        <ArrowUpRight size={16} aria-hidden="true" />
+      </a>
+    </div>
+    <div className="more-work-list">
+      {portfolioData.moreProjects.map((project) => (
+        <a href={project.github} target="_blank" rel="noreferrer" key={project.title}>
+          <div>
+            <h3>{project.title}</h3>
+            <p>{project.description}</p>
+          </div>
+          <span>{project.stack}</span>
+          <ArrowUpRight size={20} aria-hidden="true" />
+        </a>
+      ))}
+    </div>
+  </div>
+);
+
+const SelectedWork = () => {
+  const selectedProjects = projectCases.filter((project) => (
+    project.title === 'MacTrace' || project.title === 'OrbitLab'
+  ));
+
+  return (
+    <section className="section selected-work-section" id="work">
+      <div className="page-width">
+        <div className="section-heading selected-work-heading">
+          <div>
+            <span className="index-tab">Selected evidence</span>
+            <h2>Curiosity with a paper trail.</h2>
+          </div>
+          <div>
+            <p>
+              Two builds that show how I investigate: one follows endpoint behavior,
+              the other tests a numerical hypothesis.
+            </p>
+            <a className="text-link" href="/work">
+              Explore all projects
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+
+        <div className="selected-work-list">
+          {selectedProjects.map((project) => (
+            <article className="selected-record" key={project.title}>
+              <figure>
+                <div className="case-window-label">
+                  <span>Selected record</span>
+                  <span>{project.number}</span>
+                </div>
+                <img src={project.image} alt={project.imageAlt} loading="lazy" decoding="async" />
+                <figcaption className="hand-note">{project.note}</figcaption>
+              </figure>
+              <div className="selected-record-copy">
+                <p className="case-category">{project.category}</p>
+                <h3>{project.title}</h3>
+                {project.lead ? <p className="selected-record-lead">{project.lead}</p> : null}
+                <p>{project.description ?? project.outcome}</p>
+                {project.metrics ? (
+                  <p className="selected-record-results">
+                    {project.metrics.map((metric) => (
+                      <span key={metric.value}>
+                        <strong>{metric.value}</strong> {metric.label}
+                      </span>
+                    ))}
+                  </p>
+                ) : null}
+                <a className="project-link" href={`/work#${projectId(project.title)}`}>
+                  Read case file
+                  <ArrowUpRight size={15} aria-hidden="true" />
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const CopyEmailButton = () => {
   const [copied, setCopied] = useState(false);
 
@@ -243,8 +457,10 @@ const CopyEmailButton = () => {
 };
 
 const App = () => {
+  const isWorkPage = window.location.pathname.replace(/\/+$/, '') === '/work';
+  const navigation = isWorkPage ? workNavigation : homeNavigation;
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState(isWorkPage ? 'work' : '');
   const [expandedExperience, setExpandedExperience] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
@@ -257,6 +473,14 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    document.title = isWorkPage
+      ? 'Project Archive | Nicholas Perez'
+      : 'Nicholas Perez | IT Systems & Security Engineer';
+  }, [isWorkPage]);
+
+  useEffect(() => {
+    if (isWorkPage) return;
+
     const sections = navigation
       .map((item) => document.querySelector<HTMLElement>(item.href))
       .filter((section): section is HTMLElement => Boolean(section));
@@ -271,7 +495,7 @@ const App = () => {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [isWorkPage, navigation]);
 
   const toggleExperience = (index: number) => {
     setExpandedExperience((current) => ({
@@ -280,13 +504,17 @@ const App = () => {
     }));
   };
 
+  const isNavigationActive = (label: string, href: string) => (
+    isWorkPage ? label === 'Work' : activeSection === href.slice(1)
+  );
+
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">Skip to content</a>
 
       <header className="site-header">
         <div className="page-width header-inner">
-          <a className="brand-mark" href="#top" aria-label="Nicholas Perez, home">
+          <a className="brand-mark" href={isWorkPage ? '/' : '#top'} aria-label="Nicholas Perez, home">
             <span className="brand-monogram">NP</span>
             <span className="brand-copy">
               <strong>Nicholas Perez</strong>
@@ -297,10 +525,10 @@ const App = () => {
           <nav className="desktop-nav" aria-label="Primary navigation">
             {navigation.map((item) => (
               <a
-                className={activeSection === item.href.slice(1) ? 'is-active' : undefined}
+                className={isNavigationActive(item.label, item.href) ? 'is-active' : undefined}
                 key={item.href}
                 href={item.href}
-                aria-current={activeSection === item.href.slice(1) ? 'location' : undefined}
+                aria-current={isNavigationActive(item.label, item.href) ? 'location' : undefined}
               >
                 {item.label}
               </a>
@@ -332,10 +560,10 @@ const App = () => {
           >
             {navigation.map((item) => (
               <a
-                className={activeSection === item.href.slice(1) ? 'is-active' : undefined}
+                className={isNavigationActive(item.label, item.href) ? 'is-active' : undefined}
                 key={item.href}
                 href={item.href}
-                aria-current={activeSection === item.href.slice(1) ? 'location' : undefined}
+                aria-current={isNavigationActive(item.label, item.href) ? 'location' : undefined}
                 onClick={() => setMobileNavOpen(false)}
               >
                 {item.label}
@@ -351,6 +579,36 @@ const App = () => {
       </header>
 
       <main id="main-content">
+        {isWorkPage ? (
+          <>
+            <section className="work-archive-hero page-width" id="top">
+              <div>
+                <span className="index-tab">Field archive</span>
+                <h1>Builds, experiments, and working evidence.</h1>
+              </div>
+              <div className="work-archive-intro">
+                <p>
+                  The deeper technical record: what I built, the problem behind it,
+                  what changed, and the evidence that survived the experiment.
+                </p>
+                <a className="text-link" href="/#experience">
+                  Start with experience
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+                <p className="hand-note">Open the case file. Check the assumptions.</p>
+              </div>
+            </section>
+
+            <section className="work-section work-archive-section" id="work">
+              <div className="page-width">
+                <ProjectCaseFiles />
+                <MotionEvidence />
+                <MoreWork />
+              </div>
+            </section>
+          </>
+        ) : (
+          <>
         <section className="hero page-width" id="top">
           <div className="hero-copy">
             <h1>
@@ -367,8 +625,8 @@ const App = () => {
                 View résumé
                 <ArrowUpRight size={16} aria-hidden="true" />
               </a>
-              <a className="text-link" href="#work">
-                See the work
+              <a className="text-link" href="#experience">
+                See the experience
                 <ArrowDown size={16} aria-hidden="true" />
               </a>
             </div>
@@ -408,156 +666,6 @@ const App = () => {
             <p><strong>3,000+</strong><span>tickets resolved annually</span></p>
             <p><strong>1,000+</strong><span>devices migrated</span></p>
             <p className="field-strip-note">Preparation is how I stay lucky.</p>
-          </div>
-        </section>
-
-        <section className="work-section" id="work">
-          <div className="page-width">
-            <div className="work-heading">
-              <div>
-                <span className="index-tab">Case files</span>
-                <h2>Evidence over noise.</h2>
-              </div>
-              <p>
-                I build small, serious systems to understand how technology behaves,
-                where it fails, and how to make the next response faster.
-              </p>
-            </div>
-
-            <div className="case-files">
-              {projectCases.map((project) => (
-                <article
-                  className={`case-file${project.featured ? ' is-featured' : ''}${project.isOrbitLab ? ' is-orbitlab' : ''}`}
-                  key={project.title}
-                >
-                  <div className="case-index" aria-hidden="true">{project.number}</div>
-                  <div className="case-summary">
-                    <p className="case-category">{project.category}</p>
-                    <h3>{project.title}</h3>
-                    {project.lead && <p className="case-lead">{project.lead}</p>}
-                    {project.description && <p className="case-description">{project.description}</p>}
-                    {project.metrics && (
-                      <>
-                        <dl className="case-metrics" aria-label="OrbitLab benchmark results">
-                          {project.metrics.map((metric) => (
-                            <div key={metric.value}>
-                              <dt>{metric.label}</dt>
-                              <dd>{metric.value}</dd>
-                            </div>
-                          ))}
-                        </dl>
-                        <p className="case-benchmark-note">{project.footnote}</p>
-                      </>
-                    )}
-                    <dl className="case-details">
-                      <div>
-                        <dt>Problem</dt>
-                        <dd>{project.problem}</dd>
-                      </div>
-                      <div>
-                        <dt>Action</dt>
-                        <dd>{project.action}</dd>
-                      </div>
-                      <div>
-                        <dt>Outcome</dt>
-                        <dd>{project.outcome}</dd>
-                      </div>
-                    </dl>
-                    <div className="project-links">
-                      <a
-                        aria-label={`View the ${project.title} project on GitHub`}
-                        className="project-link"
-                        href={project.github}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <Github size={17} aria-hidden="true" />
-                        View project
-                        <ArrowUpRight size={15} aria-hidden="true" />
-                      </a>
-                      {project.experiment && (
-                        <a
-                          aria-label="View the OrbitLab Adaptive Fidelity Method experiment on GitHub"
-                          className="project-link"
-                          href={project.experiment}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <FileText size={17} aria-hidden="true" />
-                          View experiment
-                          <ArrowUpRight size={15} aria-hidden="true" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-
-                  <figure className="case-visual">
-                    <div className="case-window-label">
-                      <span>Exhibit {project.number}</span>
-                      <span>Captured locally</span>
-                    </div>
-                    <img
-                      src={project.image}
-                      alt={project.imageAlt}
-                      loading={project.featured ? 'eager' : 'lazy'}
-                      decoding="async"
-                    />
-                    <figcaption className="hand-note">{project.note}</figcaption>
-                  </figure>
-
-                  <ul className="project-stack" aria-label={`${project.title} technology`}>
-                    {project.stack.map((item) => <li key={item}>{item}</li>)}
-                  </ul>
-                </article>
-              ))}
-            </div>
-
-            <section className="motion-evidence" aria-labelledby="motion-evidence-title">
-              <div className="motion-evidence-heading">
-                <div>
-                  <span className="index-tab">Demo bench</span>
-                  <h3 id="motion-evidence-title">Systems in motion.</h3>
-                </div>
-                <p>
-                  Static screens show the interface. These short recordings show
-                  the systems changing state, explaining cause, and recovering.
-                </p>
-              </div>
-              <div className="demo-reel-list">
-                {demoReels.map((demo, index) => (
-                  <DemoReel
-                    {...demo}
-                    featured={index === demoReels.length - 1}
-                    key={demo.title}
-                    number={`M${String(index + 1).padStart(2, '0')}`}
-                  />
-                ))}
-              </div>
-            </section>
-
-            <div className="more-work">
-              <div className="more-work-heading">
-                <div>
-                  <h3>More builds, same curiosity.</h3>
-                </div>
-                <a href={portfolioData.github} target="_blank" rel="noreferrer">
-                  All repositories
-                  <ArrowUpRight size={16} aria-hidden="true" />
-                </a>
-              </div>
-              <div className="more-work-list">
-                {portfolioData.moreProjects.map((project) => (
-                  <a href={project.github} target="_blank" rel="noreferrer" key={project.title}>
-                    <div>
-                      <h4>{project.title}</h4>
-                      <p>{project.description}</p>
-                    </div>
-                    <span>{project.stack}</span>
-                    <ArrowUpRight size={20} aria-hidden="true" />
-                  </a>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
 
@@ -621,6 +729,8 @@ const App = () => {
           </div>
         </section>
 
+        <SelectedWork />
+
         <section className="section capabilities-section" id="capabilities">
           <div className="page-width">
             <div className="section-heading capabilities-heading">
@@ -666,6 +776,8 @@ const App = () => {
         </section>
 
         <ContactForm />
+          </>
+        )}
       </main>
 
       <footer className="site-footer">
@@ -677,6 +789,7 @@ const App = () => {
           <div className="footer-links">
             <a href={`mailto:${portfolioData.email}`}>Email</a>
             <a href={linkedInUrl} target="_blank" rel="me noreferrer">LinkedIn</a>
+            <a href="/work">Project archive</a>
             <a href={portfolioData.github} target="_blank" rel="noreferrer">GitHub</a>
             <a href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">Résumé</a>
             <CopyEmailButton />
@@ -688,7 +801,7 @@ const App = () => {
       <nav className="section-tabs" aria-label="Page sections">
         {navigation.map((item) => (
           <a
-            className={activeSection === item.href.slice(1) ? 'is-active' : undefined}
+            className={isNavigationActive(item.label, item.href) ? 'is-active' : undefined}
             key={item.href}
             href={item.href}
           >

@@ -604,6 +604,47 @@ li {
   background: var(--paper);
 }
 
+.work-archive-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.65fr);
+  align-items: end;
+  gap: clamp(2rem, 7vw, 6rem);
+  padding-block: clamp(5rem, 10vw, 8.5rem);
+}
+
+.work-archive-hero h1 {
+  max-width: 13ch;
+  margin: 0;
+  font-family: 'Libre Caslon Display', Georgia, serif;
+  font-size: clamp(3.2rem, 6.4vw, 5.8rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.038em;
+  text-wrap: balance;
+}
+
+.work-archive-intro {
+  display: grid;
+  justify-items: start;
+  gap: 1.5rem;
+}
+
+.work-archive-intro > p:first-child {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--muted-foreground);
+  line-height: 1.7;
+}
+
+.work-archive-intro .hand-note {
+  max-width: 17rem;
+  margin: 1rem 0 0 auto;
+}
+
+.work-archive-section {
+  padding-top: 0;
+}
+
 .work-heading,
 .section-heading {
   display: grid;
@@ -885,7 +926,7 @@ li {
   margin-bottom: clamp(3rem, 6vw, 5rem);
 }
 
-.motion-evidence-heading h3 {
+.motion-evidence-heading h2 {
   margin-bottom: 0;
   font-family: 'Libre Caslon Display', Georgia, serif;
   font-size: clamp(2.7rem, 5.4vw, 4.6rem);
@@ -1040,7 +1081,7 @@ li {
   margin-bottom: 1.5rem;
 }
 
-.more-work-heading h3 {
+.more-work-heading h2 {
   margin-bottom: 0;
   font-family: 'Libre Caslon Display', Georgia, serif;
   font-size: clamp(2.25rem, 4vw, 3.8rem);
@@ -1102,6 +1143,130 @@ li {
 
 .section {
   padding-block: var(--space-section);
+}
+
+.selected-work-section {
+  background: var(--paper);
+}
+
+.selected-work-heading > div:last-child {
+  display: grid;
+  justify-items: start;
+  gap: 1.4rem;
+}
+
+.selected-work-list {
+  border-top: 1px solid var(--foreground);
+}
+
+.selected-record {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.92fr) minmax(0, 1.08fr);
+  grid-template-areas: 'visual copy';
+  align-items: center;
+  gap: clamp(2rem, 7vw, 6rem);
+  padding-block: clamp(3rem, 6vw, 5rem);
+  border-bottom: 1px solid var(--foreground);
+}
+
+.selected-record:nth-child(even) {
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+  grid-template-areas: 'copy visual';
+}
+
+.selected-record figure {
+  grid-area: visual;
+  position: relative;
+  margin: 0 0 2rem;
+  padding: 0.7rem;
+  border: 1px solid var(--foreground);
+  background: var(--paper-2);
+}
+
+.selected-record figure img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--border);
+  object-fit: cover;
+  object-position: top center;
+}
+
+.selected-record figcaption {
+  position: absolute;
+  right: 1.25rem;
+  bottom: -1.5rem;
+  max-width: 15rem;
+  margin: 0;
+  padding: 0.45rem 0.6rem;
+  background: var(--paper);
+}
+
+.selected-record-copy {
+  grid-area: copy;
+}
+
+.selected-record-copy h3 {
+  margin-bottom: 1.25rem;
+  font-family: 'Libre Caslon Display', Georgia, serif;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+
+.selected-record-copy > p:not(.case-category, .selected-record-lead, .selected-record-results) {
+  max-width: 58ch;
+  margin-bottom: 1.5rem;
+  color: var(--muted-foreground);
+  line-height: 1.65;
+}
+
+.selected-record-lead {
+  max-width: 24ch;
+  margin: -0.25rem 0 0.85rem;
+  font-family: 'Libre Caslon Display', Georgia, serif;
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.selected-record-results {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 1.75rem 0;
+  padding-block: 1rem;
+  border-block: 1px solid var(--border);
+}
+
+.selected-record-results span {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 0.25rem;
+  padding-inline: 0.8rem;
+  border-right: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: 0.68rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.selected-record-results span:first-child {
+  padding-left: 0;
+}
+
+.selected-record-results span:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.selected-record-results strong {
+  color: var(--primary);
+  font-family: 'Libre Caslon Display', Georgia, serif;
+  font-size: clamp(1.75rem, 3vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1;
 }
 
 .experience-section {
@@ -1630,10 +1795,28 @@ li {
   .work-heading,
   .section-heading,
   .motion-evidence-heading,
+  .work-archive-hero,
   .contact-layout {
     grid-template-columns: 1fr;
     align-items: start;
     gap: 1.8rem;
+  }
+
+  .work-archive-hero {
+    padding-block: 4.5rem;
+  }
+
+  .work-archive-intro .hand-note {
+    margin-left: 0;
+  }
+
+  .selected-record,
+  .selected-record:nth-child(even) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'visual'
+      'copy';
+    gap: 1.5rem;
   }
 
   .case-file,
@@ -1806,6 +1989,24 @@ li {
 
   .case-metrics {
     grid-template-columns: 1fr;
+  }
+
+  .selected-record-results {
+    grid-template-columns: 1fr;
+  }
+
+  .selected-record-results span,
+  .selected-record-results span:first-child,
+  .selected-record-results span:last-child {
+    grid-template-columns: 88px minmax(0, 1fr);
+    align-items: baseline;
+    padding: 0.8rem 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .selected-record-results span:last-child {
+    border-bottom: 0;
   }
 
   .case-metrics > div,
