@@ -22,7 +22,7 @@ export const portfolioData = {
         github: "https://github.com/nicktperez/MacTrace",
         image: "/mactrace-dashboard.png",
         imageAlt: "MacTrace endpoint security dashboard showing synthetic risk, detections, event volume, and severity",
-        description: "A local-first macOS endpoint activity monitor that turns process, network, and persistence metadata into explainable investigation priorities.",
+        description: "I built MacTrace to make endpoint activity easier to interpret. It collects security-relevant macOS metadata locally, connects related behaviors, and explains what deserves a closer look.",
         highlights: [
             "Correlates related endpoint activity across eight explainable detection rules.",
             "Streams live events through FastAPI and WebSockets into a responsive investigation dashboard.",
@@ -38,8 +38,8 @@ export const portfolioData = {
             github: "https://github.com/nicktperez/siem-home-lab",
             image: "/siem-kibana-dashboard.png",
             imageAlt: "Kibana visualization showing counts of simulated failed SSH authentication events",
-            description: "A reproducible Elastic Stack lab for log collection, threshold detections, dashboard-driven triage, and documented incident investigation.",
-            outcome: "Built the full path from synthetic telemetry to analyst-ready evidence.",
+            description: "I built an Elastic Stack lab that carries synthetic security events from collection and parsing through detection, triage, and documented investigation.",
+            outcome: "It demonstrates a complete analyst workflow—not just a dashboard.",
             stack: ["Elastic Stack", "Filebeat", "Logstash", "Docker", "Python"]
         },
         {
@@ -48,8 +48,8 @@ export const portfolioData = {
             github: "https://github.com/nicktperez/OrbitLab",
             image: "/orbitlab-screenshot.png",
             imageAlt: "OrbitLab desktop application simulating a three-dimensional orbital system",
-            description: "A portable C++20 N-body workbench with multiple integrators and gravity solvers, collision models, diagnostics, persistence, and a native SDL 3 interface.",
-            outcome: "Designed as an engineering sample with deterministic tests, profiling, concurrency, and reproducible numerical validation.",
+            description: "I built a C++20 desktop simulator for creating and studying N-body systems with multiple physics solvers, performance tools, and numerical tests.",
+            outcome: "It demonstrates systems design through measurable, reproducible experiments.",
             stack: ["C++20", "SDL 3", "Dear ImGui", "CMake", "Catch2"]
         }
     ],

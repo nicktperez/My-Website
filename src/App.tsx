@@ -199,11 +199,11 @@ const App = () => {
       <main id="main-content">
         <section className="hero page-width" id="top">
           <div className="hero-copy">
-            <h1>IT systems that help people do their best work.</h1>
+            <h1>I help teams get more from the technology they rely on.</h1>
             <p className="hero-summary">
-              I’m Nicholas Perez, an IT systems professional with 10+ years of experience
-              supporting people, endpoints, identity, and workplace technology—and building
-              practical security tools that make complex activity easier to investigate.
+              For more than a decade, I’ve supported the people, devices, and systems that
+              keep organizations moving. I bring that operational experience to endpoint
+              security, automation, and hands-on software projects.
             </p>
 
             <div className="hero-actions">
@@ -271,10 +271,11 @@ const App = () => {
           <div className="page-width">
             <div className="work-heading">
               <p className="work-kicker">Selected work</p>
-              <h2>Systems built to investigate, automate, and explain.</h2>
+              <h2>I build to understand how systems behave.</h2>
               <p>
-                From endpoint telemetry to numerical simulation, these projects turn
-                complicated systems into tools people can actually understand and use.
+                These projects let me explore endpoint security, detection engineering,
+                and systems design—then turn what I learn into tools other people can
+                inspect and use.
               </p>
             </div>
 
