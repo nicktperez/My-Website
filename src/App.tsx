@@ -3,7 +3,6 @@ import {
   ArrowDown,
   ArrowUpRight,
   Check,
-  ChevronDown,
   Clipboard,
   FileText,
   Github,
@@ -373,16 +372,16 @@ const MoreWork = () => (
 
 const SelectedWork = () => {
   const selectedProjects = projectCases.filter((project) => (
-    project.title === 'MacTrace'
+    project.title === 'MacTrace' || project.title === 'SIEM Home Lab'
   ));
 
   return (
-    <section className="section selected-work-section" id="work">
+    <section className="section selected-work-section manual-chapter" id="work">
       <div className="page-width">
         <div className="section-heading selected-work-heading">
           <div>
-            <span className="index-tab">Selected evidence</span>
-            <h2>Curiosity with a paper trail.</h2>
+            <span className="chapter-kicker">Chapter 02 · Selected evidence</span>
+            <h2>Selected work.</h2>
           </div>
           <div>
             <p>
@@ -429,49 +428,6 @@ const SelectedWork = () => {
             </article>
           ))}
 
-          <article className="selected-record selected-record--operations">
-            <figure>
-              <div className="case-window-label">
-                <span>Operational record</span>
-                <span>Public-sector IT · 180+ staff</span>
-              </div>
-              <div className="process-evidence" role="img" aria-label="A support improvement record showing recurring issues converted into documentation and training, resulting in 30 percent fewer repeat tickets">
-                <div>
-                  <span>Observed</span>
-                  <strong>Recurring support issues</strong>
-                </div>
-                <div aria-hidden="true">→</div>
-                <div>
-                  <span>Changed</span>
-                  <strong>Documentation + onboarding</strong>
-                </div>
-                <div aria-hidden="true">→</div>
-                <div className="process-evidence-result">
-                  <span>Measured</span>
-                  <strong>30% fewer repeat tickets</strong>
-                </div>
-              </div>
-              <figcaption className="hand-note">Turn the fix into a system.</figcaption>
-            </figure>
-            <div className="selected-record-copy">
-              <p className="case-category">Service operations · documentation · enablement</p>
-              <h3>Reducing repeat support work</h3>
-              <p className="selected-record-lead">A solved ticket should make the next ticket less likely.</p>
-              <p>
-                I identified recurring support patterns, turned the fixes into usable
-                documentation, and built them into onboarding and staff training.
-                The result was a 30% reduction in repeat tickets and a clearer path
-                for people to solve common problems.
-              </p>
-              <p className="selected-record-context">
-                Scope: frontline support for 180+ staff and contractors.
-              </p>
-              <a className="project-link" href="#experience">
-                See the service record
-                <ArrowDown size={15} aria-hidden="true" />
-              </a>
-            </div>
-          </article>
         </div>
       </div>
     </section>
@@ -503,55 +459,143 @@ const CopyEmailButton = () => {
 type ExperienceItemProps = {
   experience: (typeof portfolioData.experience)[number];
   index: number;
-  expanded: boolean;
-  onToggle: (index: number) => void;
 };
 
-const ExperienceItem = ({ experience, index, expanded, onToggle }: ExperienceItemProps) => {
-  const hasAdditionalDetails = index > 0 && experience.highlights.length > 2;
-  const detailsId = `experience-details-${index}`;
-
+const ExperienceItem = ({ experience, index }: ExperienceItemProps) => {
   return (
-    <article
-      className={`timeline-item${index === 0 ? ' is-current' : ''}${expanded ? ' is-expanded' : ''}`}
-    >
+    <article className={`timeline-item${index === 0 ? ' is-current' : ''}`}>
       <div className="timeline-meta">
+        <span className="timeline-record-number">{String(index + 1).padStart(2, '0')}</span>
         <p>{experience.period}</p>
         <h3>{experience.company}</h3>
       </div>
       <div className="timeline-content">
         <h4>{experience.role}</h4>
-        <ul id={detailsId}>
-          {experience.highlights.map((highlight, highlightIndex) => (
-            <li className={highlightIndex > 1 ? 'timeline-extra' : undefined} key={highlight}>
+        <ul>
+          {experience.highlights.map((highlight) => (
+            <li key={highlight}>
               {highlight}
             </li>
           ))}
         </ul>
-        {hasAdditionalDetails ? (
-          <button
-            className="timeline-toggle"
-            type="button"
-            aria-controls={detailsId}
-            aria-expanded={expanded}
-            onClick={() => onToggle(index)}
-          >
-            {expanded ? 'Hide details' : 'View details'}
-            <ChevronDown size={16} aria-hidden="true" />
-          </button>
-        ) : null}
       </div>
     </article>
   );
 };
+
+const PosterHero = () => (
+  <section className="poster-hero" id="top" aria-labelledby="poster-title">
+    <div className="poster-frame">
+      <i className="registration-mark registration-mark--top-left" aria-hidden="true" />
+      <i className="registration-mark registration-mark--top-right" aria-hidden="true" />
+      <i className="registration-mark registration-mark--bottom-left" aria-hidden="true" />
+      <i className="registration-mark registration-mark--bottom-right" aria-hidden="true" />
+
+      <header className="poster-top-rail">
+        <p>Field record <span>/</span> 24-05-19</p>
+        <nav aria-label="Homepage sections">
+          <a href="#experience">Systems</a>
+          <span aria-hidden="true">•</span>
+          <a href="#work">Security</a>
+          <span aria-hidden="true">•</span>
+          <a href="#contact">People</a>
+        </nav>
+      </header>
+
+      <div className="poster-grid">
+        <div className="poster-copy">
+          <a className="poster-monogram" href="#top" aria-label="Nicholas Perez, top of page">NP</a>
+
+          <h1 className="poster-title" id="poster-title">
+            <span>Technology</span>
+            <strong>Breaks.</strong>
+          </h1>
+
+          <div className="poster-callout">
+            <p>I’m the one<br />people call.</p>
+            <p className="poster-hand-note">Calm in the incident. Curious after it.</p>
+          </div>
+
+          <div className="poster-ledger">
+            <div className="poster-identity">
+              <p className="poster-ledger-label">Name <span aria-hidden="true">→</span></p>
+              <a href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">Nicholas Perez</a>
+              <p className="poster-ledger-label">Role <span aria-hidden="true">→</span></p>
+              <strong>IT Systems Engineer</strong>
+              <a className="poster-resume-link" href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">
+                View résumé <ArrowUpRight size={13} aria-hidden="true" />
+              </a>
+            </div>
+
+            <dl className="poster-methods">
+              <div>
+                <dt>Focus <span aria-hidden="true">→</span></dt>
+                <dd>System reliability<br />Security operations<br />Incident response</dd>
+              </div>
+              <div>
+                <dt>Approach <span aria-hidden="true">→</span></dt>
+                <dd>Investigate<br />Understand<br />Resolve</dd>
+              </div>
+              <div>
+                <dt>Method <span aria-hidden="true">→</span></dt>
+                <dd>Data-driven<br />Human-first<br />Document everything</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <aside className="poster-evidence" aria-label="Selected systems and security project evidence">
+          <div className="poster-evidence-grid">
+            <figure className="poster-shot poster-shot--mactrace">
+              <img src="/mactrace-dashboard.png" alt="MacTrace endpoint posture dashboard" />
+              <figcaption>Endpoint posture</figcaption>
+            </figure>
+            <figure className="poster-shot poster-shot--siem">
+              <img src="/siem-kibana-dashboard.png" alt="Elastic security analytics dashboard" />
+              <figcaption>Security analytics</figcaption>
+            </figure>
+            <div
+              className="poster-signal-card"
+              role="img"
+              aria-label="Raspberry Pi honeypot record showing more than 1,000 unauthorized login attempts captured during the first week"
+            >
+              <div className="poster-signal-heading">
+                <span>Field 04</span>
+                <span>Honeypot telemetry</span>
+              </div>
+              <svg className="poster-signal-chart" viewBox="0 0 420 120" aria-hidden="true">
+                <path d="M4 96 C28 91, 35 98, 57 85 S92 69, 112 82 S146 103, 169 69 S204 30, 230 54 S263 93, 285 64 S316 41, 337 56 S373 83, 416 18" />
+                <circle cx="416" cy="18" r="4" />
+              </svg>
+              <div className="poster-signal-metric">
+                <strong>1,000+</strong>
+                <span>Unauthorized login attempts<br />captured in the first week</span>
+              </div>
+              <p>SSH / Telnet / Elastic Stack</p>
+            </div>
+            <figure className="poster-shot poster-shot--orbit">
+              <img src="/orbitlab-screenshot.png" alt="OrbitLab simulation interface" />
+              <figcaption>Systems thinking</figcaption>
+            </figure>
+          </div>
+          <p className="poster-margin-note">Evidence first. Assumptions last.</p>
+        </aside>
+      </div>
+
+      <footer className="poster-bottom-rail">
+        <p>Observe <span>•</span> Analyze <span>•</span> Act</p>
+        <a href="#experience">Scroll to record <ArrowDown size={13} aria-hidden="true" /></a>
+        <p>Field notes. Not noise.</p>
+      </footer>
+    </div>
+  </section>
+);
 
 const App = () => {
   const isWorkPage = window.location.pathname.replace(/\/+$/, '') === '/work';
   const navigation = isWorkPage ? workNavigation : homeNavigation;
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(isWorkPage ? 'work' : '');
-  const [expandedExperience, setExpandedExperience] = useState<Record<number, boolean>>({});
-  const [showEarlierExperience, setShowEarlierExperience] = useState(false);
   const mobileNavTriggerRef = useRef<HTMLButtonElement>(null);
   const mobileNavRef = useRef<HTMLElement>(null);
 
@@ -617,13 +661,6 @@ const App = () => {
     return () => observer.disconnect();
   }, [isWorkPage, navigation]);
 
-  const toggleExperience = (index: number) => {
-    setExpandedExperience((current) => ({
-      ...current,
-      [index]: !current[index],
-    }));
-  };
-
   const isNavigationActive = (label: string, href: string) => (
     isWorkPage ? label === 'Work' : activeSection === href.slice(1)
   );
@@ -632,7 +669,7 @@ const App = () => {
     <div className="site-shell">
       <a className="skip-link" href="#main-content">Skip to content</a>
 
-      <header className="site-header">
+      {isWorkPage ? <header className="site-header">
         <div className="page-width header-inner">
           <a className="brand-mark" href={isWorkPage ? '/' : '#top'} aria-label="Nicholas Perez, home">
             <span className="brand-monogram">NP</span>
@@ -698,7 +735,7 @@ const App = () => {
             </a>
           </nav>
         </div>
-      </header>
+      </header> : null}
 
       <main id="main-content">
         {isWorkPage ? (
@@ -731,128 +768,44 @@ const App = () => {
           </>
         ) : (
           <>
-        <section className="hero page-width" id="top">
-          <div className="hero-copy">
-            <p className="hero-role">IT Systems Engineer · Sacramento, California</p>
-            <h1>
-              <span>Technology breaks.</span>
-              <em>I’m the one people call.</em>
-            </h1>
-            <p className="hero-summary">
-              I solve problems across endpoints, identity, and workplace systems—then
-              improve the process so the next one is less likely.
-            </p>
+        <PosterHero />
 
-            <div className="hero-actions">
-              <a className="button button-primary" href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">
-                <FileText size={17} aria-hidden="true" />
-                View résumé
-                <ArrowUpRight size={16} aria-hidden="true" />
-              </a>
-              <a className="text-link" href="#experience">
-                See the experience
-                <ArrowDown size={16} aria-hidden="true" />
-              </a>
-            </div>
-
-            <p className="hand-note hero-note">
-              Calm in the incident.<br />
-              Curious after it.
-            </p>
-          </div>
-
-          <aside className="evidence-board" aria-label="A contact sheet of selected projects">
-            <div className="evidence-heading">
-              <span>Field record · selected builds</span>
-              <span>NP / 2026</span>
-            </div>
-            <div className="contact-sheet">
-              <figure className="contact-frame frame-mactrace">
-                <img src="/mactrace-dashboard.png" alt="" />
-                <figcaption>Endpoint visibility</figcaption>
-              </figure>
-              <figure className="contact-frame frame-siem">
-                <img src="/siem-kibana-dashboard.png" alt="" />
-                <figcaption>Detection lab</figcaption>
-              </figure>
-              <figure className="contact-frame frame-orbit">
-                <img src="/orbitlab-screenshot.png" alt="" />
-                <figcaption>Systems thinking</figcaption>
-              </figure>
-            </div>
-            <p className="hand-note evidence-note">Real systems. Real questions. Document everything.</p>
-          </aside>
-        </section>
-
-        <section className="field-strip" aria-label="Professional summary">
-          <div className="page-width field-strip-inner">
-            <p><strong>10+ years</strong><span>supporting people and systems</span></p>
-            <p><strong>3,000+</strong><span>tickets resolved annually</span></p>
-            <p><strong>1,000+</strong><span>devices migrated</span></p>
-            <p className="field-strip-note">Preparation is how I stay lucky.</p>
-          </div>
-        </section>
-
-        <section className="section experience-section" id="experience">
+        <section className="section experience-section manual-chapter" id="experience">
           <div className="page-width">
             <div className="section-heading">
               <div>
-                <span className="index-tab">Service record</span>
-                <h2>Dependable is a practice.</h2>
+                <span className="chapter-kicker">Chapter 01 · Complete work record</span>
+                <h2>Experience.</h2>
               </div>
               <div>
                 <p>
-                  A decade of increasing responsibility across public service,
-                  startups, managed environments, and customer-facing operations.
+                  Ten years across public service, startups, managed environments,
+                  and customer-facing operations. Every role stays open here because
+                  the details are the evidence.
                 </p>
               </div>
             </div>
 
             <div className="timeline">
-              {portfolioData.experience.slice(0, 3).map((experience, index) => (
+              {portfolioData.experience.map((experience, index) => (
                 <ExperienceItem
                   experience={experience}
-                  expanded={Boolean(expandedExperience[index])}
                   index={index}
                   key={`${experience.company}-${experience.period}`}
-                  onToggle={toggleExperience}
                 />
               ))}
-              {showEarlierExperience
-                ? portfolioData.experience.slice(3).map((experience, offset) => {
-                    const index = offset + 3;
-                    return (
-                      <ExperienceItem
-                        experience={experience}
-                        expanded={Boolean(expandedExperience[index])}
-                        index={index}
-                        key={`${experience.company}-${experience.period}`}
-                        onToggle={toggleExperience}
-                      />
-                    );
-                  })
-                : null}
-              <button
-                className="earlier-experience-toggle"
-                type="button"
-                aria-expanded={showEarlierExperience}
-                onClick={() => setShowEarlierExperience((visible) => !visible)}
-              >
-                {showEarlierExperience ? 'Hide earlier experience' : 'View earlier experience'}
-                <ChevronDown size={17} aria-hidden="true" />
-              </button>
             </div>
           </div>
         </section>
 
         <SelectedWork />
 
-        <section className="section capabilities-section" id="capabilities">
+        <section className="section capabilities-section manual-chapter" id="capabilities">
           <div className="page-width">
             <div className="section-heading capabilities-heading">
               <div>
-                <span className="index-tab">Field kit</span>
-                <h2>Broad range. Human center.</h2>
+                <span className="chapter-kicker">Chapter 03 · Field kit</span>
+                <h2>Capabilities.</h2>
               </div>
               <p>
                 Tools change. Diagnosis, communication, documentation, and thoughtful

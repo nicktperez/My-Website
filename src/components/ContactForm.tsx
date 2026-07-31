@@ -38,11 +38,11 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="contact-section" id="contact">
+    <section className="contact-section manual-chapter" id="contact">
       <div className="page-width contact-layout">
         <div className="contact-intro">
-          <p className="section-label">Contact</p>
-          <h2>Let’s make work run better.</h2>
+          <p className="chapter-kicker">Chapter 04 · Open channel</p>
+          <h2>Contact.</h2>
           <p>
             I’m a Sacramento-based IT Systems Engineer open to Bay Area hybrid
             and remote opportunities.
