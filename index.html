@@ -6,6 +6,17 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem('portfolio-theme');
+          const theme = saved === 'light' || saved === 'dark'
+            ? saved
+            : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.dataset.theme = theme;
+        } catch {}
+      })();
+    </script>
     <title>Nicholas Perez | IT Systems Engineer</title>
     <meta name="description" content="Nicholas Perez is an IT Systems Engineer with 10+ years of experience supporting endpoints, identity, workplace technology, automation, and practical security." />
     <meta name="robots" content="index, follow" />

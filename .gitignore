@@ -10,11 +10,15 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+**/.build/
+playwright-report/
+test-results/
 *.local
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+codexios/**/.vscode/
 .idea
 .DS_Store
 *.suo

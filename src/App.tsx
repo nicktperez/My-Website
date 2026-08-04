@@ -30,6 +30,7 @@ const workNavigation = [
 
 const linkedInUrl = 'https://www.linkedin.com/in/nicholas-perez-47748773/';
 const projectId = (title: string) => title.toLowerCase().replaceAll(' ', '-');
+let activeDemoVideo: HTMLVideoElement | null = null;
 
 const capabilityGroups = [
   {
@@ -161,31 +162,27 @@ type DemoReelProps = (typeof demoReels)[number] & {
 
 const DemoReel = ({ featured = false, number, title, category, video, poster, description, outcome, stack, note }: DemoReelProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [reducedMotion, setReducedMotion] = useState(
-    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  );
-
-  useEffect(() => {
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const updatePreference = () => setReducedMotion(preference.matches);
-
-    preference.addEventListener('change', updatePreference);
-    return () => preference.removeEventListener('change', updatePreference);
-  }, []);
 
   useEffect(() => {
     const media = videoRef.current;
+
+    return () => {
+      media?.pause();
+      if (activeDemoVideo === media) activeDemoVideo = null;
+    };
+  }, []);
+
+  const registerManualPlayback = () => {
+    const media = videoRef.current;
     if (!media) return;
 
-    if (reducedMotion) {
-      media.pause();
-      media.currentTime = 0;
-    } else {
-      void media.play().catch(() => {
-        // Browser autoplay policy can require the visitor to press play.
-      });
-    }
-  }, [reducedMotion]);
+    if (activeDemoVideo && activeDemoVideo !== media) activeDemoVideo.pause();
+    activeDemoVideo = media;
+  };
+
+  const registerPause = () => {
+    if (activeDemoVideo === videoRef.current) activeDemoVideo = null;
+  };
 
   return (
     <article className={`demo-reel${featured ? ' demo-reel--featured' : ''}`}>
@@ -193,24 +190,25 @@ const DemoReel = ({ featured = false, number, title, category, video, poster, de
         <span>{number}</span>
         <div>
           <p>{category}</p>
-          <h4>{title}</h4>
+          <h3>{title}</h3>
         </div>
       </div>
       <figure className="demo-reel-visual">
         <div className="case-window-label">
           <span>Motion exhibit {number}</span>
-          <span>{reducedMotion ? 'Press play to view' : 'Playing locally'}</span>
+          <span>Press play to view</span>
         </div>
         <video
           ref={videoRef}
           aria-label={`${title} product demonstration`}
-          autoPlay={!reducedMotion}
           controls
           loop
           muted
+          onPause={registerPause}
+          onPlay={registerManualPlayback}
           playsInline
           poster={poster}
-          preload="metadata"
+          preload="none"
         >
           <source src={video} type="video/mp4" />
           Your browser does not support embedded video.
@@ -380,7 +378,7 @@ const SelectedWork = () => {
       <div className="page-width">
         <div className="section-heading selected-work-heading">
           <div>
-            <span className="chapter-kicker">Chapter 02 · Selected evidence</span>
+            <span className="chapter-label">Selected evidence</span>
             <h2>Selected work.</h2>
           </div>
           <div>
@@ -495,10 +493,9 @@ const PosterHero = () => (
         <p>Field record <span>/</span> 24-05-19</p>
         <nav aria-label="Homepage sections">
           <a href="#experience">Systems</a>
-          <span aria-hidden="true">•</span>
           <a href="#work">Security</a>
-          <span aria-hidden="true">•</span>
           <a href="#contact">People</a>
+          <ThemeToggle className="poster-theme-toggle" />
         </nav>
       </header>
 
@@ -637,12 +634,6 @@ const App = () => {
   }, [mobileNavOpen]);
 
   useEffect(() => {
-    document.title = isWorkPage
-      ? 'Project Archive | Nicholas Perez'
-      : 'Nicholas Perez | IT Systems Engineer';
-  }, [isWorkPage]);
-
-  useEffect(() => {
     if (isWorkPage) return;
 
     const sections = navigation
@@ -760,6 +751,7 @@ const App = () => {
 
             <section className="work-section work-archive-section" id="work">
               <div className="page-width">
+                <h2 className="sr-only">Project case files</h2>
                 <ProjectCaseFiles />
                 <MotionEvidence />
                 <MoreWork />
@@ -774,7 +766,7 @@ const App = () => {
           <div className="page-width">
             <div className="section-heading">
               <div>
-                <span className="chapter-kicker">Chapter 01 · Complete work record</span>
+                <span className="chapter-label">Complete work record</span>
                 <h2>Experience.</h2>
               </div>
               <div>
@@ -804,7 +796,7 @@ const App = () => {
           <div className="page-width">
             <div className="section-heading capabilities-heading">
               <div>
-                <span className="chapter-kicker">Chapter 03 · Field kit</span>
+                <span className="chapter-label">Field kit</span>
                 <h2>Capabilities.</h2>
               </div>
               <p>

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,300..900&family=Caveat:wght@500;600&family=Libre+Caslon+Display&family=Patrick+Hand&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -163,6 +161,7 @@ li {
 }
 
 .brand-mark {
+  min-height: 2.75rem;
   display: inline-flex;
   align-items: center;
   gap: 0.9rem;
@@ -206,6 +205,9 @@ li {
 
 .desktop-nav a {
   position: relative;
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
   padding-block: 0.55rem;
   color: var(--muted-foreground);
   font-size: 0.8rem;
@@ -245,6 +247,7 @@ li {
 }
 
 .header-resume {
+  min-height: 2.75rem;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -260,8 +263,8 @@ li {
 
 .theme-toggle,
 .mobile-nav-trigger {
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 2.75rem;
+  height: 2.75rem;
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
@@ -403,6 +406,7 @@ li {
 
 .text-link,
 .project-link {
+  min-height: 2.75rem;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -642,16 +646,6 @@ li {
   isolation: isolate;
 }
 
-.poster-frame::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  opacity: 0.18;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-}
-
 .poster-top-rail,
 .poster-bottom-rail {
   min-height: 2.35rem;
@@ -686,10 +680,24 @@ li {
 }
 
 .poster-top-rail a {
-  min-height: 2.35rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
   display: inline-flex;
   align-items: center;
   text-decoration: none;
+}
+
+.poster-theme-toggle {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-color: var(--poster-ink);
+  background: transparent;
+  color: var(--poster-ink);
+}
+
+.poster-theme-toggle:hover {
+  border-color: var(--poster-blue);
+  color: var(--poster-blue);
 }
 
 .poster-top-rail a:hover,
@@ -723,7 +731,7 @@ li {
   border: 2px solid var(--poster-ink);
   font-size: clamp(1.45rem, 2.6vw, 2.5rem);
   font-weight: 820;
-  letter-spacing: -0.07em;
+  letter-spacing: -0.04em;
   line-height: 1;
   text-decoration: none;
 }
@@ -735,7 +743,7 @@ li {
 .poster-title {
   margin: 0;
   font-family: 'Libre Caslon Display', Georgia, serif;
-  font-size: clamp(4rem, 6.3vw, 7rem);
+  font-size: clamp(4rem, 6.3vw, 6rem);
   font-weight: 400;
   line-height: 0.77;
   letter-spacing: -0.04em;
@@ -824,6 +832,9 @@ li {
 }
 
 .poster-identity > a:not(.poster-resume-link) {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
   margin-bottom: clamp(0.7rem, 1.2vh, 1rem);
   color: var(--poster-blue);
   font-family: 'Archivo', ui-sans-serif, sans-serif;
@@ -854,6 +865,7 @@ li {
 }
 
 .poster-resume-link {
+  min-height: 2.75rem;
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
@@ -1116,7 +1128,7 @@ li {
 }
 
 .poster-bottom-rail a {
-  min-height: 2.35rem;
+  min-height: 2.75rem;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -1583,7 +1595,7 @@ li {
   text-transform: uppercase;
 }
 
-.demo-reel-heading h4 {
+.demo-reel-heading h3 {
   margin-bottom: 0;
   font-family: 'Libre Caslon Display', Georgia, serif;
   font-size: clamp(2rem, 3vw, 2.85rem);
@@ -1669,6 +1681,7 @@ li {
 }
 
 .more-work-heading a {
+  min-height: 2.75rem;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -1909,21 +1922,16 @@ li {
 }
 
 .manual-chapter {
-  background:
-    radial-gradient(circle at 82% 15%, color-mix(in srgb, white 62%, transparent), transparent 28%),
-    var(--paper);
+  background: var(--paper);
   color: var(--foreground);
 }
 
-.chapter-kicker {
+.chapter-label {
   display: block;
   margin-bottom: 1rem;
   color: var(--primary);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.68rem;
-  font-weight: 760;
-  letter-spacing: 0.045em;
-  text-transform: uppercase;
+  font-size: 0.82rem;
+  font-weight: 740;
 }
 
 .manual-chapter .section-heading {
@@ -2318,6 +2326,10 @@ li {
 }
 
 .footer-links a {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
   color: var(--muted-foreground);
 }
 
@@ -2326,6 +2338,7 @@ li {
 }
 
 .copy-button {
+  min-height: 2.75rem;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -2446,7 +2459,7 @@ li {
   }
 
   .poster-title {
-    font-size: clamp(4.8rem, 12vw, 7.4rem);
+    font-size: clamp(4.8rem, 12vw, 6rem);
   }
 
   .poster-callout {
@@ -2753,7 +2766,7 @@ li {
   .poster-bottom-rail a {
     grid-column: 2;
     grid-row: 1;
-    min-height: 2.5rem;
+    min-height: 2.75rem;
   }
 
   .poster-bottom-rail p:last-child {

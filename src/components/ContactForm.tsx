@@ -41,7 +41,7 @@ const ContactForm = () => {
     <section className="contact-section manual-chapter" id="contact">
       <div className="page-width contact-layout">
         <div className="contact-intro">
-          <p className="chapter-kicker">Chapter 04 · Open channel</p>
+          <p className="chapter-label">Open channel</p>
           <h2>Contact.</h2>
           <p>
             I’m a Sacramento-based IT Systems Engineer open to Bay Area hybrid

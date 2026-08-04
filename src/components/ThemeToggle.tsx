@@ -1,27 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
+import { applyTheme, getPreferredTheme, type Theme } from '../theme';
 
-type Theme = 'light' | 'dark';
-
-const getInitialTheme = (): Theme => {
-  const savedTheme = window.localStorage.getItem('portfolio-theme');
-  if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+type ThemeToggleProps = {
+  className?: string;
 };
 
-const ThemeToggle = () => {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+const ThemeToggle = ({ className }: ThemeToggleProps) => {
+  const [theme, setTheme] = useState<Theme>(getPreferredTheme);
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem('portfolio-theme', theme);
+    applyTheme(theme);
   }, [theme]);
 
   const nextTheme = theme === 'light' ? 'dark' : 'light';
 
   return (
     <button
-      className="theme-toggle"
+      className={`theme-toggle${className ? ` ${className}` : ''}`}
       type="button"
       onClick={() => setTheme(nextTheme)}
       aria-label={`Switch to ${nextTheme} theme`}

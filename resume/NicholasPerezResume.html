@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nicholas Perez Resume</title>
+    <style>
+      @page { size: Letter; margin: 0; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #e9edf2; color: #20242a; font-family: Arial, Helvetica, sans-serif; }
+      body { font-size: 9.35pt; line-height: 1.27; }
+      .page {
+        width: 8.5in;
+        height: 11in;
+        margin: 0 auto 0.25in;
+        padding: 0.55in 0.67in 0.45in;
+        overflow: hidden;
+        background: #fff;
+        break-after: page;
+      }
+      .page:last-child { break-after: auto; }
+      h1 { margin: 0; color: #0d2a4c; font-size: 27pt; line-height: 1; letter-spacing: 0.01em; }
+      .tagline { margin: 0.08in 0 0.05in; font-size: 12.2pt; font-weight: 700; letter-spacing: 0.08em; }
+      .contact { display: flex; flex-wrap: wrap; gap: 0.04in 0.09in; margin: 0; color: #5f6873; font-size: 9.35pt; }
+      .contact a { color: #1769b0; text-decoration: none; }
+      h2 {
+        margin: 0.13in 0 0.06in;
+        padding-bottom: 0.045in;
+        border-bottom: 1px solid #c6d3df;
+        color: #174f80;
+        font-size: 10.3pt;
+        line-height: 1.1;
+        text-transform: uppercase;
+      }
+      h3 { margin: 0; font-size: 10.8pt; line-height: 1.15; }
+      p { margin: 0; }
+      ul { margin: 0.035in 0 0.075in 0.21in; padding: 0; }
+      li { margin: 0 0 0.015in; padding-left: 0.04in; }
+      .profile { font-size: 10pt; line-height: 1.35; }
+      .capabilities { display: grid; grid-template-columns: 1.32in 1fr; gap: 0.02in 0.12in; margin: 0; }
+      .capabilities dt { color: #1769b0; font-weight: 700; }
+      .capabilities dd { margin: 0; }
+      .role { margin-top: 0.075in; break-inside: avoid; }
+      .role-heading { display: flex; justify-content: space-between; gap: 0.2in; align-items: baseline; }
+      .period { flex: 0 0 auto; color: #65707d; font-size: 9.6pt; font-style: italic; font-weight: 700; }
+      .organization { margin-top: 0.015in; color: #1769b0; font-size: 10.1pt; font-weight: 700; }
+      .project { margin-top: 0.075in; break-inside: avoid; }
+      .project-title { color: #174f80; font-size: 10.7pt; font-weight: 700; }
+      .project-title a { color: #1769b0; text-decoration: none; }
+      .project-summary { margin-top: 0.015in; color: #65707d; font-style: italic; }
+      .continuation { margin: 0 0 0.04in; color: #65707d; font-size: 8.5pt; font-weight: 700; text-transform: uppercase; }
+      .education p { margin-top: 0.04in; }
+      .education strong { color: #174f80; }
+      .page-footer { position: absolute; right: 0.67in; bottom: 0.28in; color: #65707d; font-size: 8.5pt; }
+      .page { position: relative; }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+      @media screen {
+        body { padding: 0.25in 0; }
+        .page { box-shadow: 0 4px 20px rgba(13, 42, 76, 0.12); }
+      }
+      @media print {
+        html, body { background: #fff; }
+        body { padding: 0; }
+        .page { margin: 0; box-shadow: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main aria-label="Resume for Nicholas Perez">
+      <article class="page" aria-labelledby="resume-name">
+        <header>
+          <h1 id="resume-name">Nicholas Perez</h1>
+          <p class="tagline">IT Support Engineering&nbsp; | &nbsp;macOS &amp; SaaS Administration&nbsp; | &nbsp;Automation</p>
+          <address class="contact">
+            <a href="mailto:nicktperez@gmail.com">nicktperez@gmail.com</a><span>|</span>
+            <a href="tel:+19163079709">(916) 307-9709</a><span>|</span>
+            <a href="https://www.linkedin.com/in/nicholas-perez-47748773">linkedin.com/in/nicholas-perez-47748773</a><span>|</span>
+            <a href="https://github.com/nicktperez">github.com/nicktperez</a>
+          </address>
+        </header>
+
+        <section aria-labelledby="profile-heading">
+          <h2 id="profile-heading">Professional Profile</h2>
+          <p class="profile">IT Support and Operations Engineer with 10+ years of experience supporting macOS and mixed-device environments, administering Google Workspace, Slack, Atlassian, and identity and access systems, and improving employee lifecycle workflows. Experienced in fast-paced startups, county government, and remote-first environments with hands-on ownership of Jamf, Intune, documentation, AV support, escalations, and Bash automation. Known for clear user support and practical improvements that reduce repeat work.</p>
+        </section>
+
+        <section aria-labelledby="capabilities-heading">
+          <h2 id="capabilities-heading">Core Capabilities</h2>
+          <dl class="capabilities">
+            <dt>End-User Support</dt><dd>macOS, Windows, Mobile Devices, Executive Support, AV and Hybrid Meetings</dd>
+            <dt>SaaS &amp; Identity</dt><dd>Google Workspace, Slack, Atlassian, Azure AD, Active Directory, Access Management</dd>
+            <dt>Device Lifecycle</dt><dd>Jamf, Intune, Endpoint Management, Onboarding, Offboarding, Policy Enforcement</dd>
+            <dt>Automation &amp; AI</dt><dd>Bash, PowerShell, AI Project Development (Codex, Claude, Grok, Gemini), Documentation</dd>
+          </dl>
+        </section>
+
+        <section aria-labelledby="experience-heading">
+          <h2 id="experience-heading">Professional Experience</h2>
+
+          <section class="role" aria-labelledby="role-behavioral-health">
+            <div class="role-heading"><h3 id="role-behavioral-health">IT Department Specialist</h3><p class="period">Sept 2022 - Present</p></div>
+            <p class="organization">County of El Dorado - Behavioral Health</p>
+            <ul>
+              <li>Administer enterprise systems and applications for a specialized Behavioral Health department, providing day-to-day operational support for approximately 180 employees and contracted providers.</li>
+              <li>Own user lifecycle requests issued by HR, including account creation, modification, deactivation, permissions, and access changes across department applications.</li>
+              <li>Serve as an application support engineer for Netsmart's Avatar, customizing user interfaces, backend forms, and workflows used for state and government reporting.</li>
+              <li>Coordinate state- and vendor-driven application projects with internal stakeholders, outside counties, and partner agencies to keep systems current, compliant, and on schedule.</li>
+              <li>Identify recurring support issues and turn them into documentation, new-user training, twice-monthly office hours, and workflow improvements that reduce repeated requests.</li>
+              <li>Partner with supervisors, managers, and executives to establish priorities and project timelines while providing backup support and quality checks for Crystal Reports changes.</li>
+            </ul>
+          </section>
+
+          <section class="role" aria-labelledby="role-plug-and-play">
+            <div class="role-heading"><h3 id="role-plug-and-play">IT Specialist</h3><p class="period">Apr 2022 - Sept 2022</p></div>
+            <p class="organization">Plug and Play Tech Center</p>
+            <ul>
+              <li>Delivered Tier 1 through Executive IT support for the main company and served as the primary MSP-style resource for 13 separate startup companies, triaging requests through Slack, email, and Autotask/Datto in a fast-paced, remote-first environment.</li>
+              <li>Administered Google Workspace, Slack, Atlassian, SaaS licensing, and onboarding and offboarding workflows across organizations with different access and operational requirements.</li>
+              <li>Built Bash automation in Jamf for macOS provisioning and compliance tasks, reducing repetitive IT workload by more than 40% while improving setup consistency.</li>
+              <li>Troubleshot Jamf enrollment, configuration profiles, policies, and endpoint issues while maintaining access controls and security baselines across managed macOS devices.</li>
+              <li>Supported identity and access workflows across SaaS platforms, including SSO, MFA, user provisioning, permissions, and application integration concepts.</li>
+              <li>Coordinated hardware procurement, SaaS licensing, vendor escalations, Zoom Phone, and AV migrations to support distributed and global teams.</li>
+            </ul>
+          </section>
+
+          <section class="role" aria-labelledby="role-county-support">
+            <div class="role-heading"><h3 id="role-county-support">IT Customer Support Specialist II</h3><p class="period">Sept 2020 - Apr 2022</p></div>
+            <p class="organization">County of El Dorado</p>
+            <ul>
+              <li>Resolved more than 3,000 Tier 1 through Executive support requests during the first year across ticketing, email, phone, and onsite channels in an interrupt-driven environment.</li>
+              <li>Helped lead the countywide migration from Google Workspace to Microsoft 365, coordinating with vendors and internal stakeholders while serving as the Jamf MDM subject matter expert.</li>
+            </ul>
+          </section>
+        </section>
+      </article>
+
+      <article class="page" aria-label="Resume page 2">
+        <section aria-labelledby="experience-continued-heading">
+          <h2 id="experience-continued-heading" class="sr-only">Professional Experience continued</h2>
+          <p class="continuation">IT Customer Support Specialist II - continued</p>
+          <ul>
+            <li>Supported the migration of county endpoints from Jamf to Intune and administered Google Workspace, Microsoft 365, Jamf, Intune, Cisco tools, and business-critical applications.</li>
+            <li>Supported more than 1,000 employees during the transition to remote work across Windows, macOS, iOS, and Android, including troubleshooting deployment issues across all 300 county-issued iPhones.</li>
+            <li>Served as the primary IT contact for elected officials and executive leadership, including hands-on AV and network support for weekly hybrid public meetings.</li>
+            <li>Provided 24/7 emergency IT coverage during wildfire response operations, supporting displaced county employees and members of the public under time-sensitive conditions.</li>
+          </ul>
+
+          <section class="role" aria-labelledby="role-sbm">
+            <div class="role-heading"><h3 id="role-sbm">Help Desk Technician II</h3><p class="period">Nov 2018 - Sept 2020</p></div>
+            <p class="organization">SBM Management Services</p>
+            <ul>
+              <li>Led high-priority security projects, including disk encryption and VPN deployments across domain-joined computers, while enforcing endpoint controls across desktop, mobile, and cloud environments.</li>
+              <li>Resolved support requests across Windows, macOS, Linux, Active Directory, Exchange, MDM, file management, printers, mobile devices, and other workplace technology.</li>
+              <li>Managed new-hire onboarding and employee offboarding while creating technical documentation and solution guides for both technical and non-technical employees.</li>
+              <li>Supported office moves, workstation deployments, Windows imaging, and server installation in a colocation data center while administering VMware virtual machines and Cisco tools.</li>
+              <li>Provided after-hours troubleshooting for business-critical issues and supported Cisco VoIP and VPN clients, conference room receivers, projectors, and wired and wireless screen sharing.</li>
+            </ul>
+          </section>
+
+          <section class="role" aria-labelledby="role-supervisor">
+            <div class="role-heading"><h3 id="role-supervisor">Supervisor</h3><p class="period">June 2017 - Nov 2018</p></div>
+            <p class="organization">Geek Squad</p>
+            <ul>
+              <li>Oversaw daily repair operations and led a team of 10 technicians to meet service KPIs and turnaround expectations.</li>
+              <li>Assigned and prioritized diagnostic, repair, and follow-up work while resolving escalated customer and technical issues.</li>
+              <li>Reduced repair cycle times through process coaching, technical training, and consistent performance feedback.</li>
+            </ul>
+          </section>
+
+          <section class="role" aria-labelledby="role-repair-agent">
+            <div class="role-heading"><h3 id="role-repair-agent">Advanced Repair Agent</h3><p class="period">June 2015 - June 2017</p></div>
+            <p class="organization">Geek Squad</p>
+            <ul>
+              <li>Served as the Geek Squad precinct's ChromeOS subject matter expert while diagnosing and repairing complex Windows, macOS, and ChromeOS hardware and software issues.</li>
+              <li>Managed multiple repairs simultaneously, maintained detailed service documentation, and completed work within established turnaround expectations.</li>
+              <li>Partnered with customer-facing agents to communicate diagnostic findings, recommend solutions, and resolve escalated technical issues.</li>
+            </ul>
+          </section>
+        </section>
+
+        <section aria-labelledby="projects-heading">
+          <h2 id="projects-heading">Technical Projects</h2>
+          <article class="project">
+            <h3 class="project-title">Jamf Workflow Automation</h3>
+            <p class="project-summary">Operational automation for macOS provisioning and compliance.</p>
+            <ul><li>Built Bash scripts in Jamf to automate device setup and compliance tasks.</li><li>Reduced repetitive IT work by more than 40% and improved consistency across macOS workflows.</li></ul>
+          </article>
+          <article class="project">
+            <h3 class="project-title">SIEM Home Lab&nbsp; | &nbsp;<a href="https://github.com/nicktperez/siem-home-lab">github.com/nicktperez/siem-home-lab</a></h3>
+            <p class="project-summary">Centralized endpoint telemetry and detection validation using the Elastic Stack.</p>
+            <ul><li>Built the lab with Elasticsearch, Logstash, Kibana, Winlogbeat, Sysmon, and Windows Event Forwarding.</li><li>Developed dashboards and simulated attacks to validate detection logic for authentication, privilege, and persistence activity.</li></ul>
+          </article>
+          <article class="project">
+            <h3 class="project-title">Raspberry Pi Honeypot</h3>
+            <p class="project-summary">Internet-facing Cowrie environment for analyzing real-world SSH and Telnet activity.</p>
+            <ul><li>Captured more than 1,000 unauthorized login attempts within the first week.</li><li>Forwarded Cowrie activity into Elastic Stack and built dashboards to track attack sources, attempted credentials, and session behavior.</li></ul>
+          </article>
+        </section>
+
+        <section class="education" aria-labelledby="education-heading">
+          <h2 id="education-heading">Education &amp; Certifications</h2>
+          <p><strong>Associate of Science in Computer Science</strong> - Cosumnes River College</p>
+          <p><strong>Certificates</strong>&nbsp; Web Publishing, Web Programming&nbsp; | &nbsp;CompTIA Security+ in progress (Expected 2026)</p>
+          <p><strong>Current Course</strong>&nbsp; Harvard CS50's Introduction to Programming with Python (In Progress)</p>
+        </section>
+
+        <footer class="page-footer">Nicholas Perez&nbsp; | &nbsp;2</footer>
+      </article>
+    </main>
+  </body>
+</html>
