@@ -621,6 +621,9 @@ li {
   --poster-blue: #0b4dcc;
   --poster-red: #df4b2f;
   --poster-rule: #a9a9ab;
+  --poster-highlight: rgba(255, 255, 255, 0.7);
+  --poster-shade: rgba(0, 0, 0, 0.025);
+  --poster-scheme: light;
   position: relative;
   min-height: 100svh;
   padding:
@@ -630,11 +633,22 @@ li {
     max(1.5rem, env(safe-area-inset-left));
   overflow: hidden;
   background:
-    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.7), transparent 26%),
-    radial-gradient(circle at 78% 68%, rgba(0, 0, 0, 0.025), transparent 34%),
+    radial-gradient(circle at 12% 18%, var(--poster-highlight), transparent 26%),
+    radial-gradient(circle at 78% 68%, var(--poster-shade), transparent 34%),
     var(--poster-paper);
   color: var(--poster-ink);
-  color-scheme: light;
+  color-scheme: var(--poster-scheme);
+}
+
+:root[data-theme='dark'] .poster-hero {
+  --poster-paper: #14161b;
+  --poster-ink: #f1f0ec;
+  --poster-blue: #78a7ff;
+  --poster-red: #ff826b;
+  --poster-rule: #555a64;
+  --poster-highlight: rgba(120, 167, 255, 0.075);
+  --poster-shade: rgba(0, 0, 0, 0.24);
+  --poster-scheme: dark;
 }
 
 .poster-frame {
@@ -3090,4 +3104,60 @@ li {
     min-height: auto;
     padding: 1.5rem 0;
   }
+}
+
+/* Recruiter overview: identity, one project, and a short experience summary. */
+.intro-hero { min-height: auto; padding: 0; background: var(--poster-paper); }
+.intro-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.2rem; border-bottom: 1px solid var(--border); }
+.intro-brand { display: inline-flex; align-items: center; gap: .85rem; min-height: 44px; text-decoration: none; font-weight: 750; }
+.intro-nav nav { display: flex; align-items: center; gap: 1.5rem; }
+.intro-nav nav a { display: inline-flex; align-items: center; min-height: 44px; font-size: .9rem; font-weight: 650; text-decoration: none; }
+.intro-nav a:hover { color: var(--primary); }
+.intro-grid { display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; gap: clamp(2rem, 5vw, 4rem); padding-block: clamp(3rem, 6vw, 5rem); }
+.intro-location { max-width: 40ch; font-size: .875rem; line-height: 1.6; color: var(--muted-foreground); margin-bottom: 1.5rem; }
+.intro-copy h1 { font-family: 'Libre Caslon Display', Georgia, serif; font-size: clamp(3.7rem, 6.7vw, 6rem); line-height: .95; letter-spacing: -.035em; font-weight: 400; margin: 0 0 1.5rem; }
+.intro-copy h1 span { color: var(--poster-blue); }
+.intro-summary { max-width: 43ch; font-size: 1.06rem; line-height: 1.7; color: var(--muted-foreground); }
+.intro-actions { display: flex; align-items: center; gap: 1.5rem; margin-top: 1.75rem; }
+.intro-note { font-family: 'Caveat Variable', cursive; font-size: 1.5rem; color: var(--accent-dark); margin: 2rem 0 0; }
+.intro-project { min-width: 0; margin: 0; }
+.intro-project > a { display: block; border: 1px solid var(--border); background: var(--surface-strong); }
+.intro-project img { display: block; width: 100%; height: auto; }
+.intro-project figcaption { display: flex; gap: 1rem; justify-content: space-between; padding-top: 1.2rem; }
+.intro-project figcaption strong { font-size: 1.2rem; }
+.intro-project figcaption p { max-width: 45ch; margin: .5rem 0 0; font-size: .9rem; line-height: 1.6; color: var(--muted-foreground); }
+.intro-project figcaption > a { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 44px; height: 44px; color: var(--primary); }
+.experience-highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; padding-block: 1.6rem 2rem; border-top: 1px solid var(--border); }
+.experience-highlights p { margin: 0; font-size: .9rem; line-height: 1.6; color: var(--muted-foreground); }
+.experience-highlights strong { display: block; color: var(--foreground); margin-bottom: .35rem; }
+.role-details { margin-top: .7rem; }
+.role-details summary, .earlier-experience summary { min-height: 44px; padding-block: .75rem; color: var(--primary); cursor: pointer; font-weight: 650; font-size: .9rem; }
+.role-details ul { margin-top: .6rem; }
+.earlier-experience { border-bottom: 1px solid var(--border); padding-block: .75rem; }
+.project-caption { margin-top: .8rem; font-size: .875rem; line-height: 1.6; color: var(--muted-foreground); }
+.inline-project-demo { grid-column: 1 / -1; width: 100%; }
+.inline-project-demo .demo-reel { border: 0; padding-bottom: 0; }
+.inline-project-demo .demo-reel-heading, .inline-project-demo .demo-reel-copy { display: none; }
+.contact-invitation { padding: clamp(1.5rem, 4vw, 3rem); align-self: center; }
+.contact-invitation h3 { font-family: 'Libre Caslon Display', Georgia, serif; font-weight: 400; font-size: clamp(2rem, 3vw, 3rem); margin-bottom: 1rem; }
+.contact-invitation > p { max-width: 48ch; line-height: 1.7; color: var(--muted-foreground); }
+.contact-invitation > a { margin-top: 1rem; }
+summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+@media (max-width: 800px) {
+  .intro-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .intro-project { max-width: 640px; }
+  .intro-nav { flex-wrap: wrap; }
+  .intro-nav nav { gap: 1rem; }
+}
+@media (max-width: 520px) {
+  .intro-nav { gap: .65rem; }
+  .intro-nav nav { width: 100%; justify-content: space-between; gap: .5rem; }
+  .intro-nav nav a { font-size: .875rem; }
+  .intro-grid { padding-block: 2rem; }
+  .intro-location { margin-bottom: 1rem; }
+  .intro-copy h1 { font-size: clamp(3.3rem, 15vw, 4.5rem); }
+  .intro-summary { font-size: 1rem; }
+  .intro-note { font-size: 1.35rem; }
+  .experience-highlights { grid-template-columns: 1fr; gap: 1rem; }
+  .contact-invitation { padding-inline: 0; }
 }

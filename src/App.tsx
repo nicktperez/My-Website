@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  ArrowDown,
   ArrowUpRight,
   Check,
   Clipboard,
@@ -15,7 +14,7 @@ import ThemeToggle from './components/ThemeToggle';
 
 const homeNavigation = [
   { label: 'Experience', href: '#experience' },
-  { label: 'Work', href: '#work' },
+  { label: 'Projects', href: '#work' },
   { label: 'Capabilities', href: '#capabilities' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -23,7 +22,7 @@ const homeNavigation = [
 const workNavigation = [
   { label: 'Home', href: '/' },
   { label: 'Experience', href: '/#experience' },
-  { label: 'Work', href: '/work' },
+  { label: 'Projects', href: '/work' },
   { label: 'Capabilities', href: '/#capabilities' },
   { label: 'Contact', href: '/#contact' },
 ];
@@ -35,22 +34,22 @@ let activeDemoVideo: HTMLVideoElement | null = null;
 const capabilityGroups = [
   {
     title: 'Workplace technology',
-    description: 'Reliable support for the devices and tools people count on every day.',
+    description: 'Support and administration for employee devices, hardware, and workplace tools.',
     items: ['macOS & Windows', 'Jamf & Intune', 'Hardware lifecycle', 'Executive support'],
   },
   {
     title: 'Identity & collaboration',
-    description: 'Access management that protects the business without getting in people’s way.',
+    description: 'Account lifecycle, single sign-on, Microsoft 365, and Google Workspace administration.',
     items: ['Azure AD / Entra ID', 'Okta SSO', 'Microsoft 365', 'Google Workspace'],
   },
   {
     title: 'Security operations',
-    description: 'Security foundations shaped by years of endpoint and support experience.',
+    description: 'Endpoint telemetry, SIEM labs, incident response, and network security.',
     items: ['Elastic Stack', 'Sysmon telemetry', 'Incident response', 'Network security'],
   },
   {
     title: 'Automation & service',
-    description: 'Repeatable processes that reduce friction and give teams time back.',
+    description: 'Bash and PowerShell automation, onboarding workflows, documentation, and ticket operations.',
     items: ['Bash & PowerShell', 'Onboarding workflows', 'Knowledge management', 'Ticket operations'],
   },
 ];
@@ -67,12 +66,12 @@ const projectCases = [
     description: undefined,
     problem: 'Endpoint activity is noisy. The useful signal is usually buried across processes, files, and network events.',
     action: portfolioData.featuredProject.description,
-    outcome: 'Faster triage, clearer context, and a local-first investigation workflow that explains what deserves attention.',
+    outcome: 'The dashboard groups related activity, records why an event was flagged, and keeps collected data on the Mac.',
     metrics: undefined,
     footnote: undefined,
     experiment: undefined,
     stack: portfolioData.featuredProject.stack,
-    note: 'Signal over noise. Context before conclusions.',
+    note: 'Process, file, network, signing, and quarantine activity in one dashboard.',
     featured: true,
     isOrbitLab: false,
   },
@@ -86,13 +85,13 @@ const projectCases = [
       image: project.image,
       imageAlt: project.imageAlt,
       github: project.github,
-      lead: isOrbitLab ? 'Can a simulator recognize when precision matters?' : undefined,
+      lead: isOrbitLab ? 'An adaptive timestep experiment for eccentric orbits.' : undefined,
       description: isOrbitLab
         ? 'I built a native C++20 N-body workbench, then developed an experimental timestep controller that concentrates computation around the most demanding parts of an orbit.'
         : undefined,
       problem: isOrbitLab
         ? 'Fixed timesteps force a tradeoff: waste computation across an entire orbit or lose accuracy where the physics changes fastest.'
-        : 'Detection ideas are hard to trust without a safe place to generate data and investigate the result.',
+        : 'Detection rules need repeatable test data and a safe environment for reviewing the results.',
       action: isOrbitLab
         ? 'I developed the OrbitLab Adaptive Fidelity Method, combining acceleration, changing acceleration, and closing-encounter timescales into a deterministic timestep controller.'
         : project.description,
@@ -114,8 +113,8 @@ const projectCases = [
         : undefined,
       stack: project.stack,
       note: isOrbitLab
-        ? 'Form a hypothesis. Run it. Keep the failure.'
-        : 'Better questions make better detections.',
+        ? 'Adaptive and fixed-step benchmark results from the same starting conditions.'
+        : 'Synthetic events collected, parsed, detected, and reviewed in Elastic.',
       featured: false,
       isOrbitLab,
     };
@@ -129,29 +128,29 @@ const demoReels = [
     video: '/media/runtime-atlas-demo.mp4',
     poster: '/media/runtime-atlas-poster.jpg',
     description: 'An interactive execution laboratory that makes JavaScript order visible across source, runtime state, and an event timeline.',
-    outcome: 'It turns stack frames, scopes, heap references, queues, console output, and scheduler decisions into one replayable story.',
+    outcome: 'A recorded timeline shows stack frames, scopes, heap references, queues, console output, and scheduler decisions together.',
     stack: ['React', 'TypeScript', 'Web Workers', 'Acorn', 'IndexedDB'],
-    note: 'Step through the cause, not just the output.',
+    note: 'Replay JavaScript execution one event at a time.',
   },
   {
     title: 'NetScope',
     category: 'Network observability · incident simulation',
     video: '/media/netscope-demo.mp4',
     poster: '/media/netscope-poster.jpg',
-    description: 'A local-first observability application that connects live health signals and service dependencies into an explainable incident.',
-    outcome: 'It safely simulates failures, shows the downstream blast radius, and identifies probable root cause using dependency and timing evidence.',
+    description: 'A local observability application that combines service health, latency, dependencies, and event timing.',
+    outcome: 'A repeatable DNS failure shows the affected services, likely root cause, and recovery sequence.',
     stack: ['Go', 'React', 'SQLite', 'SSE', 'React Flow'],
-    note: 'A failure is more useful when the chain is visible.',
+    note: 'Trace a simulated DNS failure through seven connected services.',
   },
   {
     title: 'OrbitLab',
     category: 'N-body simulation · numerical systems',
     video: '/media/orbitlab-demo.mp4',
     poster: '/media/orbitlab-poster.jpg',
-    description: 'A native C++20 workbench that turns three-dimensional gravitational systems into controllable, inspectable experiments.',
-    outcome: 'It compares integrators and gravity solvers while exposing orbital elements, numerical drift, performance, and the live state behind every body.',
+    description: 'A native C++20 application for creating and running three-dimensional N-body simulations.',
+    outcome: 'The interface compares integrators and gravity solvers and reports orbital elements, numerical drift, and performance.',
     stack: ['C++20', 'SDL3', 'Dear ImGui', 'CMake', 'Catch2'],
-    note: 'Change the model. Watch the system answer.',
+    note: 'Compare numerical methods from the same initial conditions.',
   },
 ];
 
@@ -195,7 +194,7 @@ const DemoReel = ({ featured = false, number, title, category, video, poster, de
       </div>
       <figure className="demo-reel-visual">
         <div className="case-window-label">
-          <span>Motion exhibit {number}</span>
+          <span>Demo {number}</span>
           <span>Press play to view</span>
         </div>
         <video
@@ -213,7 +212,7 @@ const DemoReel = ({ featured = false, number, title, category, video, poster, de
           <source src={video} type="video/mp4" />
           Your browser does not support embedded video.
         </video>
-        <figcaption className="hand-note">{note}</figcaption>
+        <figcaption className="project-caption">{note}</figcaption>
       </figure>
       <div className="demo-reel-copy">
         <p>{description}</p>
@@ -297,7 +296,7 @@ const ProjectCaseFiles = () => (
 
         <figure className="case-visual">
           <div className="case-window-label">
-            <span>Exhibit {project.number}</span>
+            <span>{project.title}</span>
             <span>Captured locally</span>
           </div>
           <img
@@ -306,9 +305,10 @@ const ProjectCaseFiles = () => (
             loading={project.featured ? 'eager' : 'lazy'}
             decoding="async"
           />
-          <figcaption className="hand-note">{project.note}</figcaption>
+          <figcaption className="project-caption">{project.note}</figcaption>
         </figure>
 
+        {project.isOrbitLab && <div className="inline-project-demo"><DemoReel {...demoReels[2]} number="03" /></div>}
         <ul className="project-stack" aria-label={`${project.title} technology`}>
           {project.stack.map((item) => <li key={item}>{item}</li>)}
         </ul>
@@ -321,16 +321,16 @@ const MotionEvidence = () => (
   <section className="motion-evidence" aria-labelledby="motion-evidence-title">
     <div className="motion-evidence-heading">
       <div>
-        <span className="index-tab">Demo bench</span>
-        <h2 id="motion-evidence-title">Systems in motion.</h2>
+        <span className="index-tab">Recorded demos</span>
+        <h2 id="motion-evidence-title">Project demonstrations.</h2>
       </div>
       <p>
-        Static screens show the interface. These short recordings show
-        the systems changing state, explaining cause, and recovering.
+        These recordings show the main workflow of each project and the
+        information available while it runs.
       </p>
     </div>
     <div className="demo-reel-list">
-      {demoReels.map((demo, index) => (
+      {demoReels.filter((demo) => demo.title !== 'OrbitLab').map((demo, index) => (
         <DemoReel
           {...demo}
           featured={index === demoReels.length - 1}
@@ -346,7 +346,7 @@ const MoreWork = () => (
   <div className="more-work">
     <div className="more-work-heading">
       <div>
-        <h2>More builds, same curiosity.</h2>
+        <h2>Additional projects.</h2>
       </div>
       <a href={portfolioData.github} target="_blank" rel="noreferrer">
         All repositories
@@ -378,13 +378,13 @@ const SelectedWork = () => {
       <div className="page-width">
         <div className="section-heading selected-work-heading">
           <div>
-            <span className="chapter-label">Selected evidence</span>
+            <span className="chapter-label">Projects</span>
             <h2>Selected work.</h2>
           </div>
           <div>
             <p>
-              Two records of the same habit: solve the immediate problem, then leave
-              the system clearer and easier to support.
+              MacTrace is a local macOS activity monitor. The SIEM Home Lab runs
+              synthetic security events through collection, detection, and review.
             </p>
             <a className="text-link" href="/work">
               Explore all projects
@@ -398,11 +398,11 @@ const SelectedWork = () => {
             <article className="selected-record" key={project.title}>
               <figure>
                 <div className="case-window-label">
-                  <span>Selected record</span>
+                  <span>Selected project</span>
                   <span>{project.number}</span>
                 </div>
                 <img src={project.image} alt={project.imageAlt} loading="lazy" decoding="async" />
-                <figcaption className="hand-note">{project.note}</figcaption>
+                <figcaption className="project-caption">{project.note}</figcaption>
               </figure>
               <div className="selected-record-copy">
                 <p className="case-category">{project.category}</p>
@@ -419,7 +419,7 @@ const SelectedWork = () => {
                   </p>
                 ) : null}
                 <a className="project-link" href={`/work#${projectId(project.title)}`}>
-                  Read case file
+                  Read project details
                   <ArrowUpRight size={15} aria-hidden="true" />
                 </a>
               </div>
@@ -469,121 +469,56 @@ const ExperienceItem = ({ experience, index }: ExperienceItemProps) => {
       </div>
       <div className="timeline-content">
         <h4>{experience.role}</h4>
+        <div>
         <ul>
-          {experience.highlights.map((highlight) => (
+          {experience.highlights.slice(0, 2).map((highlight) => (
             <li key={highlight}>
               {highlight}
             </li>
           ))}
         </ul>
+        {experience.highlights.length > 2 && <details className="role-details"><summary>More about this role</summary><ul>{experience.highlights.slice(2).map((highlight) => <li key={highlight}>{highlight}</li>)}</ul></details>}
+        </div>
       </div>
     </article>
   );
 };
 
 const PosterHero = () => (
-  <section className="poster-hero" id="top" aria-labelledby="poster-title">
-    <div className="poster-frame">
-      <i className="registration-mark registration-mark--top-left" aria-hidden="true" />
-      <i className="registration-mark registration-mark--top-right" aria-hidden="true" />
-      <i className="registration-mark registration-mark--bottom-left" aria-hidden="true" />
-      <i className="registration-mark registration-mark--bottom-right" aria-hidden="true" />
-
-      <header className="poster-top-rail">
-        <p>Field record <span>/</span> 24-05-19</p>
+  <section className="poster-hero intro-hero" id="top" aria-labelledby="poster-title">
+    <div className="page-width">
+      <header className="intro-nav">
+        <a className="intro-brand" href="#top" aria-label="Nicholas Perez, top of page"><span className="brand-monogram">NP</span><span>Nicholas Perez</span></a>
         <nav aria-label="Homepage sections">
-          <a href="#experience">Systems</a>
-          <a href="#work">Security</a>
-          <a href="#contact">People</a>
-          <ThemeToggle className="poster-theme-toggle" />
+          <a href="#experience">Experience</a>
+          <a href="#work">Projects</a>
+          <a href="#contact">Contact</a>
+          <ThemeToggle />
         </nav>
       </header>
-
-      <div className="poster-grid">
-        <div className="poster-copy">
-          <a className="poster-monogram" href="#top" aria-label="Nicholas Perez, top of page">NP</a>
-
-          <h1 className="poster-title" id="poster-title">
-            <span>Technology</span>
-            <strong>Breaks.</strong>
-          </h1>
-
-          <div className="poster-callout">
-            <p>I’m the one<br />people call.</p>
-            <p className="poster-hand-note">Calm in the incident. Curious after it.</p>
+      <div className="intro-grid">
+        <div className="intro-copy">
+          <p className="intro-location">Sacramento, California · Open to hybrid &amp; remote roles</p>
+          <h1 id="poster-title">IT Systems<br /><span>Engineer.</span></h1>
+          <p className="intro-summary">10+ years supporting endpoints, identity, and workplace technology across government and startup environments.</p>
+          <div className="intro-actions">
+            <a className="button button-primary" href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">View résumé <ArrowUpRight size={17} aria-hidden="true" /></a>
+            <a className="text-link" href="#contact">Contact <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
-
-          <div className="poster-ledger">
-            <div className="poster-identity">
-              <p className="poster-ledger-label">Name <span aria-hidden="true">→</span></p>
-              <a href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">Nicholas Perez</a>
-              <p className="poster-ledger-label">Role <span aria-hidden="true">→</span></p>
-              <strong>IT Systems Engineer</strong>
-              <a className="poster-resume-link" href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">
-                View résumé <ArrowUpRight size={13} aria-hidden="true" />
-              </a>
-            </div>
-
-            <dl className="poster-methods">
-              <div>
-                <dt>Focus <span aria-hidden="true">→</span></dt>
-                <dd>System reliability<br />Security operations<br />Incident response</dd>
-              </div>
-              <div>
-                <dt>Approach <span aria-hidden="true">→</span></dt>
-                <dd>Investigate<br />Understand<br />Resolve</dd>
-              </div>
-              <div>
-                <dt>Method <span aria-hidden="true">→</span></dt>
-                <dd>Data-driven<br />Human-first<br />Document everything</dd>
-              </div>
-            </dl>
-          </div>
+          <p className="intro-note">Calm in the incident. Curious after it.</p>
         </div>
-
-        <aside className="poster-evidence" aria-label="Selected systems and security project evidence">
-          <div className="poster-evidence-grid">
-            <figure className="poster-shot poster-shot--mactrace">
-              <img src="/mactrace-dashboard.png" alt="MacTrace endpoint posture dashboard" />
-              <figcaption>Endpoint posture</figcaption>
-            </figure>
-            <figure className="poster-shot poster-shot--siem">
-              <img src="/siem-kibana-dashboard.png" alt="Elastic security analytics dashboard" />
-              <figcaption>Security analytics</figcaption>
-            </figure>
-            <div
-              className="poster-signal-card"
-              role="img"
-              aria-label="Raspberry Pi honeypot record showing more than 1,000 unauthorized login attempts captured during the first week"
-            >
-              <div className="poster-signal-heading">
-                <span>Field 04</span>
-                <span>Honeypot telemetry</span>
-              </div>
-              <svg className="poster-signal-chart" viewBox="0 0 420 120" aria-hidden="true">
-                <path d="M4 96 C28 91, 35 98, 57 85 S92 69, 112 82 S146 103, 169 69 S204 30, 230 54 S263 93, 285 64 S316 41, 337 56 S373 83, 416 18" />
-                <circle cx="416" cy="18" r="4" />
-              </svg>
-              <div className="poster-signal-metric">
-                <strong>1,000+</strong>
-                <span>Unauthorized login attempts<br />captured in the first week</span>
-              </div>
-              <p>SSH / Telnet / Elastic Stack</p>
-            </div>
-            <figure className="poster-shot poster-shot--orbit">
-              <img src="/orbitlab-screenshot.png" alt="OrbitLab simulation interface" />
-              <figcaption>Systems thinking</figcaption>
-            </figure>
-          </div>
-          <p className="poster-margin-note">Evidence first. Assumptions last.</p>
-        </aside>
+        <figure className="intro-project">
+          <a href="/work#mactrace" aria-label="Explore the MacTrace project">
+            <img src={portfolioData.featuredProject.image} alt={portfolioData.featuredProject.imageAlt} fetchPriority="high" decoding="async" />
+          </a>
+          <figcaption><div><strong>MacTrace</strong><p>Local macOS monitoring that connects endpoint activity and explains flagged events.</p></div><a href="/work#mactrace" aria-label="Read about MacTrace"><ArrowUpRight size={22} aria-hidden="true" /></a></figcaption>
+        </figure>
       </div>
-
-      <footer className="poster-bottom-rail">
-        <p>Observe <span>•</span> Analyze <span>•</span> Act</p>
-        <a href="#experience">Scroll to record <ArrowDown size={13} aria-hidden="true" /></a>
-        <p>Field notes. Not noise.</p>
-      </footer>
+      <div className="experience-highlights" aria-label="Experience highlights">
+        <p><strong>Public service</strong>Supporting 180+ staff and contractors.</p>
+        <p><strong>Startup operations</strong>IT support for 10+ startups.</p>
+        <p><strong>Endpoint management</strong>Migrated 1,000+ devices to Intune.</p>
+      </div>
     </div>
   </section>
 );
@@ -653,7 +588,7 @@ const App = () => {
   }, [isWorkPage, navigation]);
 
   const isNavigationActive = (label: string, href: string) => (
-    isWorkPage ? label === 'Work' : activeSection === href.slice(1)
+    isWorkPage ? label === 'Projects' : activeSection === href.slice(1)
   );
 
   return (
@@ -733,25 +668,25 @@ const App = () => {
           <>
             <section className="work-archive-hero page-width" id="top">
               <div>
-                <span className="index-tab">Field archive</span>
-                <h1>Builds, experiments, and working evidence.</h1>
+                <span className="index-tab">Work</span>
+                <h1>Project archive.</h1>
               </div>
               <div className="work-archive-intro">
                 <p>
-                  The deeper technical record: what I built, the problem behind it,
-                  what changed, and the evidence that survived the experiment.
+                  Security, observability, simulation, and JavaScript projects with
+                  screenshots, recorded demos, implementation details, and benchmarks.
                 </p>
                 <a className="text-link" href="/#experience">
                   Start with experience
                   <ArrowUpRight size={16} aria-hidden="true" />
                 </a>
-                <p className="hand-note">Open the case file. Check the assumptions.</p>
+                <p className="project-caption">Project source and technical notes are linked where available.</p>
               </div>
             </section>
 
             <section className="work-section work-archive-section" id="work">
               <div className="page-width">
-                <h2 className="sr-only">Project case files</h2>
+                <h2 className="sr-only">Project details</h2>
                 <ProjectCaseFiles />
                 <MotionEvidence />
                 <MoreWork />
@@ -761,25 +696,25 @@ const App = () => {
         ) : (
           <>
         <PosterHero />
+        <SelectedWork />
 
         <section className="section experience-section manual-chapter" id="experience">
           <div className="page-width">
             <div className="section-heading">
               <div>
-                <span className="chapter-label">Complete work record</span>
+                <span className="chapter-label">Employment history</span>
                 <h2>Experience.</h2>
               </div>
               <div>
                 <p>
-                  Ten years across public service, startups, managed environments,
-                  and customer-facing operations. Every role stays open here because
-                  the details are the evidence.
+                  More than 10 years in public-sector IT, startup support, device
+                  management, identity administration, and customer-facing operations.
                 </p>
               </div>
             </div>
 
             <div className="timeline">
-              {portfolioData.experience.map((experience, index) => (
+              {portfolioData.experience.slice(0, 3).map((experience, index) => (
                 <ExperienceItem
                   experience={experience}
                   index={index}
@@ -787,21 +722,25 @@ const App = () => {
                 />
               ))}
             </div>
+            <details className="earlier-experience">
+              <summary>Earlier experience · SBM Management Services &amp; Geek Squad</summary>
+              {portfolioData.experience.slice(3).map((experience, index) => (
+                <ExperienceItem experience={experience} index={index + 3} key={experience.company} />
+              ))}
+            </details>
           </div>
         </section>
-
-        <SelectedWork />
 
         <section className="section capabilities-section manual-chapter" id="capabilities">
           <div className="page-width">
             <div className="section-heading capabilities-heading">
               <div>
-                <span className="chapter-label">Field kit</span>
+                <span className="chapter-label">Tools and experience</span>
                 <h2>Capabilities.</h2>
               </div>
               <p>
-                Tools change. Diagnosis, communication, documentation, and thoughtful
-                execution are the skills that keep paying off.
+                Experience with endpoint management, identity platforms, collaboration
+                suites, security operations, scripting, and technical support.
               </p>
             </div>
 
@@ -854,7 +793,7 @@ const App = () => {
             <a href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">Résumé</a>
             <CopyEmailButton />
           </div>
-          <p className="copyright">© {new Date().getFullYear()} Nicholas Perez · Built with care, not hype.</p>
+          <p className="copyright">© {new Date().getFullYear()} Nicholas Perez</p>
         </div>
       </footer>
 

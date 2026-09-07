@@ -5,26 +5,8 @@ import { portfolioData } from '../data';
 const linkedInUrl = 'https://www.linkedin.com/in/nicholas-perez-47748773/';
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
   const [status, setStatus] = useState('');
   const [copied, setCopied] = useState(false);
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const subject = encodeURIComponent(formData.subject);
-    const body = encodeURIComponent(
-      `Hi Nicholas,\n\n${formData.message}\n\nBest,\n${formData.name}\n${formData.email}`,
-    );
-
-    setStatus(`Your email app is opening. If it does not, copy ${portfolioData.email} below.`);
-    window.location.href = `mailto:${portfolioData.email}?subject=${subject}&body=${body}`;
-  };
 
   const copyEmail = async () => {
     try {
@@ -41,7 +23,7 @@ const ContactForm = () => {
     <section className="contact-section manual-chapter" id="contact">
       <div className="page-width contact-layout">
         <div className="contact-intro">
-          <p className="chapter-label">Open channel</p>
+          <p className="chapter-label">Contact</p>
           <h2>Contact.</h2>
           <p>
             I’m a Sacramento-based IT Systems Engineer open to Bay Area hybrid
@@ -63,58 +45,12 @@ const ContactForm = () => {
           </div>
         </div>
 
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <div className="form-row">
-            <label>
-              <span>Name</span>
-              <input
-                required
-                autoComplete="name"
-                value={formData.name}
-                onChange={(event) => setFormData({ ...formData, name: event.target.value })}
-                placeholder="Your name"
-              />
-            </label>
-            <label>
-              <span>Email</span>
-              <input
-                required
-                type="email"
-                autoComplete="email"
-                value={formData.email}
-                onChange={(event) => setFormData({ ...formData, email: event.target.value })}
-                placeholder="you@company.com"
-              />
-            </label>
-          </div>
-          <label>
-            <span>Subject</span>
-            <input
-              required
-              value={formData.subject}
-              onChange={(event) => setFormData({ ...formData, subject: event.target.value })}
-              placeholder="Role, project, or question"
-            />
-          </label>
-          <label>
-            <span>Message</span>
-            <textarea
-              required
-              rows={5}
-              value={formData.message}
-              onChange={(event) => setFormData({ ...formData, message: event.target.value })}
-              placeholder="Tell me a little about what you’re working on."
-            />
-          </label>
-          <div className="form-footer">
-            <p>Your message opens in your email app, so nothing is sent without your review.</p>
-            <button className="button button-contact" type="submit">
-              Prepare email
-              <ArrowUpRight size={17} aria-hidden="true" />
-            </button>
-          </div>
+        <div className="contact-invitation">
+          <h3>Let’s talk about your team.</h3>
+          <p>For IT systems, endpoint management, or automation opportunities, send me a note with the role and what your team needs.</p>
+          <a className="button button-primary" href={`mailto:${portfolioData.email}`}>Email Nicholas <ArrowUpRight size={17} aria-hidden="true" /></a>
           <p className="form-status" aria-live="polite">{status}</p>
-        </form>
+        </div>
       </div>
     </section>
   );

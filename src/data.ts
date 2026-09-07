@@ -4,7 +4,7 @@ export const portfolioData = {
     email: "nicktperez@gmail.com",
     location: "Sacramento, CA",
     github: "https://github.com/nicktperez",
-    summary: "IT systems professional with 10+ years of experience supporting people, endpoints, identity, and workplace technology. Combines high-trust support with automation and practical security operations.",
+    summary: "IT systems professional with 10+ years of experience supporting people, endpoints, identity, workplace technology, automation, and security operations.",
     skills: [
         { name: "macOS & Windows Admin", icon: "Monitor" },
         { name: "Jamf & Intune (MDM)", icon: "Shield" },
@@ -22,7 +22,7 @@ export const portfolioData = {
         github: "https://github.com/nicktperez/MacTrace",
         image: "/mactrace-dashboard.png",
         imageAlt: "MacTrace endpoint security dashboard showing synthetic risk, detections, event volume, and severity",
-        description: "I built MacTrace to make endpoint activity easier to interpret. It collects security-relevant macOS metadata locally, connects related behaviors, and explains what deserves a closer look.",
+        description: "MacTrace collects security-relevant macOS metadata locally, correlates process, file, network, signing, and quarantine activity, and records why an event was flagged.",
         highlights: [
             "Correlates related endpoint activity across eight explainable detection rules.",
             "Streams live events through FastAPI and WebSockets into a responsive investigation dashboard.",
@@ -39,7 +39,7 @@ export const portfolioData = {
             image: "/siem-kibana-dashboard.png",
             imageAlt: "Kibana visualization showing counts of simulated failed SSH authentication events",
             description: "I built an Elastic Stack lab that carries synthetic security events from collection and parsing through detection, triage, and documented investigation.",
-            outcome: "It demonstrates a complete analyst workflow—not just a dashboard.",
+            outcome: "The lab covers event collection, parsing, detection, triage, and a documented investigation.",
             stack: ["Elastic Stack", "Filebeat", "Logstash", "Docker", "Python"]
         },
         {
@@ -49,7 +49,7 @@ export const portfolioData = {
             image: "/orbitlab-screenshot.png",
             imageAlt: "OrbitLab desktop application simulating a three-dimensional orbital system",
             description: "I built a C++20 desktop simulator for creating and studying N-body systems with multiple physics solvers, performance tools, and numerical tests.",
-            outcome: "It demonstrates systems design through measurable, reproducible experiments.",
+            outcome: "The project includes multiple solvers, performance measurements, numerical tests, and reproducible benchmarks.",
             stack: ["C++20", "SDL 3", "Dear ImGui", "CMake", "Catch2"]
         }
     ],
@@ -82,7 +82,7 @@ export const portfolioData = {
                 "Provide frontline IT support for 180+ staff and contractors resolving hardware, software, and network issues.",
                 "Led onboarding trainings and built documentation that reduced repeat tickets by 30%.",
                 "Supported Netsmart Avatar workflows and Crystal Reports output.",
-                "Partnered with cross-functional stakeholders to streamline processes and prioritize IT projects."
+                "Worked with other departments to improve processes and prioritize IT projects."
             ]
         },
         {

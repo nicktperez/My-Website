@@ -67,10 +67,20 @@ test('theme persists and updates browser chrome color', async ({ page }) => {
   await page.goto('/')
   await page.evaluate(() => localStorage.setItem('portfolio-theme', 'light'))
   await page.reload({ waitUntil: 'networkidle' })
+  const lightPoster = await page.locator('.poster-hero').evaluate((element) => {
+    const style = getComputedStyle(element)
+    return { backgroundColor: style.backgroundColor, color: style.color, scheme: style.colorScheme }
+  })
   await page.getByRole('button', { name: 'Switch to dark theme' }).click()
 
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#17191e')
+  const darkPoster = await page.locator('.poster-hero').evaluate((element) => {
+    const style = getComputedStyle(element)
+    return { backgroundColor: style.backgroundColor, color: style.color, scheme: style.colorScheme }
+  })
+  expect(darkPoster).not.toEqual(lightPoster)
+  expect(darkPoster.scheme).toBe('dark')
   await page.reload({ waitUntil: 'networkidle' })
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
 })

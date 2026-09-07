@@ -45,9 +45,9 @@ describe('portfolio routes', () => {
     setRoute('/work');
     render(<App />);
 
-    expect(screen.getByRole('heading', { level: 1, name: 'Builds, experiments, and working evidence.' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 2, name: 'Project case files' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 2, name: 'Systems in motion.' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Project archive.' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Project details' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Project demonstrations.' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 3, name: 'Runtime Atlas' })).toBeInTheDocument();
   });
 
