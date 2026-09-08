@@ -11,6 +11,7 @@ import {
 import { portfolioData } from './data';
 import ContactForm from './components/ContactForm';
 import ThemeToggle from './components/ThemeToggle';
+import DeskHome from './components/DeskHome';
 
 const homeNavigation = [
   { label: 'Experience', href: '#experience' },
@@ -484,45 +485,6 @@ const ExperienceItem = ({ experience, index }: ExperienceItemProps) => {
   );
 };
 
-const PosterHero = () => (
-  <section className="poster-hero intro-hero" id="top" aria-labelledby="poster-title">
-    <div className="page-width">
-      <header className="intro-nav">
-        <a className="intro-brand" href="#top" aria-label="Nicholas Perez, top of page"><span className="brand-monogram">NP</span><span>Nicholas Perez</span></a>
-        <nav aria-label="Homepage sections">
-          <a href="#experience">Experience</a>
-          <a href="#work">Projects</a>
-          <a href="#contact">Contact</a>
-          <ThemeToggle />
-        </nav>
-      </header>
-      <div className="intro-grid">
-        <div className="intro-copy">
-          <p className="intro-location">Sacramento, California · Open to hybrid &amp; remote roles</p>
-          <h1 id="poster-title">IT Systems<br /><span>Engineer.</span></h1>
-          <p className="intro-summary">10+ years supporting endpoints, identity, and workplace technology across government and startup environments.</p>
-          <div className="intro-actions">
-            <a className="button button-primary" href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">View résumé <ArrowUpRight size={17} aria-hidden="true" /></a>
-            <a className="text-link" href="#contact">Contact <ArrowUpRight size={17} aria-hidden="true" /></a>
-          </div>
-          <p className="intro-note">Calm in the incident. Curious after it.</p>
-        </div>
-        <figure className="intro-project">
-          <a href="/work#mactrace" aria-label="Explore the MacTrace project">
-            <img src={portfolioData.featuredProject.image} alt={portfolioData.featuredProject.imageAlt} fetchPriority="high" decoding="async" />
-          </a>
-          <figcaption><div><strong>MacTrace</strong><p>Local macOS monitoring that connects endpoint activity and explains flagged events.</p></div><a href="/work#mactrace" aria-label="Read about MacTrace"><ArrowUpRight size={22} aria-hidden="true" /></a></figcaption>
-        </figure>
-      </div>
-      <div className="experience-highlights" aria-label="Experience highlights">
-        <p><strong>Public service</strong>Supporting 180+ staff and contractors.</p>
-        <p><strong>Startup operations</strong>IT support for 10+ startups.</p>
-        <p><strong>Endpoint management</strong>Migrated 1,000+ devices to Intune.</p>
-      </div>
-    </div>
-  </section>
-);
-
 const App = () => {
   const isWorkPage = window.location.pathname.replace(/\/+$/, '') === '/work';
   const navigation = isWorkPage ? workNavigation : homeNavigation;
@@ -694,11 +656,9 @@ const App = () => {
             </section>
           </>
         ) : (
-          <>
-        <PosterHero />
-        <SelectedWork />
-
-        <section className="section experience-section manual-chapter" id="experience">
+          <DeskHome
+            projects={<SelectedWork />}
+            experience={<section className="section experience-section manual-chapter" id="experience">
           <div className="page-width">
             <div className="section-heading">
               <div>
@@ -729,9 +689,8 @@ const App = () => {
               ))}
             </details>
           </div>
-        </section>
-
-        <section className="section capabilities-section manual-chapter" id="capabilities">
+        </section>}
+            capabilities={<section className="section capabilities-section manual-chapter" id="capabilities">
           <div className="page-width">
             <div className="section-heading capabilities-heading">
               <div>
@@ -772,14 +731,14 @@ const App = () => {
               </div>
             </div>
           </div>
-        </section>
-
-        <ContactForm />
-          </>
+        </section>}
+            contact={<ContactForm />}
+            orbit={<section className="desk-orbit-panel"><h2>OrbitLab</h2><p>A C++20 workbench for exploring gravitational systems and comparing numerical methods.</p><DemoReel {...demoReels[2]} number="01" /><a className="text-link" href="/work#orbitlab">Explore the experiment <ArrowUpRight size={16} aria-hidden="true" /></a></section>}
+          />
         )}
       </main>
 
-      <footer className="site-footer">
+      {isWorkPage && <footer className="site-footer">
         <div className="page-width footer-inner">
           <div>
             <strong>Nicholas Perez</strong>
@@ -795,7 +754,7 @@ const App = () => {
           </div>
           <p className="copyright">© {new Date().getFullYear()} Nicholas Perez</p>
         </div>
-      </footer>
+      </footer>}
 
     </div>
   );

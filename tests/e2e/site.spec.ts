@@ -6,6 +6,30 @@ const routes = [
   { path: '/work', title: 'Project Archive | Nicholas Perez' },
 ]
 
+test('desk objects open accessible panels and restore keyboard focus', async ({ page }) => {
+  await page.goto('/')
+  const photo = page.locator('.desk-photo')
+  await expect(photo).toBeVisible()
+  expect(await photo.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true)
+  const projects = page.locator('.desk-monitor')
+  await projects.click()
+  const panel = page.getByRole('dialog', { name: 'Projects', exact: true })
+  await expect(panel).toBeVisible()
+  await expect(panel.getByText('MacTrace', { exact: true }).first()).toBeVisible()
+  const accessibility = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
+  expect(accessibility.violations).toEqual([])
+  await page.keyboard.press('Escape')
+  await expect(panel).not.toBeVisible()
+  await expect(projects).toBeFocused()
+  await page.locator('.desk-orbit').click()
+  await expect(page.getByRole('dialog', { name: 'OrbitLab', exact: true })).toBeVisible()
+  await expect(page.locator('video')).toHaveCount(1)
+  await page.getByRole('button', { name: 'Close panel and return to desk' }).click()
+  await expect(page.locator('video')).toHaveCount(0)
+  await page.goto('/#contact')
+  await expect(page.getByRole('dialog', { name: 'Contact', exact: true })).toBeVisible()
+})
+
 const expectHealthyPage = async (page: Page, path: string, title: string) => {
   const consoleErrors: string[] = []
   const pageErrors: string[] = []
