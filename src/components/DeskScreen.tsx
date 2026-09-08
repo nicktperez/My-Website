@@ -52,7 +52,7 @@ export default function DeskScreen({ paused, panel }: Props) {
       text('↗    +', x + width - 77, y + 29, 20, '#666');
       text(title, x + 24, y + 86, 16, '#373c43', '600');
     }
-    function editor(characters: number, terminal: boolean) {
+    function editor(characters: number, terminal: boolean, failing: boolean, fixed: boolean) {
       rect(20, 40, 960, 520, '#1e222b', 10); rect(20, 40, 960, 33, '#30343e', 10); lights(39, 56);
       text('orbit.py — workbench', 418, 61, 13, '#c4c9d2');
       rect(20, 74, 40, 465, '#252933'); rect(60, 74, 144, 465, '#20242d');
@@ -61,7 +61,8 @@ export default function DeskScreen({ paused, panel }: Props) {
       text('⌄ experiments', 83, 153, 12); rect(61, 163, 142, 25, '#333b4b'); text('  ◇ orbit.py', 85, 180, 12, '#d9c18e');
       text('  README.md', 85, 207, 12, '#a7b3c4'); text('  requirements.txt', 85, 235, 11, '#a7b3c4');
       rect(205, 74, 131, 29, '#282e39'); text('◇ orbit.py   ×', 222, 94, 12); text('experiments  ›  orbit.py', 220, 124, 11, '#8390a3');
-      const shown = DEMO_CODE.slice(0, characters).split('\n');
+      const source = fixed ? DEMO_CODE : DEMO_CODE.replace('bx, by = acceleration(x, y)', 'bx, by = ax, ay');
+      const shown = source.slice(0, characters).split('\n');
       shown.forEach((line, index) => {
         const y = 149 + index * 15;
         if (terminal && y > 421) return;
@@ -74,7 +75,7 @@ export default function DeskScreen({ paused, panel }: Props) {
       if (terminal) {
         rect(205, 432, 775, 105, '#191d25'); text('PROBLEMS     OUTPUT     TERMINAL', 222, 451, 10, '#a9b6c8');
         text('nick@workbench % python3 experiments/orbit.py', 222, 475, 12);
-        text('Energy: -0.50000000', 222, 497, 12, '#a6c692'); text('Orbit check passed', 222, 519, 12, '#a6c692');
+        text(failing ? 'AssertionError: energy drift exceeds tolerance' : 'Energy: -0.50000000', 222, 497, 12, failing ? '#e79589' : '#a6c692'); text(failing ? 'Investigate the acceleration update in orbit.py' : 'Orbit check passed', 222, 519, 12, failing ? '#e79589' : '#a6c692');
       }
       rect(20, 539, 960, 21, '#2d4359'); text('⑂ main     ✓ 0 errors', 34, 554, 11); text('Python 3     UTF-8     Spaces: 4', 742, 554, 11);
     }
@@ -91,13 +92,29 @@ export default function DeskScreen({ paused, panel }: Props) {
       wallpaper.addColorStop(0, '#263b60'); wallpaper.addColorStop(.5, '#805b86'); wallpaper.addColorStop(1, '#bd857d');
       ctx!.fillStyle = wallpaper; ctx!.fillRect(0, 0, 1000, 620);
       ctx!.fillStyle = '#263854'; ctx!.beginPath(); ctx!.moveTo(0, 500); ctx!.bezierCurveTo(270, 205, 400, 660, 1000, 285); ctx!.lineTo(1000, 620); ctx!.lineTo(0, 620); ctx!.fill();
-      const time = clock.current % 34000;
-      const researching = time >= 11000 && time < 19500;
-      canvas!.dataset.scene = panel ? 'opening-browser' : researching ? 'research' : time > 28000 ? 'terminal' : 'editor';
+      const time = clock.current % 46000;
+      const researching = time >= 13000 && time < 21000;
+      canvas!.dataset.scene = panel ? 'opening-browser' : researching ? 'research' : time >= 35000 ? 'orbit-result' : time >= 31000 ? 'terminal' : time >= 9000 && time < 13000 ? 'error' : 'editor';
       const app = panel || researching ? 'Safari' : 'Code';
       rect(0, 0, 1000, 25, '#e0dbe3'); text('●', 17, 18, 17, '#252734'); text(app, 45, 17, 12, '#222633', '700'); text('File   Edit   View   Go   Window   Help', 96, 17, 12, '#30303a'); text('Wi-Fi    100%     Mon 9:41 AM', 808, 17, 11, '#30303a');
-      const chars = time < 11000 ? Math.min(380, Math.floor(165 + time / 24)) : time < 19500 ? 380 : Math.min(DEMO_CODE.length, 380 + Math.floor((time - 19500) / 18));
-      editor(chars, time > 28000);
+      const failing = time >= 9000 && time < 13000;
+      const fixed = time >= 25500;
+      const chars = time < 9000 ? Math.min(DEMO_CODE.length, 165 + Math.floor(time / 10)) : DEMO_CODE.length;
+      editor(chars, failing || time >= 31000, failing, fixed);
+      if (time >= 21000 && time < 28000) {
+        rect(247, 346, 535, 18, '#a5ba7629');
+        text(time < 25500 ? 'Rechecking the acceleration at the new position…' : 'Updated: evaluate acceleration after moving the body.', 262, 505, 13, '#b9cb99');
+      }
+      if (time >= 35000) {
+        safari('Orbit experiment — result', 'localhost:8000/orbit');
+        rect(52, 151, 896, 380, '#172531', 6);
+        text('Velocity Verlet · 10,000 steps', 75, 183, 16, '#d9e4ea');
+        ctx!.strokeStyle = '#70899e'; ctx!.lineWidth = 1.5; ctx!.beginPath(); ctx!.ellipse(485, 342, 208, 127, 0, 0, Math.PI * 2); ctx!.stroke();
+        const angle = (time - 35000) / 1500;
+        rect(479, 336, 12, 12, '#eac277', 6);
+        rect(478 + Math.cos(angle) * 208, 335 + Math.sin(angle) * 127, 14, 14, '#83b8d7', 7);
+        text('Energy: −0.50000000   •   Orbit check passed', 75, 503, 15, '#adc89f');
+      }
       if (researching) {
         safari('Stack Overflow', 'stackoverflow.com/questions/34651818');
         text('stack', 60, 174, 21, '#383f47'); text('overflow', 105, 174, 21, '#383f47', '700'); rect(60, 184, 870, 2, '#e6e3df');
@@ -115,21 +132,10 @@ export default function DeskScreen({ paused, panel }: Props) {
       ['#69b8df', '#cbe6f1', '#367db4', '#202631', '#dca46b', '#939ead'].forEach((color, index) => {
         rect(344 + index * 53, 580, 29, 28, color, 7); text(['☺', '◈', '〈〉', '>_', '▤', '⚙'][index], 349 + index * 53, 600, 16, index === 3 ? '#dfe7e7' : '#25334a');
       });
-      if (panel) {
-        const progress = motion.matches ? 1 : Math.min(1, (now - started) / 420);
-        const ease = 1 - (1 - progress) ** 3;
-        ctx!.save(); ctx!.translate(500, 590); ctx!.scale(.08 + .92 * ease, .08 + .92 * ease); ctx!.translate(-500, -590); ctx!.globalAlpha = ease;
-        safari('Nicholas Perez', `nicholastperez.com/#${panel.toLowerCase()}`);
-        text(panel, 68, 221, 38, '#222b33', '600');
-        text('IT systems engineer. Curious builder.', 70, 260, 18, '#677078');
-        rect(70, 300, 848, 1, '#dededb');
-        text('Nicholas Perez', 70, 347, 18, '#36404a');
-        text('Opening ' + panel.toLowerCase() + '…', 70, 381, 15, '#677078');
-        ctx!.restore();
-      } else {
+      if (!panel) {
         // Deliberate movement between editor, Safari dock icon, and the article.
         const points = researching ? [[411, 593], [461, 222], [560, 371], [464, 593]] : [[465, 593], [430, 232], [660, 410], [411, 593]];
-        const phase = researching ? (time - 11000) / 8500 : (time < 11000 ? time / 11000 : (time - 19500) / 14500);
+        const phase = researching ? (time - 13000) / 8000 : (time < 13000 ? time / 13000 : (time - 21000) / 25000);
         const pos = Math.min(2.999, phase * 3), i = Math.floor(pos), t = (pos - i) ** 2 * (3 - 2 * (pos - i));
         const x = points[i][0] + (points[i + 1][0] - points[i][0]) * t, y = points[i][1] + (points[i + 1][1] - points[i][1]) * t;
         ctx!.fillStyle = '#fff'; ctx!.strokeStyle = '#20252e'; ctx!.lineWidth = 1.2; ctx!.beginPath(); ctx!.moveTo(x, y); ctx!.lineTo(x + 2, y + 18); ctx!.lineTo(x + 7, y + 13); ctx!.lineTo(x + 14, y + 11); ctx!.closePath(); ctx!.fill(); ctx!.stroke();

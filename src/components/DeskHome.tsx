@@ -68,10 +68,10 @@ export default function DeskHome({ projects, experience, capabilities, orbit, co
         const x = width / 2 - (box.left + box.width / 2);
         const y = height / 2 - (box.top + box.height / 2);
         scene.style.transformOrigin = `${box.left + box.width / 2 - sceneBox.left}px ${box.top + box.height / 2 - sceneBox.top}px`;
-        const timing = { delay: 560, duration: 850, easing: 'cubic-bezier(.22,.8,.25,1)', fill: 'both' as const };
+        const timing = { duration: 1450, easing: 'cubic-bezier(.22,.8,.25,1)', fill: 'both' as const };
         animations.current = [
-          scene.animate([{ transform: 'translate(0,0) scale(1)' }, { transform: `translate(${x}px, ${y}px) scale(${scale})` }], timing),
-          dialog.animate([{ transform: from, opacity: 0 }, { opacity: 0, offset: .52 }, { transform: 'none', opacity: 1 }], timing),
+          scene.animate([{ transform: 'translate(0,0) scale(1)' }, { transform: 'translate(0,0) scale(1)', offset: .4 }, { transform: `translate(${x}px, ${y}px) scale(${scale})` }], timing),
+          dialog.animate([{ transform: from + ' scale(.92)', opacity: 0 }, { transform: from, opacity: 1, offset: .2 }, { transform: from, opacity: 1, offset: .4 }, { transform: 'none', opacity: 1 }], timing),
         ];
       }
       dialog.scrollTop = 0;
