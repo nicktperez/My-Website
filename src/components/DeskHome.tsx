@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { ArrowUpRight, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import DeskActivity from './DeskActivity';
+import DeskScreen from './DeskScreen';
+import { browserQuad, perspectiveMatrix } from './deskGeometry';
 import './desk.css';
 
 type Panel = 'work' | 'experience' | 'capabilities' | 'orbitlab' | 'contact';
@@ -19,7 +21,6 @@ export default function DeskHome({ projects, experience, capabilities, orbit, co
   const [active, setActive] = useState<Panel | null>(panelFromHash);
   const [paused, setPaused] = useState(false);
   const sceneRef = useRef<HTMLDivElement>(null);
-  const screenRef = useRef<HTMLDivElement>(null);
   const animations = useRef<Animation[]>([]);
   const closing = useRef(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -54,21 +55,23 @@ export default function DeskHome({ projects, experience, capabilities, orbit, co
     if (active) {
       const previousOverflow = document.body.style.overflow;
       dialog.showModal();
-      const box = screenRef.current?.getBoundingClientRect();
       const scene = sceneRef.current;
-      if (box && scene && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const stageBox = scene?.getBoundingClientRect();
+      const quad = stageBox ? browserQuad(stageBox) : null;
+      const box = quad ? { left: Math.min(...quad.map(p => p.x)), top: Math.min(...quad.map(p => p.y)), width: Math.max(...quad.map(p => p.x)) - Math.min(...quad.map(p => p.x)), height: Math.max(...quad.map(p => p.y)) - Math.min(...quad.map(p => p.y)) } : null;
+      if (box && quad && scene && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         const width = window.innerWidth;
         const height = window.innerHeight;
-        const from = `translate(${box.left}px, ${box.top}px) scale(${box.width / width}, ${box.height / height})`;
+        const from = perspectiveMatrix(quad, width, height);
         const sceneBox = scene.getBoundingClientRect();
         const scale = Math.max(width / box.width, height / box.height);
         const x = width / 2 - (box.left + box.width / 2);
         const y = height / 2 - (box.top + box.height / 2);
         scene.style.transformOrigin = `${box.left + box.width / 2 - sceneBox.left}px ${box.top + box.height / 2 - sceneBox.top}px`;
-        const timing = { duration: 850, easing: 'cubic-bezier(.22,.8,.25,1)', fill: 'both' as const };
+        const timing = { delay: 560, duration: 850, easing: 'cubic-bezier(.22,.8,.25,1)', fill: 'both' as const };
         animations.current = [
           scene.animate([{ transform: 'translate(0,0) scale(1)' }, { transform: `translate(${x}px, ${y}px) scale(${scale})` }], timing),
-          dialog.animate([{ transform: from, opacity: 0 }, { opacity: 0, offset: .2 }, { transform: 'none', opacity: 1 }], timing),
+          dialog.animate([{ transform: from, opacity: 0 }, { opacity: 0, offset: .52 }, { transform: 'none', opacity: 1 }], timing),
         ];
       }
       dialog.scrollTop = 0;
@@ -102,7 +105,7 @@ export default function DeskHome({ projects, experience, capabilities, orbit, co
         <div className="desk-stage" ref={sceneRef}>
         <img className="desk-photo" src="/media/desk-scene.webp" width="1536" height="1024" alt="A photographic desk scene with a monitor, home-lab computer, open notebook, brass orbital model, and orange envelope beside a sunlit window." fetchPriority="high" />
         <DeskActivity paused={paused || Boolean(active)} />
-        <div className="desk-screen-anchor" ref={screenRef} />
+        <DeskScreen paused={paused || Boolean(active)} panel={active ? titles[active] : null} />
         </div>
         <div className="desk-intro">
           <h1 id="desk-title">Hi, I’m Nick.</h1>
@@ -119,6 +122,7 @@ export default function DeskHome({ projects, experience, capabilities, orbit, co
         <button className="desk-motion-toggle" aria-pressed={paused} onClick={() => setPaused(value => !value)}>{paused ? 'Resume desk motion' : 'Pause desk motion'}</button>
       </section>
       <dialog className="desk-dialog" ref={dialogRef} aria-labelledby="desk-panel-title" onCancel={(event) => { event.preventDefault(); close(); }} onClick={(event) => { if (event.target === event.currentTarget) { const box = event.currentTarget.getBoundingClientRect(); if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) close(); } }}>
+        <div className="desk-browser-bar" aria-hidden="true"><span className="desk-traffic-lights"><i /><i /><i /></span><span className="desk-address">nicholastperez.com{active ? `/#${active}` : ''}</span><span>＋</span></div>
         <header className="desk-panel-bar"><span id="desk-panel-title">{active ? titles[active] : 'Explore'}</span><button ref={closeRef} onClick={close} aria-label="Close panel and return to desk"><X size={20} aria-hidden="true" /><span>Back to desk</span></button></header>
         {active && panels[active]}
       </dialog>

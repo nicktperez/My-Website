@@ -31,6 +31,7 @@ class IntersectionObserverStub implements IntersectionObserver {
 }
 
 vi.stubGlobal('IntersectionObserver', IntersectionObserverStub)
+vi.stubGlobal('ResizeObserver', class { observe = vi.fn(); unobserve = vi.fn(); disconnect = vi.fn() })
 
 afterEach(() => {
   cleanup()
