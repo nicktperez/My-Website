@@ -67,3 +67,28 @@
   .desk-orbit-panel { padding: 24px 16px; }
 }
 @media (prefers-reduced-motion: reduce) { .desk-object > span { transition: none; } }
+
+/* The image and its living layers share a coordinate system on every device. */
+.desk-stage { position: absolute; inset: 0; }
+.desk-activity { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.desk-screen-anchor { position: absolute; left: 21.2%; top: 23%; width: 37%; height: 34%; pointer-events: none; }
+.desk-motion-toggle { position: absolute; bottom: 2%; right: 3.2%; min-height: 44px; padding: 8px 12px; color: white; background: #26343b; border: 1px solid #b9c1c5; cursor: pointer; font-size: 12px; }
+.desk-dialog { position: fixed; inset: 0; width: 100%; max-width: none; height: 100dvh; max-height: none; margin: 0; border: 0; border-radius: 0; transform-origin: 0 0; }
+.desk-dialog::backdrop { background: transparent; }
+.desk-dialog .page-width { max-width: 1200px; margin-inline: auto; }
+.desk-orbit-panel { max-width: 1200px; margin-inline: auto; }
+@media (max-width: 700px) {
+  .desk-stage { position: relative; inset: auto; order: 1; width: 100%; aspect-ratio: 3 / 2; }
+  .desk-stage .desk-photo { position: absolute; inset: 0; height: 100%; }
+  .desk-motion-toggle { position: static; order: 4; align-self: flex-start; margin: 0 22px 22px; }
+  .desk-dialog { width: 100%; max-height: none; border-radius: 0; }
+}
+.desk-nav, .desk-intro, .desk-objects, .desk-hint, .desk-motion-toggle { transition: opacity 180ms ease; }
+.desk-home[data-panel-open="true"] .desk-nav,
+.desk-home[data-panel-open="true"] .desk-intro,
+.desk-home[data-panel-open="true"] .desk-objects,
+.desk-home[data-panel-open="true"] .desk-hint,
+.desk-home[data-panel-open="true"] .desk-motion-toggle { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .desk-nav, .desk-intro, .desk-objects, .desk-hint, .desk-motion-toggle { transition: none; }
+}

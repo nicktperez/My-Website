@@ -2,6 +2,9 @@ import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@testing-library/react'
 import { afterEach, vi } from 'vitest'
 
+// Canvas visuals are verified in Chromium; jsdom has no drawing context.
+vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null)
+
 const storage = new Map<string, string>()
 
 Object.defineProperty(window, 'localStorage', {
