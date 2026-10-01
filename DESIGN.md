@@ -29,3 +29,6 @@ Shorten the hero to reveal the orange MacTrace feature on arrival. Include a sub
 
 ## Orange material
 User requested a premium orange gradient. Warm amber-to-coral gradients carry the existing orange sections and primary button. MacTrace has a pointer-responsive light field updated through requestAnimationFrame and compositor transforms, disabled for touch and reduced motion. Keep text solid and the opening hierarchy calm.
+
+## Specificity and white surfaces
+Replace abstract capabilities slogans with actual disciplines and keep the wildfire story anchored in the supplied details. Static low-contrast orange and cool-gray surface gradients vary the white sections without adding decorative motion. Legitimate AI technology references in project descriptions remain accurate.

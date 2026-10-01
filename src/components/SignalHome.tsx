@@ -124,7 +124,6 @@ export default function SignalHome() {
             <div className="signal-response-story">
               <p>During one of the most difficult periods in the county’s history, I worked day in and day out in wildfire smoke to keep essential technology working for firefighters, support personnel, and people displaced from their homes.</p>
               <p>I supported access to the systems they depended on, helped county staff keep printing EBT cards for their clients, and kept clinicians connected to the systems they needed to prescribe medications.</p>
-              <p>That work made the purpose of IT very concrete for me. A working connection or printer meant someone could keep doing their job, access benefits, or get the care they needed while their lives were disrupted.</p>
             </div>
           </article>
           <div className="signal-career">
@@ -138,7 +137,7 @@ export default function SignalHome() {
           </div>
         </section>
         <section className="signal-capabilities signal-section" id="capabilities">
-          <div className="signal-section-heading"><h2>The systems.<br />The people.<br />The whole picture.</h2><div><p>Practical administration, thoughtful automation, and security work grounded in real service experience.</p><a className="signal-text-link" href="/work">Explore the project archive <ArrowUpRight size={18} aria-hidden="true" /></a></div></div>
+          <div className="signal-section-heading"><h2>Endpoints.<br />Identity.<br />Automation.</h2><div><p>macOS and Windows administration, account lifecycle management, Bash and PowerShell automation, and hands-on security projects.</p><a className="signal-text-link" href="/work">Explore the project archive <ArrowUpRight size={18} aria-hidden="true" /></a></div></div>
           <div className="signal-skills">{skills.map((skill) => <div key={skill.title}><h3>{skill.title}</h3><p>{skill.items}</p></div>)}</div>
           <div className="signal-education"><p><strong>Associate of Science, Computer Science</strong><br />Cosumnes River College · Web Publishing &amp; Web Programming certificates</p><p><strong>CompTIA Security+</strong><br />Currently pursuing certification</p></div>
         </section>
