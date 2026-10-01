@@ -15,6 +15,39 @@ const skills = [
 
 export default function SignalHome() {
   const [copyStatus, setCopyStatus] = useState('');
+  const featureRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const feature = featureRef.current;
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const pointer = window.matchMedia('(pointer: fine)');
+    if (!feature) return;
+    let frame = 0;
+    const followLight = (event: PointerEvent) => {
+      if (motion.matches || !pointer.matches || event.pointerType === 'touch') return;
+      const bounds = feature.getBoundingClientRect();
+      const x = (event.clientX - bounds.left - bounds.width / 2) * 0.18;
+      const y = (event.clientY - bounds.top - bounds.height / 2) * 0.18;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        feature.style.setProperty('--light-x', `${x}px`);
+        feature.style.setProperty('--light-y', `${y}px`);
+      });
+    };
+    const resetLight = () => {
+      cancelAnimationFrame(frame);
+      feature.style.removeProperty('--light-x');
+      feature.style.removeProperty('--light-y');
+    };
+    feature.addEventListener('pointermove', followLight, { passive: true });
+    feature.addEventListener('pointerleave', resetLight);
+    motion.addEventListener('change', resetLight);
+    return () => {
+      resetLight();
+      feature.removeEventListener('pointermove', followLight);
+      feature.removeEventListener('pointerleave', resetLight);
+      motion.removeEventListener('change', resetLight);
+    };
+  }, []);
   const copyReset = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => { if (copyReset.current) clearTimeout(copyReset.current); }, []);
   const copyEmail = async () => {
@@ -51,7 +84,7 @@ export default function SignalHome() {
             <p className="signal-hero-experience">County of El Dorado <span aria-hidden="true">·</span> Plug and Play Tech Center</p>
             <a className="signal-work-cue" href="#work">Selected work <ArrowRight size={16} aria-hidden="true" /></a>
           </section>
-          <section className="signal-feature" id="work" aria-labelledby="featured-title">
+          <section ref={featureRef} className="signal-feature" id="work" aria-labelledby="featured-title">
             <a className="signal-feature-image" href="/work#mactrace" aria-label="Explore MacTrace project details">
               <img src={portfolioData.featuredProject.image} alt={portfolioData.featuredProject.imageAlt} width="1536" height="1024" loading="lazy" decoding="async" />
             </a>

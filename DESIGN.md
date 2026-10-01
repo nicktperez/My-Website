@@ -26,3 +26,6 @@ The user approved removing the tall NP panel, using a small navigation monogram,
 
 ## Opening balance
 Shorten the hero to reveal the orange MacTrace feature on arrival. Include a subdued employer line beneath the actions and a Selected work anchor. Mobile uses content-sized height to avoid a blank screen.
+
+## Orange material
+User requested a premium orange gradient. Warm amber-to-coral gradients carry the existing orange sections and primary button. MacTrace has a pointer-responsive light field updated through requestAnimationFrame and compositor transforms, disabled for touch and reduced motion. Keep text solid and the opening hierarchy calm.

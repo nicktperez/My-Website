@@ -131,3 +131,17 @@ test('demo videos remain network-idle until the visitor presses play', async ({ 
 })
 
 
+
+test('feature light responds to a pointer and respects reduced motion', async ({ page }) => {
+  await page.goto('/')
+  const feature = page.locator('#work')
+  await feature.scrollIntoViewIfNeeded()
+  const box = await feature.boundingBox()
+  expect(box).not.toBeNull()
+  await page.mouse.move(box!.x + box!.width * 0.8, box!.y + box!.height * 0.4)
+  await expect.poll(() => feature.evaluate((element) => (element as HTMLElement).style.getPropertyValue('--light-x'))).not.toBe('')
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await expect.poll(() => feature.evaluate((element) => (element as HTMLElement).style.getPropertyValue('--light-x'))).toBe('')
+  await page.mouse.move(box!.x + box!.width * 0.2, box!.y + box!.height * 0.5)
+  await expect(feature).not.toHaveAttribute('style', /--light-x/)
+})

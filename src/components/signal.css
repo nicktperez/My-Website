@@ -247,3 +247,18 @@
   .signal-hero > .signal-hero-experience { font-size: 13px; max-width: 34ch; margin-top: 24px; }
   .signal-work-cue { margin-top: 24px; }
 }
+
+/* Warm orange material: depth comes from light, rather than extra interface elements. */
+.signal-site { --signal-material: linear-gradient(125deg, oklch(79% .16 64) 0%, oklch(72% .2 47) 32%, var(--signal-orange) 66%, oklch(64% .22 28) 100%); }
+.signal-feature { position: relative; isolation: isolate; overflow: hidden; background: var(--signal-material); }
+.signal-feature::before { content: ''; position: absolute; z-index: -1; inset: -35%; pointer-events: none; background: radial-gradient(ellipse at 55% 45%, oklch(91% .11 76 / .6), transparent 55%); transform: translate3d(var(--light-x, 0px), var(--light-y, 0px), 0); transition: transform 650ms cubic-bezier(.22,1,.36,1); }
+.signal-feature-image { box-shadow: 0 18px 48px oklch(30% .09 30 / .2); }
+.signal-feature-image:hover img { transform: scale(1.015); }
+.signal-button-orange, .signal-nav-monogram { background: linear-gradient(140deg, oklch(77% .18 56), var(--signal-orange) 70%, oklch(63% .22 30)); }
+.signal-button-orange { box-shadow: 0 3px 7px oklch(45% .13 35 / .17); }
+.signal-button-orange:hover { transform: translateY(-2px); }
+.signal-button-orange:active { transform: translateY(0); }
+.signal-response, .signal-contact { background: var(--signal-material); }
+.signal-hero { position: relative; isolation: isolate; overflow: hidden; }
+.signal-hero::after { content: ''; position: absolute; z-index: -1; pointer-events: none; width: 660px; height: 520px; right: -240px; bottom: -340px; border-radius: 50%; background: radial-gradient(ellipse, oklch(82% .15 55 / .23), transparent 68%); }
+@media(prefers-reduced-motion: reduce) { .signal-feature::before { transform: none; transition: none; } .signal-button-orange:hover, .signal-feature-image:hover img { transform: none; } }
