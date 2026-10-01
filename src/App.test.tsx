@@ -28,8 +28,8 @@ beforeEach(() => {
 });
 
 describe('portfolio routes', () => {
-  test('initializes and switches the theme from the homepage', async () => {
-    setRoute('/');
+  test('initializes and switches the theme from the project archive', async () => {
+    setRoute('/work');
     initializeTheme();
     render(<App />);
 

@@ -74,59 +74,76 @@ export const portfolioData = {
         }
     ],
     experience: [
-        {
-            company: "County of El Dorado - Behavioral Health",
-            role: "IT Department Specialist",
-            period: "Sept 2022 – Present",
-            highlights: [
-                "Provide frontline IT support for 180+ staff and contractors resolving hardware, software, and network issues.",
-                "Led onboarding trainings and built documentation that reduced repeat tickets by 30%.",
-                "Supported Netsmart Avatar workflows and Crystal Reports output.",
-                "Worked with other departments to improve processes and prioritize IT projects."
-            ]
-        },
-        {
-            company: "Plug and Play Tech Center",
-            role: "IT Specialist",
-            period: "Apr 2022 – Sept 2022",
-            highlights: [
-                "Delivered Tier 1-3/Executive support in a fast-paced accelerator; sole MSP-style support for 10+ startups.",
-                "Created Jamf automation scripts (bash), reducing IT workload by over 40%.",
-                "Managed Slack, Google Workspace, and Atlassian; oversaw onboarding/offboarding.",
-                "Enforced access controls and endpoint security baselines across Jamf-managed macOS devices."
-            ]
-        },
-        {
-            company: "County of El Dorado",
-            role: "IT Customer Support Specialist II",
-            period: "Sept 2020 – Apr 2022",
-            highlights: [
-                "Resolved 3,000+ tickets annually while providing executive and frontline support.",
-                "Administered Azure AD, Intune, and M365 across multi-agency environments.",
-                "Migrated 1,000+ devices to Intune; supported major Microsoft 365 transition.",
-                "Supported hybrid town halls with AV and network troubleshooting."
-            ]
-        },
-        {
-            company: "SBM Management Services",
-            role: "Help Desk Technician II",
-            period: "Nov 2018 – Sept 2020",
-            highlights: [
-                "Led security team efforts on disk encryption and VPN rollout.",
-                "Managed endpoints and mobile devices; resolved escalated technical issues.",
-                "Created documentation and supported complex onboarding/offboarding workflows."
-            ]
-        },
-        {
-            company: "Geek Squad",
-            role: "Supervisor",
-            period: "June 2017 – Nov 2018",
-            highlights: [
-                "Oversaw repair operations; led a team of 10 technicians to meet KPIs.",
-                "Reduced repair cycle times through process coaching and data-driven training."
-            ]
-        }
-    ],
+    {
+        "company": "County of El Dorado - Behavioral Health",
+        "role": "IT Department Specialist",
+        "period": "Sept 2022 – Present",
+        "highlights": [
+            "Administer departmental systems and applications supporting approximately 180 employees and contracted providers, resolving day-to-day technical issues and supporting ongoing operations.",
+            "Manage HR-initiated account provisioning, access changes, and deactivation across department applications throughout the employee lifecycle.",
+            "Configure Netsmart Avatar interfaces, backend forms, and workflows for departmental operations and government reporting requirements.",
+            "Coordinate state- and vendor-driven application projects across internal teams, other counties, and partner agencies.",
+            "Analyze recurring support issues and develop technical documentation, new-user training, and twice-monthly office hours.",
+            "Partner with leadership to prioritize technical work and project timelines; provide backup support and quality checks for Crystal Reports changes."
+        ]
+    },
+    {
+        "company": "Plug and Play Tech Center",
+        "role": "IT Specialist",
+        "period": "Apr 2022 – Sept 2022",
+        "highlights": [
+            "Delivered Tier 1 and executive IT support and served as the primary MSP-style resource for 13 startup companies, triaging requests through Slack, email, and Autotask/Datto.",
+            "Built Bash automation in Jamf for macOS provisioning and compliance, reducing repetitive IT workload by more than 40%.",
+            "Administered Google Workspace, Slack, Atlassian, SaaS licensing, and onboarding and offboarding across organizations.",
+            "Troubleshot Jamf enrollment, profiles, policies, and endpoint issues while maintaining access controls and security baselines.",
+            "Supported SSO, MFA, user provisioning, and permissions across SaaS platforms.",
+            "Coordinated hardware procurement, licensing, vendor escalations, Zoom Phone, and AV migrations for distributed and global teams."
+        ]
+    },
+    {
+        "company": "County of El Dorado",
+        "role": "IT Customer Support Specialist II",
+        "period": "Sept 2020 – Apr 2022",
+        "highlights": [
+            "Resolved more than 3,000 Tier 1 and executive support requests during the first year across ticketing, email, phone, and onsite channels.",
+            "Helped lead the countywide Google Workspace to Microsoft 365 migration, coordinating vendors and stakeholders as the Jamf MDM subject matter expert.",
+            "Supported the Jamf to Intune endpoint migration and administered Google Workspace, Microsoft 365, Jamf, Intune, Cisco tools, and business-critical applications.",
+            "Supported more than 1,000 employees during the transition to remote work across Windows, macOS, iOS, and Android, including deployment troubleshooting for all 300 county-issued iPhones.",
+            "Served as the primary IT contact for elected officials and executive leadership, with AV and network support for weekly hybrid public meetings.",
+            "Provided emergency IT support day in and day out during wildfire response, working in wildfire smoke to keep systems accessible for firefighters, support personnel, and displaced residents; supported county staff printing EBT cards and clinicians accessing prescribing systems."
+        ]
+    },
+    {
+        "company": "SBM Management Services",
+        "role": "Help Desk Technician II",
+        "period": "Nov 2018 – Sept 2020",
+        "highlights": [
+            "Led disk encryption and VPN deployments across domain-joined computers, enforcing endpoint controls across desktop, mobile, and cloud environments.",
+            "Resolved support requests across Windows, macOS, Linux, Active Directory, Exchange, MDM, printers, mobile devices, and workplace technology.",
+            "Managed onboarding and offboarding and created technical documentation and solution guides for technical and non-technical employees.",
+            "Supported office moves, workstation deployments, Windows imaging, and server installation in a colocation data center; administered VMware virtual machines and Cisco tools.",
+            "Provided after-hours support for business-critical issues, Cisco VoIP and VPN clients, and conference room technology."
+        ]
+    },
+    {
+        "company": "Geek Squad",
+        "role": "Supervisor",
+        "period": "June 2017 – Nov 2018",
+        "highlights": [
+            "Led 10 technicians, overseeing daily repair operations, service KPIs, work prioritization, and escalated customer and technical issues.",
+            "Reduced repair cycle times through process coaching, technical training, and consistent performance feedback."
+        ]
+    },
+    {
+        "company": "Geek Squad",
+        "role": "Advanced Repair Agent",
+        "period": "June 2015 – June 2017",
+        "highlights": [
+            "Served as the precinct’s ChromeOS subject matter expert, diagnosing and repairing complex Windows, macOS, and ChromeOS hardware and software issues.",
+            "Managed concurrent repairs and service documentation within turnaround expectations; partnered with customer-facing agents to explain findings, recommend solutions, and resolve escalations."
+        ]
+    }
+],
     education: [
         {
             school: "Cosumnes River College",

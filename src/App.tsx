@@ -9,16 +9,8 @@ import {
   X,
 } from 'lucide-react';
 import { portfolioData } from './data';
-import ContactForm from './components/ContactForm';
+import SignalHome from './components/SignalHome';
 import ThemeToggle from './components/ThemeToggle';
-import DeskHome from './components/DeskHome';
-
-const homeNavigation = [
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#work' },
-  { label: 'Capabilities', href: '#capabilities' },
-  { label: 'Contact', href: '#contact' },
-];
 
 const workNavigation = [
   { label: 'Home', href: '/' },
@@ -31,29 +23,6 @@ const workNavigation = [
 const linkedInUrl = 'https://www.linkedin.com/in/nicholas-perez-47748773/';
 const projectId = (title: string) => title.toLowerCase().replaceAll(' ', '-');
 let activeDemoVideo: HTMLVideoElement | null = null;
-
-const capabilityGroups = [
-  {
-    title: 'Workplace technology',
-    description: 'Support and administration for employee devices, hardware, and workplace tools.',
-    items: ['macOS & Windows', 'Jamf & Intune', 'Hardware lifecycle', 'Executive support'],
-  },
-  {
-    title: 'Identity & collaboration',
-    description: 'Account lifecycle, single sign-on, Microsoft 365, and Google Workspace administration.',
-    items: ['Azure AD / Entra ID', 'Okta SSO', 'Microsoft 365', 'Google Workspace'],
-  },
-  {
-    title: 'Security operations',
-    description: 'Endpoint telemetry, SIEM labs, incident response, and network security.',
-    items: ['Elastic Stack', 'Sysmon telemetry', 'Incident response', 'Network security'],
-  },
-  {
-    title: 'Automation & service',
-    description: 'Bash and PowerShell automation, onboarding workflows, documentation, and ticket operations.',
-    items: ['Bash & PowerShell', 'Onboarding workflows', 'Knowledge management', 'Ticket operations'],
-  },
-];
 
 const projectCases = [
   {
@@ -369,70 +338,6 @@ const MoreWork = () => (
   </div>
 );
 
-const SelectedWork = () => {
-  const selectedProjects = projectCases.filter((project) => (
-    project.title === 'MacTrace' || project.title === 'SIEM Home Lab'
-  ));
-
-  return (
-    <section className="section selected-work-section manual-chapter" id="work">
-      <div className="page-width">
-        <div className="section-heading selected-work-heading">
-          <div>
-            <span className="chapter-label">Projects</span>
-            <h2>Selected work.</h2>
-          </div>
-          <div>
-            <p>
-              MacTrace is a local macOS activity monitor. The SIEM Home Lab runs
-              synthetic security events through collection, detection, and review.
-            </p>
-            <a className="text-link" href="/work">
-              Explore all projects
-              <ArrowUpRight size={16} aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-
-        <div className="selected-work-list">
-          {selectedProjects.map((project) => (
-            <article className="selected-record" key={project.title}>
-              <figure>
-                <div className="case-window-label">
-                  <span>Selected project</span>
-                  <span>{project.number}</span>
-                </div>
-                <img src={project.image} alt={project.imageAlt} loading="lazy" decoding="async" />
-                <figcaption className="project-caption">{project.note}</figcaption>
-              </figure>
-              <div className="selected-record-copy">
-                <p className="case-category">{project.category}</p>
-                <h3>{project.title}</h3>
-                {project.lead ? <p className="selected-record-lead">{project.lead}</p> : null}
-                <p>{project.description ?? project.outcome}</p>
-                {project.metrics ? (
-                  <p className="selected-record-results">
-                    {project.metrics.map((metric) => (
-                      <span key={metric.value}>
-                        <strong>{metric.value}</strong> {metric.label}
-                      </span>
-                    ))}
-                  </p>
-                ) : null}
-                <a className="project-link" href={`/work#${projectId(project.title)}`}>
-                  Read project details
-                  <ArrowUpRight size={15} aria-hidden="true" />
-                </a>
-              </div>
-            </article>
-          ))}
-
-        </div>
-      </div>
-    </section>
-  );
-};
-
 const CopyEmailButton = () => {
   const [copied, setCopied] = useState(false);
 
@@ -455,39 +360,9 @@ const CopyEmailButton = () => {
   );
 };
 
-type ExperienceItemProps = {
-  experience: (typeof portfolioData.experience)[number];
-  index: number;
-};
-
-const ExperienceItem = ({ experience, index }: ExperienceItemProps) => {
-  return (
-    <article className={`timeline-item${index === 0 ? ' is-current' : ''}`}>
-      <div className="timeline-meta">
-        <span className="timeline-record-number">{String(index + 1).padStart(2, '0')}</span>
-        <p>{experience.period}</p>
-        <h3>{experience.company}</h3>
-      </div>
-      <div className="timeline-content">
-        <h4>{experience.role}</h4>
-        <div>
-        <ul>
-          {experience.highlights.slice(0, 2).map((highlight) => (
-            <li key={highlight}>
-              {highlight}
-            </li>
-          ))}
-        </ul>
-        {experience.highlights.length > 2 && <details className="role-details"><summary>More about this role</summary><ul>{experience.highlights.slice(2).map((highlight) => <li key={highlight}>{highlight}</li>)}</ul></details>}
-        </div>
-      </div>
-    </article>
-  );
-};
-
-const App = () => {
-  const isWorkPage = window.location.pathname.replace(/\/+$/, '') === '/work';
-  const navigation = isWorkPage ? workNavigation : homeNavigation;
+const ArchiveApp = () => {
+  const isWorkPage = true;
+  const navigation = workNavigation;
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(isWorkPage ? 'work' : '');
   const mobileNavTriggerRef = useRef<HTMLButtonElement>(null);
@@ -554,10 +429,10 @@ const App = () => {
   );
 
   return (
-    <div className="site-shell">
+    <div className="site-shell signal-archive">
       <a className="skip-link" href="#main-content">Skip to content</a>
 
-      {isWorkPage ? <header className="site-header">
+      <header className="site-header">
         <div className="page-width header-inner">
           <a className="brand-mark" href={isWorkPage ? '/' : '#top'} aria-label="Nicholas Perez, home">
             <span className="brand-monogram">NP</span>
@@ -623,10 +498,10 @@ const App = () => {
             </a>
           </nav>
         </div>
-      </header> : null}
+      </header>
 
       <main id="main-content">
-        {isWorkPage ? (
+
           <>
             <section className="work-archive-hero page-width" id="top">
               <div>
@@ -655,90 +530,10 @@ const App = () => {
               </div>
             </section>
           </>
-        ) : (
-          <DeskHome
-            projects={<SelectedWork />}
-            experience={<section className="section experience-section manual-chapter" id="experience">
-          <div className="page-width">
-            <div className="section-heading">
-              <div>
-                <span className="chapter-label">Employment history</span>
-                <h2>Experience.</h2>
-              </div>
-              <div>
-                <p>
-                  More than 10 years in public-sector IT, startup support, device
-                  management, identity administration, and customer-facing operations.
-                </p>
-              </div>
-            </div>
 
-            <div className="timeline">
-              {portfolioData.experience.slice(0, 3).map((experience, index) => (
-                <ExperienceItem
-                  experience={experience}
-                  index={index}
-                  key={`${experience.company}-${experience.period}`}
-                />
-              ))}
-            </div>
-            <details className="earlier-experience">
-              <summary>Earlier experience · SBM Management Services &amp; Geek Squad</summary>
-              {portfolioData.experience.slice(3).map((experience, index) => (
-                <ExperienceItem experience={experience} index={index + 3} key={experience.company} />
-              ))}
-            </details>
-          </div>
-        </section>}
-            capabilities={<section className="section capabilities-section manual-chapter" id="capabilities">
-          <div className="page-width">
-            <div className="section-heading capabilities-heading">
-              <div>
-                <span className="chapter-label">Tools and experience</span>
-                <h2>Capabilities.</h2>
-              </div>
-              <p>
-                Experience with endpoint management, identity platforms, collaboration
-                suites, security operations, scripting, and technical support.
-              </p>
-            </div>
-
-            <div className="capability-list">
-              {capabilityGroups.map((group, index) => (
-                <article key={group.title}>
-                  <span className="capability-number">{String(index + 1).padStart(2, '0')}</span>
-                  <div>
-                    <h3>{group.title}</h3>
-                    <p>{group.description}</p>
-                  </div>
-                  <ul aria-label={`${group.title} tools and skills`}>
-                    {group.items.map((item) => <li key={item}>{item}</li>)}
-                  </ul>
-                </article>
-              ))}
-            </div>
-
-            <div className="credentials">
-              <div>
-                <span>Education</span>
-                <h3>Associate of Science, Computer Science</h3>
-                <p>Cosumnes River College · Web Publishing &amp; Web Programming certificates</p>
-              </div>
-              <div>
-                <span>In progress</span>
-                <h3>CompTIA Security+</h3>
-                <p>Currently pursuing certification</p>
-              </div>
-            </div>
-          </div>
-        </section>}
-            contact={<ContactForm />}
-            orbit={<section className="desk-orbit-panel"><h2>OrbitLab</h2><p>A C++20 workbench for exploring gravitational systems and comparing numerical methods.</p><DemoReel {...demoReels[2]} number="01" /><a className="text-link" href="/work#orbitlab">Explore the experiment <ArrowUpRight size={16} aria-hidden="true" /></a></section>}
-          />
-        )}
       </main>
 
-      {isWorkPage && <footer className="site-footer">
+      <footer className="site-footer">
         <div className="page-width footer-inner">
           <div>
             <strong>Nicholas Perez</strong>
@@ -754,10 +549,12 @@ const App = () => {
           </div>
           <p className="copyright">© {new Date().getFullYear()} Nicholas Perez</p>
         </div>
-      </footer>}
+      </footer>
 
     </div>
   );
 };
+
+const App = () => window.location.pathname.replace(/\/+$/, '') === '/work' ? <ArchiveApp /> : <SignalHome />;
 
 export default App;
