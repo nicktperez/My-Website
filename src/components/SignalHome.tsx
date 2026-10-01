@@ -48,6 +48,8 @@ export default function SignalHome() {
               <a className="signal-button signal-button-orange" href="#work">Explore my work <ArrowRight size={19} aria-hidden="true" /></a>
               <a className="signal-text-link signal-resume-link" href={resumeUrl} target="_blank" rel="noreferrer">View résumé</a>
             </div>
+            <p className="signal-hero-experience">County of El Dorado <span aria-hidden="true">·</span> Plug and Play Tech Center</p>
+            <a className="signal-work-cue" href="#work">Selected work <ArrowRight size={16} aria-hidden="true" /></a>
           </section>
           <section className="signal-feature" id="work" aria-labelledby="featured-title">
             <a className="signal-feature-image" href="/work#mactrace" aria-label="Explore MacTrace project details">

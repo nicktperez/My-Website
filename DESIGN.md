@@ -23,3 +23,6 @@ Use actual project captures and recordings from public/. Generated concept image
 
 ## Calmer landing revision
 The user approved removing the tall NP panel, using a small navigation monogram, and making the introduction full width. The headline is the sole dominant opening element, with one orange primary action and a text résumé link. MacTrace begins below the first viewport; OrbitLab and the SIEM lab follow as spacious sequential project rows.
+
+## Opening balance
+Shorten the hero to reveal the orange MacTrace feature on arrival. Include a subdued employer line beneath the actions and a Selected work anchor. Mobile uses content-sized height to avoid a blank screen.

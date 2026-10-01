@@ -234,3 +234,16 @@
   .signal-actions { gap: 24px; }
   .signal-project h2 { font-size: 32px; }
 }
+
+/* Let the project band enter the opening view without competing with the headline. */
+.signal-hero { min-height: clamp(560px, 70svh, 760px); padding-block: 60px 32px; }
+.signal-hero > .signal-hero-experience { font-size: 14px; line-height: 1.5; font-weight: 400; color: oklch(40% 0 0); margin-top: 28px; max-width: none; }
+.signal-hero-experience span { padding-inline: 8px; }
+.signal-work-cue { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; margin-top: 44px; font-size: 14px; color: oklch(35% 0 0); }
+.signal-work-cue svg { transform: rotate(90deg); }
+.signal-work-cue:hover { text-decoration: underline; text-underline-offset: 5px; }
+@media(max-width:540px) {
+  .signal-hero { min-height: 0; padding-block: 44px 24px; }
+  .signal-hero > .signal-hero-experience { font-size: 13px; max-width: 34ch; margin-top: 24px; }
+  .signal-work-cue { margin-top: 24px; }
+}
