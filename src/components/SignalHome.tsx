@@ -34,7 +34,7 @@ export default function SignalHome() {
       <main id="main-content">
         <div className="signal-front">
           <header className="signal-header">
-            <a className="signal-brand" href="#top">Nicholas Perez</a>
+            <a className="signal-brand" href="#top"><span className="signal-nav-monogram" aria-hidden="true">NP</span> Nicholas Perez</a>
             <nav aria-label="Primary navigation">
               <a href="#work">Work</a><a href="#experience">Experience</a>
               <a href={resumeUrl} target="_blank" rel="noreferrer">Résumé</a><a href="#contact">Contact</a>
@@ -46,19 +46,12 @@ export default function SignalHome() {
             <p><strong>IT Systems Engineer.</strong> A decade of hands-on work in systems, automation, and security.</p>
             <div className="signal-actions">
               <a className="signal-button signal-button-orange" href="#work">Explore my work <ArrowRight size={19} aria-hidden="true" /></a>
-              <a className="signal-button signal-button-outline" href={resumeUrl} target="_blank" rel="noreferrer">View résumé</a>
+              <a className="signal-text-link signal-resume-link" href={resumeUrl} target="_blank" rel="noreferrer">View résumé</a>
             </div>
           </section>
-          <aside className="signal-identity" aria-label="Nicholas Perez, IT Systems Engineer, Sacramento, California">
-            <div className="signal-monogram" aria-hidden="true"><span>N</span><span>P</span></div>
-            <div className="signal-identity-name" aria-hidden="true">Nicholas<br />Perez</div>
-            <p>IT Systems Engineer</p><p>Sacramento, CA</p>
-            <span className="signal-identity-rule" aria-hidden="true" />
-            <div className="signal-identity-topics" aria-hidden="true"><span>Systems</span><span>Automation</span><span>Security</span><span>Infrastructure</span><span>Detection</span><span>Problem solving</span></div>
-          </aside>
           <section className="signal-feature" id="work" aria-labelledby="featured-title">
             <a className="signal-feature-image" href="/work#mactrace" aria-label="Explore MacTrace project details">
-              <img src={portfolioData.featuredProject.image} alt={portfolioData.featuredProject.imageAlt} width="1536" height="1024" fetchPriority="high" decoding="async" />
+              <img src={portfolioData.featuredProject.image} alt={portfolioData.featuredProject.imageAlt} width="1536" height="1024" loading="lazy" decoding="async" />
             </a>
             <div className="signal-feature-copy">
               <p className="signal-feature-label">Featured project</p>

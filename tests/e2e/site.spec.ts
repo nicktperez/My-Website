@@ -12,6 +12,8 @@ test('home makes experience and work directly available', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'MacTrace', exact: true })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Built on experience.' })).toBeVisible()
   const image = page.getByRole('img', { name: /MacTrace endpoint security dashboard/ })
+  await image.scrollIntoViewIfNeeded()
+  await expect(image).toBeVisible()
   expect(await image.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 0)).toBe(true)
   await page.getByRole('link', { name: 'Explore my work' }).click()
   await expect(page).toHaveURL(/#work$/)

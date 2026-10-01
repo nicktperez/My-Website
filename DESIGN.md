@@ -20,3 +20,6 @@ Native anchor navigation and project detail routes. Native details for career de
 
 ## Media
 Use actual project captures and recordings from public/. Generated concept images are references only, not shipped project evidence.
+
+## Calmer landing revision
+The user approved removing the tall NP panel, using a small navigation monogram, and making the introduction full width. The headline is the sole dominant opening element, with one orange primary action and a text résumé link. MacTrace begins below the first viewport; OrbitLab and the SIEM lab follow as spacious sequential project rows.

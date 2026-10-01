@@ -188,3 +188,49 @@
 .signal-response-story p + p { margin-top: 20px; }
 @media(max-width:800px) { .signal-response { grid-template-columns: 1fr; gap: 26px; padding: 28px; } .signal-response-heading h3 { max-width: 24ch; } }
 @media(max-width:540px) { .signal-response { padding: 26px 22px; margin-inline: -24px; margin-bottom: 36px; } }
+
+/* A single focal point on arrival; project evidence follows on scroll. */
+.signal-front { display: block; }
+.signal-header { min-height: 88px; padding-inline: max(24px, calc((100% - 1180px) / 2)); gap: 36px; }
+.signal-brand { display: inline-flex; align-items: center; gap: 12px; font-size: 20px; }
+.signal-nav-monogram { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; background: var(--signal-orange); font-size: 17px; font-weight: 800; letter-spacing: -.04em; }
+.signal-header nav { margin-left: auto; gap: 28px; }
+.signal-location { margin-left: 0; font-size: 13px; }
+.signal-location > span { display: none; }
+.signal-hero { min-height: calc(100svh - 88px); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 70px max(24px, calc((100% - 1180px) / 2)) 110px; }
+.signal-hero h1 { font-size: clamp(44px, 7.5vw, 96px); line-height: 1.03; }
+.signal-hero > p { max-width: 47ch; font-size: clamp(18px, 1.65vw, 23px); margin-top: 28px; line-height: 1.5; }
+.signal-actions { margin-top: 32px; gap: 28px; align-items: center; }
+.signal-resume-link { font-weight: 500; }
+.signal-feature { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); padding: 70px max(24px, calc((100% - 1180px) / 2)); gap: 60px; }
+.signal-feature-image { align-self: center; }
+.signal-feature-image img { height: auto; aspect-ratio: 1.6; }
+.signal-feature-copy { padding: 0; align-self: center; }
+.signal-feature-copy > p:not(.signal-feature-label):not(.signal-feature-stack) { font-size: 18px; margin-top: 24px; }
+.signal-projects { grid-template-columns: 1fr; gap: 64px; padding: 80px max(24px, calc((100% - 1180px) / 2)); }
+.signal-project { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 60px; align-items: center; }
+.signal-project + .signal-project { border-left: 0; border-top: 1px solid oklch(82% 0 0); padding: 64px 0 0; }
+.signal-project h2 { font-size: 38px; }
+.signal-project h3 { font-size: 19px; margin-top: 8px; }
+.signal-project p { font-size: 17px; margin-top: 22px; max-width: 42ch; }
+.signal-project .signal-text-link { margin-top: 20px; }
+.signal-project .signal-project-stack { font-size: 13px; margin-top: 18px; }
+@media(max-width:800px) {
+  .signal-header { gap: 12px 24px; }
+  .signal-header nav { gap: 20px; }
+  .signal-hero { padding-block: 64px 90px; }
+  .signal-feature, .signal-project { grid-template-columns: 1fr; gap: 30px; }
+  .signal-feature { padding-block: 48px; }
+  .signal-feature-image img { aspect-ratio: 1.6; }
+  .signal-projects { padding-block: 56px; gap: 48px; }
+  .signal-project + .signal-project { padding-top: 48px; }
+}
+@media(max-width:540px) {
+  .signal-header { padding-block: 16px; }
+  .signal-header nav { margin-left: 0; width: 100%; justify-content: space-between; gap: 12px; }
+  .signal-hero { min-height: calc(100svh - 132px); padding-block: 54px 80px; }
+  .signal-hero h1 { font-size: clamp(35px, 9.65vw, 52px); }
+  .signal-hero > p { font-size: 18px; margin-top: 24px; }
+  .signal-actions { gap: 24px; }
+  .signal-project h2 { font-size: 32px; }
+}
