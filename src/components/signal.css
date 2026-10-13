@@ -31,6 +31,12 @@
 .signal-text-link:hover svg { transform: translateX(3px); }
 .signal-hero .signal-text-link { color: var(--peach); }
 .signal-section { padding: clamp(56px, 7vw, 96px) max(24px, calc((100% - 1100px) / 2)); }
+ .signal-fire { background: #d4dfd7; display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(32px, 6vw, 80px); border-bottom: 1px solid var(--line); }
+.signal-fire-heading > p { font-size: 15px; margin-bottom: 20px; }
+.signal-fire-heading h2 { font-size: clamp(36px, 4vw, 52px); }
+.signal-fire-story { max-width: 65ch; font-size: 18px; line-height: 1.75; }
+.signal-fire-story p + p { margin-top: 24px; }
+@media(max-width:700px) { .signal-fire { grid-template-columns: 1fr; } .signal-fire-story { font-size: 17px; } }
 .signal-about-lead { font-size: clamp(20px, 2vw, 25px); max-width: 65ch; margin-top: 24px !important; }
 .signal-about-details { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1000px; margin-top: 32px; }
 .signal-about-details p { font-size: 17px; max-width: 60ch; }
