@@ -139,3 +139,34 @@
 .signal-fire-heading h2 { font-size: clamp(30px, 3.2vw, 42px); }
 @media(max-width:900px) { .signal-server-backdrop { object-position: 65% center; } .signal-front::before { background: linear-gradient(90deg, #103b32eb 0%, #103b32df 52%, #103b3299 72%, #103b3233 100%); } }
 @media(max-width:700px) { .signal-hero { min-height: 0; padding-block: 38px 56px; } .signal-server-backdrop { object-position: 73% center; } .signal-header nav { padding-inline: 0; background: transparent; } }
+
+/* Warm light connects the page; glass belongs to the primary actions. */
+.signal-header nav { background: none; border-radius: 0; padding: 0; gap: 30px; }
+.signal-header nav a { position: relative; text-shadow: 0 1px 3px #103b32; }
+.signal-header nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 5px; height: 1px; background: var(--peach); transform: scaleX(0); transform-origin: left; transition: transform 180ms ease; }
+.signal-header nav a:hover::after, .signal-header nav a:focus-visible::after { transform: scaleX(1); }
+.signal-button { position: relative; overflow: hidden; backdrop-filter: blur(12px) saturate(120%); -webkit-backdrop-filter: blur(12px) saturate(120%); box-shadow: inset 0 1px 1px #fff9, inset 0 -1px 1px #56382455, 0 2px 6px #001f1a33; }
+.signal-button-orange { background: linear-gradient(160deg, #f5d5baf5, #efb08ff0); color: #183e35; }
+.signal-button-glass { background: linear-gradient(160deg, #e4edda30, #103b32cc); color: #f7f3e9; box-shadow: inset 0 1px 1px #ffffff80, inset 0 -1px 1px #dce6dc40, 0 2px 6px #001f1a33; }
+.signal-button-glass:hover { background: #244d42eb; }
+.signal-fire { padding-block: 42px; background: linear-gradient(115deg,#d4dfd7,#e3e5d2); }
+.signal-fire-preview > p { font-size: 17px; }
+.signal-about { background: linear-gradient(90deg,#e6ebe2fa 0%,#e8ecdfed 46%,#e8ecdfaa 63%,#e8ecdf00 100%), url('/media/afternoon-study.webp') center right / cover no-repeat; padding-right: max(30%,calc((100% - 1100px)/2 + 300px)); }
+.signal-about-lead { font-size: clamp(19px,1.7vw,23px); }
+.signal-about-details { grid-template-columns: 1fr; gap: 18px; margin-top: 24px; }
+.signal-about-details p { max-width: 60ch; }
+.signal-projects { position: relative; isolation: isolate; overflow: hidden; background: radial-gradient(ellipse at 15% 10%,#285c50,#123c32 70%); color: var(--ivory); }
+.signal-projects .signal-text-link { color: var(--peach); }
+.signal-project { border-color: #78988a; }
+.signal-cables { position: absolute; z-index: -1; top: 0; right: 18px; height: 100%; width: 100px; stroke: #c79c70; stroke-width: 1; opacity: .55; }
+.signal-cables circle { fill: var(--peach); stroke: none; }
+.signal-experience { background: radial-gradient(ellipse at 100% 100%,#f1d7bb66,transparent 55%),linear-gradient(115deg,#d4dfd7,#e2e6d4); }
+.signal-capabilities { background: radial-gradient(ellipse at 90% 100%,#77724366,transparent 55%),#173f36; }
+.signal-contact { background: linear-gradient(90deg,#103b32fa 0%,#103b32ed 50%,#103b3266 100%),url('/media/afternoon-study.webp') center right / cover no-repeat; color: var(--ivory); }
+.signal-contact-action { margin-top: 28px; }
+.signal-contact-email { display: flex; font-size: clamp(18px,1.8vw,24px); }
+.signal-footer { background: #103b32; border-top: 1px solid #627e6c; }
+@supports not (backdrop-filter:blur(12px)) { .signal-button-orange { background: #f0bea3; } .signal-button-glass { background: #244d42; } }
+@media(max-width:900px) { .signal-about { padding-right: 25%; background-image:linear-gradient(90deg,#e6ebe2fc 0%,#e8ecdfef 60%,#e8ecdf99 100%),url('/media/afternoon-study.webp'); } .signal-cables { right: -28px; opacity: .3; } }
+@media(max-width:700px) { .signal-about { padding-right:24px; background-image:linear-gradient(90deg,#e6ebe2f5,#e8ecdfeb),url('/media/afternoon-study.webp'); } .signal-contact { background-image:linear-gradient(90deg,#103b32f2,#103b32e6),url('/media/afternoon-study.webp'); } .signal-header nav { gap:24px; } }
+@media(prefers-reduced-transparency:reduce) { .signal-button { backdrop-filter:none; -webkit-backdrop-filter:none; } .signal-button-orange { background:#f0bea3; } .signal-button-glass { background:#244d42; } }

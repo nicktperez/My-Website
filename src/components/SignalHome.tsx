@@ -46,7 +46,7 @@ export default function SignalHome() {
             <p>I’m an IT Systems Engineer in Sacramento.<br className="signal-desktop-break" /> I work on the systems people need to do their jobs, and help keep things running when something goes wrong.</p>
             <div className="signal-actions">
               <a className="signal-button signal-button-orange" href="#about">A little about me <ArrowRight size={18} aria-hidden="true" /></a>
-              <a className="signal-text-link" href="#contact">Get in touch <ArrowRight size={18} aria-hidden="true" /></a>
+              <a className="signal-button signal-button-glass" href="#contact">Get in touch <ArrowRight size={18} aria-hidden="true" /></a>
             </div>
           </section>
         </div>
@@ -79,6 +79,7 @@ export default function SignalHome() {
         </section>
         <section className="signal-projects signal-section" id="work" aria-labelledby="work-title">
           <div className="signal-section-heading"><h2 id="work-title">Things I’ve built.</h2><p>These are some of the projects I’ve been working on. There’s more about what I built and how it works on each project’s page.</p></div>
+          <svg className="signal-cables" viewBox="0 0 120 600" fill="none" aria-hidden="true"><path d="M30 0v120c0 35-20 35-20 70v410"/><path d="M60 0v260c0 40-25 40-25 80v260"/><path d="M90 0v330c0 45-25 45-25 90v180"/><circle cx="35" cy="470" r="3"/><circle cx="90" cy="190" r="3"/></svg>
           <div className="signal-project-list">{selectedProjects.map((project) => <article className="signal-project" key={project.title}><h3>{project.title}</h3><p>{project.description}</p><a className="signal-text-link" href={`/work#${project.title.toLowerCase().replaceAll(' ', '-')}`}>Explore {project.title} <ArrowUpRight size={17} aria-hidden="true" /></a></article>)}</div>
           <a className="signal-text-link" href="/work">See all my work <ArrowRight size={18} aria-hidden="true" /></a>
         </section>
@@ -101,7 +102,7 @@ export default function SignalHome() {
         </section>
         <section className="signal-contact signal-section" id="contact">
           <h2>Let’s talk.</h2>
-          <div><p>I’m based in Sacramento and open to remote work or a hybrid role in the Bay Area. If you want to talk about a role or something I’ve built, send me an email.</p><a className="signal-contact-email" href={`mailto:${portfolioData.email}`}>{portfolioData.email} <ArrowUpRight size={24} aria-hidden="true" /></a><div className="signal-contact-links"><a href={linkedInUrl} target="_blank" rel="me noreferrer">LinkedIn <ArrowUpRight size={17} aria-hidden="true" /></a><a href={resumeUrl} target="_blank" rel="noreferrer">Résumé <ArrowUpRight size={17} aria-hidden="true" /></a><button type="button" onClick={copyEmail}>{copyStatus === 'Email copied' ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />} Copy email</button></div><p className="signal-copy-status" role="status">{copyStatus}</p></div>
+          <div><p>I’m based in Sacramento and open to remote work or a hybrid role in the Bay Area. If you want to talk about a role or something I’ve built, send me an email.</p><a className="signal-button signal-button-orange signal-contact-action" href={`mailto:${portfolioData.email}`}>Send me an email <ArrowUpRight size={18} aria-hidden="true" /></a><a className="signal-contact-email" href={`mailto:${portfolioData.email}`}>{portfolioData.email} <ArrowUpRight size={24} aria-hidden="true" /></a><div className="signal-contact-links"><a href={linkedInUrl} target="_blank" rel="me noreferrer">LinkedIn <ArrowUpRight size={17} aria-hidden="true" /></a><a href={resumeUrl} target="_blank" rel="noreferrer">Résumé <ArrowUpRight size={17} aria-hidden="true" /></a><button type="button" onClick={copyEmail}>{copyStatus === 'Email copied' ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />} Copy email</button></div><p className="signal-copy-status" role="status">{copyStatus}</p></div>
         </section>
       </main>
       <footer className="signal-footer"><a href="#top">Nicholas Perez <span>↑</span></a><p>IT Systems Engineer · Sacramento, CA</p><a href={portfolioData.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={16} aria-hidden="true" /></a><p>© {new Date().getFullYear()}</p></footer>

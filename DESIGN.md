@@ -20,3 +20,6 @@ Content-sized hero and wrapping navigation on mobile. Stack About, career, proje
 
 ## After hours background
 User selected warm server-room concept A. Use generated atmospheric artwork on the homepage opening, with real HTML text and a dark green contrast overlay. Keep equipment subdued on mobile. The Caldor Fire section shows a short preview with a native details disclosure and plus control; full story stays available.
+
+## Warm light and selective glass
+Approved full-page concept: plain navigation links with peach underlines, soft peach-tinted and green glass action buttons, sunlit study artwork in About and Contact, dark phthalo project rows with sparse cable lines, and pale green experience gradients. Preserve the approved server-room hero. Generated images are decorative. Reduced transparency uses solid buttons.
