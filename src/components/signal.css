@@ -121,3 +121,21 @@
 }
 @media(max-width:440px) { .signal-header nav { width: 100%; justify-content: space-between; } .signal-hero h1 { font-size: 58px; } .signal-about-links { gap: 12px 24px; } .signal-skills { gap: 24px; } .signal-skills h3 { font-size: 19px; } }
 @media(prefers-reduced-motion:reduce) { .signal-site *, .signal-site *::before, .signal-site *::after { scroll-behavior: auto; transition: none !important; animation: none !important; } }
+
+.signal-fire-preview > p { max-width: 60ch; font-size: 19px; line-height: 1.65; }
+.signal-fire-details { margin-top: 24px; }
+.signal-fire-details > summary { width: fit-content; gap: 24px; min-height: 48px; padding: 6px 0; border-bottom: 1px solid var(--ink); }
+.signal-fire-details > summary > span { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 50%; }
+.signal-fire-details[open] .signal-fire-story { margin-top: 28px; }
+
+/* After hours: generated atmospheric artwork, with real HTML above it. */
+.signal-front { position: relative; isolation: isolate; overflow: hidden; background: #103b32; }
+.signal-server-backdrop { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; }
+.signal-front::before { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, #103b32e6 0%, #103b32c9 42%, #103b3259 68%, #103b3226 100%); pointer-events: none; }
+.signal-header { position: relative; }
+.signal-header nav { padding: 4px 18px; border-radius: 999px; background: #103b32e6; }
+.signal-hero { min-height: 530px; padding-block: 68px 88px; }
+.signal-hero > p { max-width: 35ch; font-size: clamp(20px, 1.9vw, 26px); }
+.signal-fire-heading h2 { font-size: clamp(30px, 3.2vw, 42px); }
+@media(max-width:900px) { .signal-server-backdrop { object-position: 65% center; } .signal-front::before { background: linear-gradient(90deg, #103b32eb 0%, #103b32df 52%, #103b3299 72%, #103b3233 100%); } }
+@media(max-width:700px) { .signal-hero { min-height: 0; padding-block: 38px 56px; } .signal-server-backdrop { object-position: 73% center; } .signal-header nav { padding-inline: 0; background: transparent; } }

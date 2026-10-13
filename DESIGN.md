@@ -17,3 +17,6 @@ Native anchors, 44px touch targets, visible keyboard focus, reduced-motion suppo
 
 ## Responsive behavior
 Content-sized hero and wrapping navigation on mobile. Stack About, career, project rows and contact. Two-column skill list at small sizes.
+
+## After hours background
+User selected warm server-room concept A. Use generated atmospheric artwork on the homepage opening, with real HTML text and a dark green contrast overlay. Keep equipment subdued on mobile. The Caldor Fire section shows a short preview with a native details disclosure and plus control; full story stays available.

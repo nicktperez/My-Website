@@ -33,6 +33,7 @@ export default function SignalHome() {
       <a className="skip-link" href="#main-content">Skip to content</a>
       <main id="main-content">
         <div className="signal-front">
+          <img className="signal-server-backdrop" src="/media/server-room-warm.webp" width="1920" height="1080" alt="" aria-hidden="true" fetchPriority="high" decoding="async" />
           <header className="signal-header">
             <a className="signal-brand" href="#top"><span className="signal-nav-monogram" aria-hidden="true">NP</span> Nick Perez</a>
             <nav aria-label="Primary navigation">
@@ -51,7 +52,11 @@ export default function SignalHome() {
         </div>
         <section className="signal-fire signal-section" id="caldor-fire" aria-labelledby="fire-title">
           <div className="signal-fire-heading"><p>El Dorado County · Caldor Fire</p><h2 id="fire-title">Keeping things working through the Caldor Fire.</h2></div>
-          <div className="signal-fire-story">
+          <div className="signal-fire-preview">
+            <p>During the Caldor Fire, a lot of my coworkers had to leave to get their families and pets out. I stayed and worked with our team to keep county systems running and set up temporary offices and shelter Wi-Fi.</p>
+            <details className="signal-fire-details">
+              <summary>Read the story <span aria-hidden="true">+</span></summary>
+              <div className="signal-fire-story">
             <p>When the Caldor Fire started, I was working in El Dorado County’s central IT department. A lot of county employees lived nearby, in little country homes out in the woods. They were at work when the evacuation orders started coming in.</p>
             <p>Almost immediately, half the staff around us had to leave. They raced home on back roads to get their loved ones, their pets, and whatever valuables they could grab. These were our coworkers and friends, suddenly trying to get their families away from a rapidly growing fire.</p>
             <p>I didn’t live in the county, so my home wasn’t under evacuation. I stayed and worked.</p>
@@ -62,6 +67,8 @@ export default function SignalHome() {
             <p>Once it was safe enough to travel, we got a special permit to drive into the evacuated area. With fire conditions still around us, we worked to restore a connection back to Placerville so staff could access those files again.</p>
             <p>Eventually, people started going home. They picked up their pets from the shelters and returned to their communities. Some had lost their homes.</p>
             <p>I was one person on a team, surrounded by people working hard to take care of each other. I’m glad I could be part of that. I helped keep things working while a community held itself together.</p>
+              </div>
+            </details>
           </div>
         </section>
         <section className="signal-about signal-section" id="about" aria-labelledby="about-title">
