@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
-import ThemeToggle from './ThemeToggle';
 import DeskActivity from './DeskActivity';
 import DeskScreen from './DeskScreen';
+import DeskHoneypot from './DeskHoneypot';
 import { browserQuad, perspectiveMatrix } from './deskGeometry';
 import './desk.css';
 
@@ -91,25 +91,17 @@ export default function DeskHome({ projects, experience, capabilities, orbit, co
 
   return (
     <div className="desk-home" data-panel-open={Boolean(active)}>
-      <header className="desk-nav">
-        <a className="desk-name" href="/">Nicholas Perez</a>
-        <nav aria-label="Homepage sections">
-          <button onClick={() => open('work')}>Projects</button>
-          <button onClick={() => open('experience')}>Experience</button>
-          <a href="/NicholasPerezResume.pdf" target="_blank" rel="noreferrer">Résumé <ArrowUpRight size={14} aria-hidden="true" /></a>
-          <button onClick={() => open('contact')}>Contact</button>
-          <ThemeToggle />
-        </nav>
-      </header>
       <section className="poster-hero desk-scene" aria-labelledby="desk-title">
+        <div className="desk-world">
         <div className="desk-stage" ref={sceneRef}>
-        <img className="desk-photo" src="/media/desk-scene.webp" width="1536" height="1024" alt="A photographic desk scene with a monitor, home-lab computer, open notebook, brass orbital model, and orange envelope beside a sunlit window." fetchPriority="high" />
-        <DeskActivity paused={paused || Boolean(active)} />
+        <img className="desk-photo" src="/media/desk-dual-compact.webp" width="1536" height="1024" alt="A photographic desk scene with two monitors connected to one home-lab computer, open notebook, brass orbital model, and orange envelope beside a sunlit window." fetchPriority="high" />
         <DeskScreen paused={paused || Boolean(active)} panel={active ? titles[active] : null} />
+        <DeskHoneypot paused={paused || Boolean(active)} />
+        <DeskActivity paused={paused || Boolean(active)} />
         </div>
         <div className="desk-intro">
           <h1 id="desk-title">Hi, I’m Nick.</h1>
-          <p>IT systems engineer. Curious builder.</p>
+          <p>IT Systems Engineer.</p>
           <span>Sacramento, California</span>
         </div>
         <div className="desk-objects" aria-label="Explore the desk">
@@ -118,8 +110,9 @@ export default function DeskHome({ projects, experience, capabilities, orbit, co
           <button className="desk-object desk-orbit" onClick={() => open('orbitlab')}><span>OrbitLab <ArrowUpRight size={16} aria-hidden="true" /></span></button>
           <button className="desk-object desk-envelope" onClick={() => open('contact')}><span>Email me <ArrowUpRight size={16} aria-hidden="true" /></span></button>
         </div>
-        <p className="desk-hint">Explore the desk, or use the navigation.</p>
+        <p className="desk-hint">Explore the desk.</p>
         <button className="desk-motion-toggle" aria-pressed={paused} onClick={() => setPaused(value => !value)}>{paused ? 'Resume desk motion' : 'Pause desk motion'}</button>
+        </div>
       </section>
       <dialog className="desk-dialog" ref={dialogRef} aria-labelledby="desk-panel-title" onCancel={(event) => { event.preventDefault(); close(); }} onClick={(event) => { if (event.target === event.currentTarget) { const box = event.currentTarget.getBoundingClientRect(); if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) close(); } }}>
         <div className="desk-browser-bar" aria-hidden="true"><span className="desk-traffic-lights"><i /><i /><i /></span><span className="desk-address">nicholastperez.com{active ? `/#${active}` : ''}</span><span>＋</span></div>

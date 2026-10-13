@@ -26,7 +26,11 @@ export default function DeskScreen({ paused, panel }: Props) {
 
   useEffect(() => {
     const canvas = canvasRef.current, ctx = canvas?.getContext('2d');
-    if (!ctx) return;
+    if (!ctx || !canvas) return;
+    const resolution = Math.min(window.devicePixelRatio || 1, 3) * 2;
+    canvas.width = DESKTOP.width * resolution;
+    canvas.height = DESKTOP.height * resolution;
+    ctx.setTransform(resolution, 0, 0, resolution, 0, 0);
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     let frame = 0, previous = performance.now(), lastDraw = -Infinity;
     const started = previous;
@@ -55,27 +59,27 @@ export default function DeskScreen({ paused, panel }: Props) {
     function editor(characters: number, terminal: boolean, failing: boolean, fixed: boolean) {
       rect(20, 40, 960, 520, '#1e222b', 10); rect(20, 40, 960, 33, '#30343e', 10); lights(39, 56);
       text('orbit.py — workbench', 418, 61, 13, '#c4c9d2');
-      rect(20, 74, 40, 465, '#252933'); rect(60, 74, 144, 465, '#20242d');
-      ['▤', '⌕', '⑂', '▷'].forEach((icon, i) => text(icon, 33, 102 + i * 49, 21, i ? '#8691a4' : '#d7e4ef'));
-      text('EXPLORER', 75, 95, 11, '#afb6c4'); text('⌄ WORKBENCH', 75, 126, 11);
-      text('⌄ experiments', 83, 153, 12); rect(61, 163, 142, 25, '#333b4b'); text('  ◇ orbit.py', 85, 180, 12, '#d9c18e');
-      text('  README.md', 85, 207, 12, '#a7b3c4'); text('  requirements.txt', 85, 235, 11, '#a7b3c4');
-      rect(205, 74, 131, 29, '#282e39'); text('◇ orbit.py   ×', 222, 94, 12); text('experiments  ›  orbit.py', 220, 124, 11, '#8390a3');
+      rect(20, 74, 960, 465, '#171e28');
+      text('orbit.py', 52, 111, 25, '#e3e9f2');
+      text('Python', 852, 111, 20, '#b7c8dc');
       const source = fixed ? DEMO_CODE : DEMO_CODE.replace('bx, by = acceleration(x, y)', 'bx, by = ax, ay');
-      const shown = source.slice(0, characters).split('\n');
+      const lines = source.slice(0, characters).split('\n');
+      const visibleLines = terminal ? 7 : 10;
+      const firstLine = Math.max(0, lines.length - visibleLines);
+      const shown = lines.slice(firstLine);
       shown.forEach((line, index) => {
-        const y = 149 + index * 15;
-        if (terminal && y > 421) return;
-        text(String(index + 1), 222, y, 11, '#69768b');
-        ctx!.font = '12px monospace'; let x = 252;
+        const y = 158 + index * 36;
+        if (y > (terminal ? 421 : 521)) return;
+        text(String(firstLine + index + 1), 45, y, 20, '#95a5bb');
+        ctx!.font = '28px monospace'; let x = 92;
         const tokens = line.match(/(#.*|"[^"]*"|\b(?:from|import|def|return|for|in|assert)\b|\b\d[\d_.]*\b|[^\w\s]|\s+|\w+)/g) ?? [];
-        tokens.forEach(token => { ctx!.fillStyle = /^(from|import|def|return|for|in|assert)$/.test(token) ? '#c69ddd' : /^\d/.test(token) ? '#c8a67d' : token.startsWith('"') ? '#a8c58e' : '#c4d1e0'; ctx!.fillText(token, x, y); x += ctx!.measureText(token).width; });
+        tokens.forEach(token => { ctx!.fillStyle = /^(from|import|def|return|for|in|assert)$/.test(token) ? '#c69ddd' : /^\d/.test(token) ? '#c8a67d' : token.startsWith('"') ? '#a8c58e' : '#e4edf8'; ctx!.fillText(token, x, y); x += ctx!.measureText(token).width; });
         if (index === shown.length - 1 && characters < DEMO_CODE.length) rect(x + 1, y - 11, 1.5, 14, '#dbe6f3');
       });
       if (terminal) {
-        rect(205, 432, 775, 105, '#191d25'); text('PROBLEMS     OUTPUT     TERMINAL', 222, 451, 10, '#a9b6c8');
-        text('nick@workbench % python3 experiments/orbit.py', 222, 475, 12);
-        text(failing ? 'AssertionError: energy drift exceeds tolerance' : 'Energy: -0.50000000', 222, 497, 12, failing ? '#e79589' : '#a6c692'); text(failing ? 'Investigate the acceleration update in orbit.py' : 'Orbit check passed', 222, 519, 12, failing ? '#e79589' : '#a6c692');
+        rect(20, 432, 960, 105, '#191d25'); text('PROBLEMS     OUTPUT     TERMINAL', 45, 455, 18, '#a9b6c8');
+        text('nick@workbench % python3 experiments/orbit.py', 45, 480, 21);
+        text(failing ? 'AssertionError: energy drift exceeds tolerance' : 'Energy: -0.50000000', 45, 505, 21, failing ? '#e79589' : '#a6c692'); text(failing ? 'Investigate the acceleration update in orbit.py' : 'Orbit check passed', 45, 530, 18, failing ? '#e79589' : '#a6c692');
       }
       rect(20, 539, 960, 21, '#2d4359'); text('⑂ main     ✓ 0 errors', 34, 554, 11); text('Python 3     UTF-8     Spaces: 4', 742, 554, 11);
     }
@@ -141,7 +145,7 @@ export default function DeskScreen({ paused, panel }: Props) {
         ctx!.fillStyle = '#fff'; ctx!.strokeStyle = '#20252e'; ctx!.lineWidth = 1.2; ctx!.beginPath(); ctx!.moveTo(x, y); ctx!.lineTo(x + 2, y + 18); ctx!.lineTo(x + 7, y + 13); ctx!.lineTo(x + 14, y + 11); ctx!.closePath(); ctx!.fill(); ctx!.stroke();
       }
       // Match the photographed display's restrained luminance.
-      rect(0, 0, 1000, 620, '#16212c14');
+
       frame = requestAnimationFrame(draw);
     }
     frame = requestAnimationFrame(draw);

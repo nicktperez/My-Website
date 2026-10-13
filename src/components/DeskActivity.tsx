@@ -30,6 +30,8 @@ export default function DeskActivity({ paused }: Props) {
       drawn = true;
       clock.current = elapsed;
       ctx.clearRect(0, 0, 1536, 1024);
+      ctx.save();
+      ctx.translate(120, -10);
       // Brass arms orbit around a fixed spindle; depth changes their overlap.
       const planets = [
         { radius: 52, size: 7, color: '#918676', speed: 1.1, offset: 0 },
@@ -40,6 +42,7 @@ export default function DeskActivity({ paused }: Props) {
       ctx.strokeStyle = '#a98a46'; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(1160, 587); ctx.lineTo(1160, 462); ctx.stroke();
       planets.forEach(p => { ctx.strokeStyle = '#806633'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(1160, 553); ctx.lineTo(p.x, p.y + 20); ctx.lineTo(p.x, p.y - 55); ctx.stroke(); ctx.strokeStyle = '#d6ba73'; ctx.lineWidth = 1; ctx.stroke(); sphere(p.x, p.y - 55, p.size, p.color); });
       sphere(1160, 459, 31, '#b6934c');
+      ctx.restore();
       frame = requestAnimationFrame(draw);
     }
     frame = requestAnimationFrame(draw);

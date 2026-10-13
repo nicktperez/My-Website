@@ -1,7 +1,7 @@
 export type Point = { x: number; y: number };
 export type Quad = [Point, Point, Point, Point];
 // Inner LCD corners, measured in the original 1536 × 1024 photograph.
-export const SCREEN: Quad = [{ x: 326, y: 253 }, { x: 878, y: 228 }, { x: 897, y: 536 }, { x: 350, y: 591 }];
+export const SCREEN: Quad = [{ x: 347, y: 340 }, { x: 684, y: 326 }, { x: 688, y: 516 }, { x: 355, y: 552 }];
 export const DESKTOP = { width: 1000, height: 620 };
 export const BROWSER = { x: 28, y: 42, width: 944, height: 520 };
 
