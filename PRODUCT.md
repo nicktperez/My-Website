@@ -13,13 +13,13 @@ Hiring managers evaluating Nicholas Perez for IT systems roles. Make his hands-o
 An IT Systems Engineer who makes complex systems work, grounded in a decade of supporting people and building practical tools.
 
 ## Personality
-Bold, expressive, direct. The user selected the Signal Orange mockup and requested a close implementation of its composition.
+Warm, personal, welcoming. The user selected the Soft Phthalo concept with text-led storytelling and no homepage project imagery.
 
 ## Primary actions
 Explore selected work, review professional experience, access the résumé, and make direct contact.
 
 ## Principles
-Lead with real project evidence. Use verified content from src/data.ts. Keep essential information directly accessible. Support keyboard navigation, reduced motion, readable contrast, and mobile touch targets.
+Introduce the person first; make real project evidence directly accessible on the Work page. Use verified content from src/data.ts. Keep essential information directly accessible. Support keyboard navigation, reduced motion, readable contrast, and mobile touch targets.
 
 ## Avoid
 The interactive desk metaphor, hidden content in object hotspots, generic card grids, and decorative complexity that competes with the work.

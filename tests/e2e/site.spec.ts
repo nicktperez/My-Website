@@ -6,17 +6,16 @@ const routes = [
   { path: '/work', title: 'Project Archive | Nicholas Perez' },
 ]
 
-test('home makes experience and work directly available', async ({ page }) => {
+test('home introduces Nick and links to about, work, and contact without screenshots', async ({ page }) => {
   await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1, name: 'I make complex systems work.' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Hi, I’m Nick.' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'A little about me.' })).toBeVisible()
+  await expect(page.locator('main img, main video')).toHaveCount(0)
+  await page.getByRole('link', { name: 'A little about me', exact: true }).click()
+  await expect(page).toHaveURL(/#about$/)
+  await page.getByRole('link', { name: 'Explore MacTrace', exact: true }).click()
+  await expect(page).toHaveURL(/\/work#mactrace$/)
   await expect(page.getByRole('heading', { name: 'MacTrace', exact: true })).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'Built on experience.' })).toBeVisible()
-  const image = page.getByRole('img', { name: /MacTrace endpoint security dashboard/ })
-  await image.scrollIntoViewIfNeeded()
-  await expect(image).toBeVisible()
-  expect(await image.evaluate((element: HTMLImageElement) => element.complete && element.naturalWidth > 0)).toBe(true)
-  await page.getByRole('link', { name: 'Explore my work' }).click()
-  await expect(page).toHaveURL(/#work$/)
 })
 
 const expectHealthyPage = async (page: Page, path: string, title: string) => {
@@ -87,7 +86,7 @@ test('theme persists and updates browser chrome color', async ({ page }) => {
   await page.getByRole('button', { name: 'Switch to dark theme' }).click()
 
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#17191e')
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#285c50')
   const darkHero = await page.locator('.work-archive-hero').evaluate((element) => {
     const style = getComputedStyle(element)
     return { backgroundColor: style.backgroundColor, color: style.color, scheme: style.colorScheme }
@@ -132,16 +131,10 @@ test('demo videos remain network-idle until the visitor presses play', async ({ 
 
 
 
-test('feature light responds to a pointer and respects reduced motion', async ({ page }) => {
-  await page.goto('/')
-  const feature = page.locator('#work')
-  await feature.scrollIntoViewIfNeeded()
-  const box = await feature.boundingBox()
-  expect(box).not.toBeNull()
-  await page.mouse.move(box!.x + box!.width * 0.8, box!.y + box!.height * 0.4)
-  await expect.poll(() => feature.evaluate((element) => (element as HTMLElement).style.getPropertyValue('--light-x'))).not.toBe('')
+test('personal homepage remains usable with reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await expect.poll(() => feature.evaluate((element) => (element as HTMLElement).style.getPropertyValue('--light-x'))).toBe('')
-  await page.mouse.move(box!.x + box!.width * 0.2, box!.y + box!.height * 0.5)
-  await expect(feature).not.toHaveAttribute('style', /--light-x/)
+  await page.goto('/')
+  await page.getByRole('link', { name: 'Get in touch', exact: true }).click()
+  await expect(page).toHaveURL(/#contact$/)
+  await expect(page.getByRole('link', { name: 'nicktperez@gmail.com' })).toBeVisible()
 })

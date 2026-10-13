@@ -14,9 +14,8 @@ import ThemeToggle from './components/ThemeToggle';
 
 const workNavigation = [
   { label: 'Home', href: '/' },
-  { label: 'Experience', href: '/#experience' },
-  { label: 'Projects', href: '/work' },
-  { label: 'Capabilities', href: '/#capabilities' },
+  { label: 'About', href: '/#about' },
+  { label: 'Work', href: '/work' },
   { label: 'Contact', href: '/#contact' },
 ];
 
@@ -425,7 +424,7 @@ const ArchiveApp = () => {
   }, [isWorkPage, navigation]);
 
   const isNavigationActive = (label: string, href: string) => (
-    isWorkPage ? label === 'Projects' : activeSection === href.slice(1)
+    isWorkPage ? label === 'Work' : activeSection === href.slice(1)
   );
 
   return (

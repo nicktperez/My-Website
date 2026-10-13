@@ -1,34 +1,19 @@
-# Signal Orange
+# Soft phthalo
 
-## Approved reference
-The Signal Orange mockup selected by the user: a neutral white introductory surface, oversized two-line black headline, orange punctuation, a panoramic orange MacTrace project feature, a tall right-side orange NP identity panel, and two compact project previews below.
+## Approved direction
+The user chose concept B: a warm, personal, text-led website in soft phthalo green. No computers or project screenshots on the homepage.
 
 ## Color
-Signal orange: oklch(66.694% 0.22211 33.642). Ink: oklch(12% 0 0). Neutral white: oklch(97% 0 0). Solid surfaces, no decorative gradients. Black button text on orange preserves readable contrast.
+Solid soft phthalo #285c50, warm ivory #f7f3e9, muted peach #f0bea3, and light green #d4dfd7. Dark green ink #183e35 on light surfaces. No gradients or decorative textures.
 
 ## Typography
-Use the existing Archivo variable family. Heavy sans-serif display, generous scale contrast, letter spacing no tighter than -0.04em. Display sizes stop at 96px. Body copy stays readable and concise.
+Libre Caslon Display for welcoming headings and identity; Archivo for body and navigation. Display tops out at 96px. Comfortable reading widths and generous spacing.
 
-## Layout
-Desktop front composition: 77.2% content and 22.8% identity panel. Header, hero, MacTrace feature, and project previews occupy the left column; the NP panel spans the entire composition on the right. Experience, capabilities, and contact continue below at full width. Archive pages share the typography and orange identity.
-
-## Mobile
-Collapse to one column. Transform the tall identity panel into a compact NP/name strip. Stack project imagery above its copy. Keep direct navigation and 44px touch targets.
+## Content and structure
+Personal introduction, About, text-only selected work, professional experience including the wildfire response story, capabilities and education, direct contact. Use verified portfolio data and avoid inventing personal facts. Work page retains technical evidence and manually initiated demos.
 
 ## Interaction
-Native anchor navigation and project detail routes. Native details for career depth. Direct résumé PDF, email, LinkedIn and GitHub links. Clipboard email with live status. Gentle hover transitions, with reduced-motion alternatives. Project demos remain user-initiated.
+Native anchors, 44px touch targets, visible keyboard focus, reduced-motion support, expandable career details, copy-email feedback, shared circular NP identity including favicon. Work page retains its light/dark theme preference, both in phthalo colors.
 
-## Media
-Use actual project captures and recordings from public/. Generated concept images are references only, not shipped project evidence.
-
-## Calmer landing revision
-The user approved removing the tall NP panel, using a small navigation monogram, and making the introduction full width. The headline is the sole dominant opening element, with one orange primary action and a text résumé link. MacTrace begins below the first viewport; OrbitLab and the SIEM lab follow as spacious sequential project rows.
-
-## Opening balance
-Shorten the hero to reveal the orange MacTrace feature on arrival. Include a subdued employer line beneath the actions and a Selected work anchor. Mobile uses content-sized height to avoid a blank screen.
-
-## Orange material
-User requested a premium orange gradient. Warm amber-to-coral gradients carry the existing orange sections and primary button. MacTrace has a pointer-responsive light field updated through requestAnimationFrame and compositor transforms, disabled for touch and reduced motion. Keep text solid and the opening hierarchy calm.
-
-## Specificity and white surfaces
-Replace abstract capabilities slogans with actual disciplines and keep the wildfire story anchored in the supplied details. Static low-contrast orange and cool-gray surface gradients vary the white sections without adding decorative motion. Legitimate AI technology references in project descriptions remain accurate.
+## Responsive behavior
+Content-sized hero and wrapping navigation on mobile. Stack About, career, project rows and contact. Two-column skill list at small sizes.
