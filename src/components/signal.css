@@ -170,3 +170,82 @@
 @media(max-width:900px) { .signal-about { padding-right: 25%; background-image:linear-gradient(90deg,#e6ebe2fc 0%,#e8ecdfef 60%,#e8ecdf99 100%),url('/media/afternoon-study.webp'); } .signal-cables { right: -28px; opacity: .3; } }
 @media(max-width:700px) { .signal-about { padding-right:24px; background-image:linear-gradient(90deg,#e6ebe2f5,#e8ecdfeb),url('/media/afternoon-study.webp'); } .signal-contact { background-image:linear-gradient(90deg,#103b32f2,#103b32e6),url('/media/afternoon-study.webp'); } .signal-header nav { gap:24px; } }
 @media(prefers-reduced-transparency:reduce) { .signal-button { backdrop-filter:none; -webkit-backdrop-filter:none; } .signal-button-orange { background:#f0bea3; } .signal-button-glass { background:#244d42; } }
+/* Match the approved composition: compact rows, disclosures, and quiet space. */
+.signal-section { padding-block: clamp(42px, 5.2vw, 66px); }
+.signal-site h2 { font-size: clamp(36px, 3.6vw, 48px); }
+.signal-hero { min-height: 480px; padding-block: 42px 64px; }
+.signal-hero h1 { font-size: clamp(56px, 6.8vw, 86px); }
+.signal-hero > p { font-size: clamp(19px, 1.75vw, 24px); }
+.signal-button-orange { background: linear-gradient(155deg,#f8dbc0e8,#e8ad84e8); box-shadow: inset 0 1px 2px #fff9,inset 0 -1px 2px #8b562855,0 2px 7px #f0bea344; }
+.signal-fire { grid-template-columns: 72px minmax(0,1fr) 180px; gap: 28px; align-items: center; padding-block: 28px; }
+.signal-fire-icon { color: #3b6151; }
+.signal-fire-heading { border-left: 1px solid #9cb0a0; padding-left: 28px; }
+.signal-fire-heading h2 { font-family: 'Libre Caslon Display',Georgia,serif; font-size: clamp(23px,2vw,28px); line-height: 1.25; }
+.signal-fire-heading > p { font-size: 14px; margin: 10px 0 0; max-width: 70ch; }
+.signal-fire-details { margin-top: 0; }
+.signal-fire-details > summary { border: 0; font-size: 14px; gap: 14px; }
+.signal-fire-details > summary > span { width: 38px; height: 38px; border-color: #3b6151; }
+.signal-fire:has(.signal-fire-details[open]) { align-items: start; }
+.signal-fire:has(.signal-fire-details[open]) .signal-fire-preview { grid-column: 2 / -1; }
+.signal-fire-story { font-size: 17px; max-width: 70ch; }
+.signal-about { min-height: 430px; padding-right: max(39%,calc((100% - 1100px)/2 + 400px)); background-image:linear-gradient(90deg,#edf0e6f5 0%,#edf0e6ed 45%,#edf0e650 70%,transparent 100%),url('/media/afternoon-study.webp'); }
+.signal-about-lead { font-size: 17px; line-height: 1.65; margin-top: 22px !important; }
+.signal-about-details p { font-size: 16px; }
+.signal-about-links { margin-top: 24px; gap: 24px; }
+.signal-about-links .signal-text-link { font-size: 14px; }
+.signal-project-list { margin-top: 28px; margin-bottom: 14px; max-width: 980px; }
+.signal-project { grid-template-columns: 1fr 1.2fr 48px; gap: 28px; padding: 23px 0; align-items: center; }
+.signal-project:first-child { border-top: 0; }
+.signal-project h3 { font-size: 30px; }
+.signal-project p { font-size: 15px; }
+.signal-project-arrow { display: inline-flex; align-items:center; justify-content:center; min-width:44px; min-height:44px; transition:transform 180ms ease; }
+.signal-project-arrow:hover { transform:translateX(4px); }
+.signal-cables { right:36px; opacity:.75; }
+.signal-career { position:relative; margin:28px 0 0 56px; padding-left:44px; border-left:1px solid #93ab9c; }
+.signal-timeline-role { position:relative; border-bottom:1px solid #a1b8ab; }
+.signal-timeline-role::before { content:''; position:absolute; left:-49px; top:32px; width:9px; height:9px; border-radius:50%; background:#183e35; }
+.signal-timeline-role > summary { padding:16px 0; align-items:center; }
+.signal-timeline-company { display:block; font-family:'Libre Caslon Display',Georgia,serif; font-size:25px; font-weight:400; }
+.signal-timeline-title { display:block; font-size:15px; font-weight:400; color:#36574d; }
+.signal-timeline-role[open] > summary > svg { transform:rotate(180deg); }
+.signal-timeline-description { padding:8px 32px 20px 0; }
+.signal-timeline-description ul { padding-left:20px; max-width:75ch; }
+.signal-timeline-description li + li { margin-top:10px; }
+.signal-earlier { border-top:0; padding-top:12px; font-size:14px; }
+.signal-skills { margin-top:32px; gap:28px; }
+.signal-skills > div { display:flex; gap:16px; border-top:0; padding:0; }
+.signal-skills > div + div { border-left:1px solid #6f8d7a; padding-left:24px; }
+.signal-skills > div > svg { flex-shrink:0; margin-top:2px; }
+.signal-skills h3 { font-family:'Libre Caslon Display',Georgia,serif; font-size:23px; font-weight:400; }
+.signal-skills p { font-size:14px; line-height:1.7; margin-top:12px; }
+.signal-education { margin-top:30px; padding-top:20px; font-size:13px; }
+.signal-contact { grid-template-columns:1fr 1fr; gap:64px; background-image:linear-gradient(90deg,#103b32fa,#103b32d6 46%,#103b3260 78%,#103b3230),url('/media/afternoon-study.webp'); }
+.signal-contact-intro > p { margin-top:18px; font-size:17px; max-width:40ch; }
+.signal-contact-directory { align-self:center; border-left:1px solid #71907b; padding-left:32px; display:flex; flex-direction:column; gap:2px; }
+.signal-contact-directory a,.signal-contact-directory button { display:inline-flex; align-items:center; gap:14px; min-height:44px; width:fit-content; font-size:15px; color:var(--ivory); }
+.signal-contact-directory button { border:0; background:none; padding:0; cursor:pointer; }
+.signal-contact-directory > .signal-copy-status { font-size:13px; }
+.signal-footer { padding-block:12px; font-size:13px; }
+.signal-footer > a:first-child { font-family:'Archivo',Arial,sans-serif; font-size:15px; }
+@media(max-width:900px) { .signal-about { padding-right:32%; } .signal-cables { right:-15px; opacity:.45; } .signal-skills { grid-template-columns:repeat(2,1fr); } .signal-skills > div:nth-child(3) { border-left:0; padding-left:0; } }
+@media(max-width:700px) {
+ .signal-hero { min-height:0; padding-block:36px 52px; }
+ .signal-fire { grid-template-columns:44px 1fr; gap:20px; } .signal-fire-icon { width:42px; height:42px; } .signal-fire-heading { padding-left:20px; }
+ .signal-fire-preview { grid-column:2; } .signal-fire:has(.signal-fire-details[open]) .signal-fire-preview { grid-column:1 / -1; }
+ .signal-about { min-height:0; padding-right:24px; background-image:linear-gradient(90deg,#edf0e6f5,#edf0e6e6),url('/media/afternoon-study.webp'); }
+ .signal-project { grid-template-columns:1fr 44px; gap:8px 16px; } .signal-project h3 { grid-column:1; } .signal-project p { grid-column:1; } .signal-project-arrow { grid-column:2; grid-row:1 / 3; }
+ .signal-career { margin-left:8px; padding-left:24px; } .signal-timeline-role::before { left:-29px; } .signal-timeline-company { font-size:23px; }
+ .signal-contact { grid-template-columns:1fr; gap:28px; background-image:linear-gradient(90deg,#103b32f2,#103b32d9),url('/media/afternoon-study.webp'); }
+ .signal-contact-directory { border-left:0; border-top:1px solid #71907b; padding:20px 0 0; }
+ .signal-skills { gap:28px 20px; } .signal-skills > div { flex-direction:column; gap:12px; } .signal-skills > div + div { padding-left:16px; } .signal-skills > div:nth-child(3) { padding-left:0; }
+}
+.signal-site .signal-timeline-role > summary > span { transform:none; font-size:inherit; }
+.signal-site .signal-timeline-role > summary .signal-timeline-company { font-size:25px; }
+.signal-site .signal-timeline-role > summary .signal-timeline-title { font-size:15px; }
+.signal-projects { padding-block:48px; }
+.signal-project { padding-block:17px; }
+.signal-project-list { margin-top:22px; }
+.signal-experience { padding-block:48px; }
+.signal-capabilities { padding-block:42px; }
+.signal-contact { padding-block:48px; }
+@media(max-width:700px) { .signal-site .signal-timeline-role > summary .signal-timeline-company { font-size:22px; } }

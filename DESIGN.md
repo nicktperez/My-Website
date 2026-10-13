@@ -23,3 +23,6 @@ User selected warm server-room concept A. Use generated atmospheric artwork on t
 
 ## Warm light and selective glass
 Approved full-page concept: plain navigation links with peach underlines, soft peach-tinted and green glass action buttons, sunlit study artwork in About and Contact, dark phthalo project rows with sparse cable lines, and pale green experience gradients. Preserve the approved server-room hero. Generated images are decorative. Reduced transparency uses solid buttons.
+
+## Composition fidelity
+Use a compact Caldor story strip with tree icon and inline disclosure. Selected work uses short descriptions and accessible arrow links. Career roles are a vertical timeline with native disclosures holding dates and all highlights. Capability icons accompany the four disciplines. Contact places the message and glass action on the left, icon links on the right. Shorten section spacing to match the approved full-page concept.

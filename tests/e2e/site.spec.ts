@@ -154,3 +154,15 @@ test('Caldor story opens and closes with the keyboard', async ({ page }) => {
   await page.keyboard.press('Enter')
   await expect(story).not.toHaveAttribute('open')
 })
+
+test('career timeline reveals job details without losing the compact summary', async ({ page }) => {
+  await page.goto('/')
+  const role = page.locator('.signal-timeline-role').first()
+  await expect(role).not.toHaveAttribute('open')
+  await role.locator('summary').click()
+  await expect(role).toHaveAttribute('open', '')
+  await expect(role.locator('.signal-role-period')).toBeVisible()
+  await expect(role.locator('li').first()).toBeVisible()
+  await role.locator('summary').click()
+  await expect(role).not.toHaveAttribute('open')
+})
