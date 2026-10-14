@@ -1,0 +1,20 @@
+/* Shared identity across the detailed work pages, including both theme choices. */
+.signal-archive { --background: #e3e9e1; --foreground: #183e35; --paper: #edf0e9; --paper-2: #d4dfd7; --muted: #d4dfd7; --muted-foreground: #36574d; --border: #a1b8ab; --primary: #285c50; --primary-dark: #173f36; --accent: #285c50; --accent-dark: #173f36; --surface-strong: #173f36; --surface-strong-text: #f7f3e9; --surface-strong-muted: #dce6dc; background: var(--background); color: var(--foreground); }
+:root[data-theme='dark'] .signal-archive { --background: #173f36; --foreground: #f7f3e9; --paper: #204a40; --paper-2: #285c50; --muted: #285c50; --muted-foreground: #dce6dc; --border: #779c8c; --primary: #f0bea3; --primary-dark: #f3c7ad; --accent: #f0bea3; --accent-dark: #f3c7ad; }
+.signal-archive .site-header { background: var(--green); color: var(--ivory); border: 0; box-shadow: none; }
+.signal-archive .brand-monogram { border-radius: 50%; border: 1px solid #b8cfc1; color: var(--ivory); background: transparent; font-family: 'Libre Caslon Display', Georgia, serif; font-weight: 400; }
+.signal-archive .brand-copy strong { font-family: 'Libre Caslon Display', Georgia, serif; font-size: 25px; font-weight: 400; }
+.signal-archive .brand-copy small, .signal-archive .desktop-nav a { color: var(--ivory); }
+.signal-archive .desktop-nav a.is-active { color: var(--peach); }
+.signal-archive .header-resume, .signal-archive .theme-toggle, .signal-archive .mobile-nav-trigger { color: var(--ivory); border-color: #779c8c; background: transparent; }
+.signal-archive .work-archive-hero { padding-block: 64px; }
+.signal-archive .work-archive-hero h1, .signal-archive .case-summary h3, .signal-archive .demo-reel-heading h3, .signal-archive .more-work-heading h2, .signal-archive .motion-evidence-heading h2, .signal-archive .case-lead { font-family: 'Libre Caslon Display', Georgia, serif; font-weight: 400; letter-spacing: -.025em; line-height: 1.15; }
+.signal-archive .work-archive-hero h1 { font-size: clamp(48px, 6vw, 80px); }
+.signal-archive .case-summary h3 { font-size: clamp(36px, 4vw, 52px); }
+.signal-archive .index-tab { background: var(--green); color: var(--ivory); }
+.signal-archive .case-category, .signal-archive .demo-reel-heading p { text-transform: none; letter-spacing: 0; }
+.signal-archive .case-visual, .signal-archive .demo-reel-visual { padding: 0; border: 0; box-shadow: none; border-radius: 8px; overflow: hidden; }
+.signal-archive .case-file, .signal-archive .demo-reel, .signal-archive .more-work-link { box-shadow: none; }
+.signal-archive .site-footer { background: var(--green); color: var(--ivory); }
+.signal-archive .site-footer a, .signal-archive .copyright, .signal-archive .site-footer p { color: var(--ivory); }
+.signal-archive .copy-button { color: var(--ivory); border-color: #779c8c; }

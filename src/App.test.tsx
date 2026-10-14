@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import App from './App'
+import { ArchiveApp as App } from './App'
 import { initializeTheme, THEME_STORAGE_KEY } from './theme'
 
 const setRoute = (path: string) => window.history.replaceState({}, '', path);

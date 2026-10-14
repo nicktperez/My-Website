@@ -3,7 +3,7 @@ import { expect, test, type Page } from '@playwright/test'
 
 const routes = [
   { path: '/', title: 'Nicholas Perez | IT Systems Engineer' },
-  { path: '/work', title: 'Project Archive | Nicholas Perez' },
+  { path: '/work', title: 'Nicholas Perez | IT Systems Engineer' },
 ]
 
 test('home introduces Nick and links to about, work, and contact without screenshots', async ({ page }) => {
@@ -16,9 +16,9 @@ test('home introduces Nick and links to about, work, and contact without screens
   expect(await backdrop.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true)
   await page.getByRole('link', { name: 'A little about me', exact: true }).click()
   await expect(page).toHaveURL(/#about$/)
-  await page.getByRole('link', { name: 'Explore MacTrace', exact: true }).click()
-  await expect(page).toHaveURL(/\/work#mactrace$/)
-  await expect(page.getByRole('heading', { name: 'MacTrace', exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Explore MacTrace', exact: true })).toHaveAttribute('href', /github\.com/)
+  await page.getByRole('link', { name: 'Things I’ve built', exact: true }).click()
+  await expect(page).toHaveURL(/#work$/)
 })
 
 const expectHealthyPage = async (page: Page, path: string, title: string) => {
@@ -78,61 +78,11 @@ for (const route of routes) {
   })
 }
 
-test('theme persists and updates browser chrome color', async ({ page }) => {
+test('old work route redirects to homepage projects', async ({ page }) => {
   await page.goto('/work')
-  await page.evaluate(() => localStorage.setItem('portfolio-theme', 'light'))
-  await page.reload({ waitUntil: 'networkidle' })
-  const lightHero = await page.locator('.work-archive-hero').evaluate((element) => {
-    const style = getComputedStyle(element)
-    return { backgroundColor: style.backgroundColor, color: style.color, scheme: style.colorScheme }
-  })
-  await page.getByRole('button', { name: 'Switch to dark theme' }).click()
-
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#285c50')
-  const darkHero = await page.locator('.work-archive-hero').evaluate((element) => {
-    const style = getComputedStyle(element)
-    return { backgroundColor: style.backgroundColor, color: style.color, scheme: style.colorScheme }
-  })
-  expect(darkHero).not.toEqual(lightHero)
-  expect(darkHero.scheme).toBe('dark')
-  await page.reload({ waitUntil: 'networkidle' })
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await expect(page).toHaveURL(/\/#work$/)
+  await expect(page.getByRole('heading', { name: 'Things I’ve built.' })).toBeVisible()
 })
-
-test('mobile navigation contains focus and restores it after Escape', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('/work')
-  const trigger = page.getByRole('button', { name: 'Open navigation' })
-
-  await trigger.click()
-  await expect(page.getByRole('navigation', { name: 'Mobile navigation' }).getByRole('link', { name: 'Home' })).toBeFocused()
-  await page.keyboard.press('Escape')
-
-  await expect(trigger).toBeFocused()
-  await expect(trigger).toHaveAttribute('aria-expanded', 'false')
-})
-
-test('demo videos remain network-idle until the visitor presses play', async ({ page }) => {
-  const mediaRequests: string[] = []
-  page.on('request', (request) => {
-    if (/\.mp4(?:$|\?)/.test(request.url())) mediaRequests.push(request.url())
-  })
-
-  await page.goto('/work', { waitUntil: 'networkidle' })
-  const videos = page.locator('video')
-  await expect(videos).toHaveCount(3)
-
-  for (let index = 0; index < await videos.count(); index += 1) {
-    await videos.nth(index).evaluate((video) => video.scrollIntoView({ block: 'center' }))
-    await page.waitForTimeout(150)
-  }
-
-  expect(mediaRequests).toEqual([])
-  expect(await videos.evaluateAll((elements) => elements.map((video) => video.preload))).toEqual(['none', 'none', 'none'])
-})
-
-
 
 test('personal homepage remains usable with reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
@@ -165,4 +115,60 @@ test('career timeline reveals job details without losing the compact summary', a
   await expect(role.locator('li').first()).toBeVisible()
   await role.locator('summary').click()
   await expect(role).not.toHaveAttribute('open')
+})
+
+test('story icon stays anchored and job title stays level when expanded', async ({ page }) => {
+  await page.goto('/')
+  const icon = page.locator('.signal-fire-icon')
+  const before = await icon.boundingBox()
+  await page.locator('.signal-fire-details summary').click()
+  const after = await icon.boundingBox()
+  expect(after!.x).toBeCloseTo(before!.x, 0)
+  expect(after!.y).toBeCloseTo(before!.y, 0)
+  await page.locator('.signal-timeline-role summary').first().click()
+  expect(await page.locator('.signal-timeline-role summary > span').first().evaluate(element => getComputedStyle(element).transform)).toBe('none')
+})
+
+test('glass button retains its fill on hover', async ({ page }) => {
+  await page.goto('/')
+  const button = page.getByRole('link', { name: 'Get in touch', exact: true })
+  const before = await button.evaluate(element => getComputedStyle(element).backgroundImage)
+  await button.hover()
+  expect(await button.evaluate(element => getComputedStyle(element).backgroundImage)).toBe(before)
+})
+
+test('resume is available immediately and mobile images sit below the copy', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+  await expect(page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Résumé', exact: true })).toHaveAttribute('href', '/NicholasPerezResume.pdf')
+  await expect(page.getByRole('link', { name: 'View my résumé' })).toHaveAttribute('href', '/NicholasPerezResume.pdf')
+  for (const selector of ['.signal-about', '.signal-contact']) {
+    const section = page.locator(selector)
+    const image = section.locator('.signal-mobile-scene')
+    await image.scrollIntoViewIfNeeded()
+    await expect(image).toBeVisible()
+    const layout = await section.evaluate(element => {
+      const image = element.querySelector('img')!.getBoundingClientRect()
+      const heading = element.querySelector('h2')!.getBoundingClientRect()
+      return { imageTop: image.top, headingBottom: heading.bottom }
+    })
+    expect(layout.imageTop).toBeGreaterThan(layout.headingBottom)
+  }
+})
+
+test('glass hover stays stable along the lower edge without moving the button', async ({ page }) => {
+  await page.goto('/')
+  for (const name of ['A little about me', 'Get in touch', 'Send me an email']) {
+    const button = page.getByRole('link', { name, exact: true })
+    await button.scrollIntoViewIfNeeded()
+    const before = await button.boundingBox()
+    await page.mouse.move(before!.x + before!.width / 2, before!.y + before!.height - 1)
+    for (let sample = 0; sample < 5; sample++) {
+      await page.waitForTimeout(80)
+      expect(await button.evaluate(element => element.matches(':hover'))).toBe(true)
+      expect(await button.evaluate(element => getComputedStyle(element).transform)).toBe('none')
+      const after = await button.boundingBox()
+      expect(after!.y).toBeCloseTo(before!.y, 2)
+    }
+  }
 })

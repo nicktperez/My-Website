@@ -1,39 +1,12 @@
-import { defineConfig } from 'vite'
-import type { Plugin } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
-import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
-
-const projectRoot = dirname(fileURLToPath(import.meta.url))
-const serveWorkDocument = (): Plugin => ({
-  name: 'serve-work-document',
-  configureServer(server) {
-    server.middlewares.use((request, _response, next) => {
-      if (request.url === '/work' || request.url?.startsWith('/work?')) {
-        request.url = request.url.replace('/work', '/work/')
-      }
+const redirectArchivedWork = (): Plugin => {
+  const install = (server: { middlewares: { use: (handler: (request: { url?: string }, response: { writeHead: (status: number, headers: Record<string,string>) => void; end: () => void }, next: () => void) => void) => void } }) => {
+    server.middlewares.use((request, response, next) => {
+      if (/^\/work(?:[/?]|$)/.test(request.url || '')) { response.writeHead(302, { Location: '/#work' }); response.end(); return }
       next()
     })
-  },
-  configurePreviewServer(server) {
-    server.middlewares.use((request, _response, next) => {
-      if (request.url === '/work' || request.url?.startsWith('/work?')) {
-        request.url = request.url.replace('/work', '/work/')
-      }
-      next()
-    })
-  },
-})
-
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [serveWorkDocument(), react()],
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(projectRoot, 'index.html'),
-        work: resolve(projectRoot, 'work/index.html'),
-      },
-    },
-  },
-})
+  }
+  return { name: 'redirect-archived-work', configureServer: install, configurePreviewServer: install }
+}
+export default defineConfig({ plugins: [redirectArchivedWork(), react()] })

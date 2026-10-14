@@ -37,7 +37,7 @@ export default function SignalHome() {
           <header className="signal-header">
             <a className="signal-brand" href="#top"><span className="signal-nav-monogram" aria-hidden="true">NP</span> Nick Perez</a>
             <nav aria-label="Primary navigation">
-              <a href="#about">About</a><a href="/work">Work</a><a href="#contact">Contact</a>
+              <a href="#about">About</a><a href={resumeUrl} target="_blank" rel="noreferrer">Résumé</a><a href="#contact">Contact</a>
             </nav>
 
           </header>
@@ -48,6 +48,7 @@ export default function SignalHome() {
               <a className="signal-button signal-button-orange" href="#about">A little about me <ArrowRight size={18} aria-hidden="true" /></a>
               <a className="signal-button signal-button-glass" href="#contact">Get in touch <ArrowRight size={18} aria-hidden="true" /></a>
             </div>
+            <a className="signal-text-link signal-hero-resume" href={resumeUrl} target="_blank" rel="noreferrer">View my résumé <FileText size={17} aria-hidden="true" /></a>
           </section>
         </div>
         <section className="signal-fire signal-section" id="caldor-fire" aria-labelledby="fire-title">
@@ -71,6 +72,7 @@ export default function SignalHome() {
           </div>
         </section>
         <section className="signal-about signal-section" id="about" aria-labelledby="about-title">
+          <img className="signal-mobile-scene signal-about-scene" src="/media/about-hobbies.webp" alt="" aria-hidden="true" width="1600" height="900" loading="lazy" decoding="async" />
           <h2 id="about-title">A little about me.</h2>
           <p className="signal-about-lead">I’ve worked in IT for over ten years, in county offices, with startups, and helping people with their everyday tech problems. A lot of the work comes down to making sure someone can do what they need to do.</p>
           <div className="signal-about-details"><p>Sometimes that’s helping someone get back into their account. Other times it’s setting up a whole office so people have somewhere to work. I also build things on my own, from security tools to a physics simulator. I like getting into something and figuring out how it works.</p></div>
@@ -79,8 +81,8 @@ export default function SignalHome() {
         <section className="signal-projects signal-section" id="work" aria-labelledby="work-title">
           <h2 id="work-title">Things I’ve built.</h2>
           <svg className="signal-cables" viewBox="0 0 120 600" fill="none" aria-hidden="true"><path d="M30 0v120c0 35-20 35-20 70v410"/><path d="M60 0v260c0 40-25 40-25 80v260"/><path d="M90 0v330c0 45-25 45-25 90v180"/><circle cx="35" cy="470" r="3"/><circle cx="90" cy="190" r="3"/></svg>
-          <div className="signal-project-list">{selectedProjects.map((project) => <article className="signal-project" key={project.title}><h3>{project.title}</h3><p>{project.title === 'MacTrace' ? 'macOS security tools' : project.title === 'OrbitLab' ? 'Physics simulation' : 'Security events and detection'}</p><a className="signal-project-arrow" aria-label={`Explore ${project.title}`} href={`/work#${project.title.toLowerCase().replaceAll(' ', '-')}`}><ArrowRight size={24} aria-hidden="true" /></a></article>)}</div>
-          <a className="signal-text-link" href="/work">See all my work <ArrowRight size={18} aria-hidden="true" /></a>
+          <div className="signal-project-list">{selectedProjects.map((project) => <article className="signal-project" key={project.title}><h3>{project.title}</h3><p>{project.title === 'MacTrace' ? 'macOS security tools' : project.title === 'OrbitLab' ? 'Physics simulation' : 'Security events and detection'}</p><a className="signal-project-arrow" aria-label={`Explore ${project.title}`} href={project.github} target="_blank" rel="noreferrer"><ArrowRight size={24} aria-hidden="true" /></a></article>)}</div>
+          <a className="signal-text-link" href={portfolioData.github} target="_blank" rel="noreferrer">More on GitHub <ArrowRight size={18} aria-hidden="true" /></a>
         </section>
         <section className="signal-experience signal-section" id="experience">
           <h2>The work along the way.</h2>
@@ -100,6 +102,7 @@ export default function SignalHome() {
           <div className="signal-education"><p><strong>Associate of Science, Computer Science</strong><br />Cosumnes River College · Web Publishing &amp; Web Programming certificates</p><p><strong>CompTIA Security+</strong><br />Currently pursuing certification</p></div>
         </section>
         <section className="signal-contact signal-section" id="contact">
+          <img className="signal-mobile-scene signal-contact-scene" src="/media/contact-workbench.webp" alt="" aria-hidden="true" width="1600" height="900" loading="lazy" decoding="async" />
           <div className="signal-contact-intro"><h2>Let’s talk.</h2><p>If you want to talk about a role, something I’ve built, or just say hello, send me an email.</p><a className="signal-button signal-button-orange signal-contact-action" href={`mailto:${portfolioData.email}`}>Send me an email <ArrowUpRight size={18} aria-hidden="true" /></a></div>
           <div className="signal-contact-directory"><a href={`mailto:${portfolioData.email}`}><Mail size={20} aria-hidden="true" />{portfolioData.email}</a><a href={linkedInUrl} target="_blank" rel="me noreferrer"><Linkedin size={20} aria-hidden="true" />LinkedIn</a><a href={resumeUrl} target="_blank" rel="noreferrer"><FileText size={20} aria-hidden="true" />Résumé</a><button type="button" onClick={copyEmail}>{copyStatus === 'Email copied' ? <Check size={18} aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />} Copy email</button><p className="signal-copy-status" role="status">{copyStatus}</p></div>
         </section>

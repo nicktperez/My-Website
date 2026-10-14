@@ -26,3 +26,9 @@ Approved full-page concept: plain navigation links with peach underlines, soft p
 
 ## Composition fidelity
 Use a compact Caldor story strip with tree icon and inline disclosure. Selected work uses short descriptions and accessible arrow links. Career roles are a vertical timeline with native disclosures holding dates and all highlights. Capability icons accompany the four disciplines. Contact places the message and glass action on the left, icon links on the right. Shorten section spacing to match the approved full-page concept.
+
+## Interaction and personal imagery revision
+Only disclosure icons rotate. Story artwork remains anchored in its original grid cell as text expands below. Glass actions retain their gradient and fade a highlight overlay on hover. Hero photo uses a graduated mask into the green surface. About uses Raspberry Pi, baseball and weather-sensor artwork; Contact uses a separate warm keyboard workbench. The Work archive source is retained but no longer published; /work redirects to homepage projects, whose links open their GitHub repositories.
+
+## CSS foundation and mobile images
+Global CSS contains only the active foundation. Historical portfolio CSS is preserved in src/styles/legacy-portfolio.css and archive-theme.css, neither loaded on the current site. Homepage rules are consolidated by component and breakpoint. Résumé is available in the header and immediately below the hero actions. On mobile, About and Contact use solid reading surfaces followed by separate decorative photo strips.

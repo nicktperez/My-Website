@@ -359,7 +359,7 @@ const CopyEmailButton = () => {
   );
 };
 
-const ArchiveApp = () => {
+export const ArchiveApp = () => {
   const isWorkPage = true;
   const navigation = workNavigation;
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -554,6 +554,6 @@ const ArchiveApp = () => {
   );
 };
 
-const App = () => window.location.pathname.replace(/\/+$/, '') === '/work' ? <ArchiveApp /> : <SignalHome />;
+const App = () => <SignalHome />;
 
 export default App;
