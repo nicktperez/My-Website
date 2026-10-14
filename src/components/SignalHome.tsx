@@ -14,9 +14,55 @@ const skills = [
 ];
 
 export default function SignalHome() {
+  const pageRef = useRef<HTMLDivElement>(null);
   const [copyStatus, setCopyStatus] = useState('');
+  const [storyOpen, setStoryOpen] = useState(false);
   const copyReset = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => { if (copyReset.current) clearTimeout(copyReset.current); }, []);
+  useEffect(() => {
+    const buttons = pageRef.current?.querySelectorAll<HTMLAnchorElement>('.signal-button');
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const pointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+    let frame = 0;
+    const reset = () => {
+      cancelAnimationFrame(frame);
+      buttons?.forEach(button => {
+        button.style.removeProperty('--shadow-x');
+        button.style.removeProperty('--shadow-y');
+        button.style.removeProperty('--shadow-alpha');
+      });
+    };
+    const follow = (event: PointerEvent) => {
+      if (motion.matches || !pointer.matches || event.pointerType === 'touch') return;
+      const button = event.currentTarget as HTMLAnchorElement;
+      const bounds = button.getBoundingClientRect();
+      const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 14;
+      const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 10 + 4;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        button.style.setProperty('--shadow-x', `${x.toFixed(2)}px`);
+        button.style.setProperty('--shadow-y', `${y.toFixed(2)}px`);
+        button.style.setProperty('--shadow-alpha', '.28');
+      });
+    };
+    buttons?.forEach(button => {
+      button.addEventListener('pointermove', follow, { passive: true });
+      button.addEventListener('pointerleave', reset);
+      button.addEventListener('pointercancel', reset);
+    });
+    motion.addEventListener('change', reset);
+    pointer.addEventListener('change', reset);
+    return () => {
+      reset();
+      buttons?.forEach(button => {
+        button.removeEventListener('pointermove', follow);
+        button.removeEventListener('pointerleave', reset);
+        button.removeEventListener('pointercancel', reset);
+      });
+      motion.removeEventListener('change', reset);
+      pointer.removeEventListener('change', reset);
+    };
+  }, []);
   const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText(portfolioData.email);
@@ -29,7 +75,7 @@ export default function SignalHome() {
   };
 
   return (
-    <div className="signal-site" id="top">
+    <div className="signal-site" id="top" ref={pageRef}>
       <a className="skip-link" href="#main-content">Skip to content</a>
       <main id="main-content">
         <div className="signal-front">
@@ -53,10 +99,9 @@ export default function SignalHome() {
         </div>
         <section className="signal-fire signal-section" id="caldor-fire" aria-labelledby="fire-title">
           <Trees className="signal-fire-icon" size={64} strokeWidth={1.3} aria-hidden="true" /><div className="signal-fire-heading"><h2 id="fire-title">Keeping things working through the Caldor Fire.</h2><p>When coworkers had to evacuate, I stayed and worked with our team to keep county systems running.</p></div>
-          <div className="signal-fire-preview">
-            <details className="signal-fire-details">
-              <summary>Read the story <span aria-hidden="true">+</span></summary>
-              <div className="signal-fire-story">
+          <div className="signal-fire-details" data-open={storyOpen}>
+              <button className="signal-story-toggle" type="button" aria-expanded={storyOpen} aria-controls="caldor-story" onClick={() => setStoryOpen(open => !open)}>Read the story <span aria-hidden="true">+</span></button>
+              <div className="signal-fire-story" id="caldor-story" hidden={!storyOpen}>
             <p>When the Caldor Fire started, I was working in El Dorado County’s central IT department. A lot of county employees lived nearby, in little country homes out in the woods. They were at work when the evacuation orders started coming in.</p>
             <p>Almost immediately, half the staff around us had to leave. They raced home on back roads to get their loved ones, their pets, and whatever valuables they could grab. These were our coworkers and friends, suddenly trying to get their families away from a rapidly growing fire.</p>
             <p>I didn’t live in the county, so my home wasn’t under evacuation. I stayed and worked.</p>
@@ -68,7 +113,6 @@ export default function SignalHome() {
             <p>Eventually, people started going home. They picked up their pets from the shelters and returned to their communities. Some had lost their homes.</p>
             <p>I was one person on a team, surrounded by people working hard to take care of each other. I’m glad I could be part of that. I helped keep things working while a community held itself together.</p>
               </div>
-            </details>
           </div>
         </section>
         <section className="signal-about signal-section" id="about" aria-labelledby="about-title">

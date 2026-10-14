@@ -95,14 +95,14 @@ test('personal homepage remains usable with reduced motion', async ({ page }) =>
 test('Caldor story opens and closes with the keyboard', async ({ page }) => {
   await page.goto('/')
   const story = page.locator('.signal-fire-details')
-  const summary = story.locator('summary')
-  await expect(story).not.toHaveAttribute('open')
+  const summary = story.locator('.signal-story-toggle')
+  await expect(summary).toHaveAttribute('aria-expanded', 'false')
   await summary.focus()
   await page.keyboard.press('Enter')
-  await expect(story).toHaveAttribute('open', '')
+  await expect(summary).toHaveAttribute('aria-expanded', 'true')
   await expect(story.getByText('The servers and files there became unreachable.', { exact: false })).toBeVisible()
   await page.keyboard.press('Enter')
-  await expect(story).not.toHaveAttribute('open')
+  await expect(summary).toHaveAttribute('aria-expanded', 'false')
 })
 
 test('career timeline reveals job details without losing the compact summary', async ({ page }) => {
@@ -121,7 +121,7 @@ test('story icon stays anchored and job title stays level when expanded', async 
   await page.goto('/')
   const icon = page.locator('.signal-fire-icon')
   const before = await icon.boundingBox()
-  await page.locator('.signal-fire-details summary').click()
+  await page.locator('.signal-story-toggle').click()
   const after = await icon.boundingBox()
   expect(after!.x).toBeCloseTo(before!.x, 0)
   expect(after!.y).toBeCloseTo(before!.y, 0)
@@ -171,4 +171,34 @@ test('glass hover stays stable along the lower edge without moving the button', 
       expect(after!.y).toBeCloseTo(before!.y, 2)
     }
   }
+})
+
+test('expanded story spans the reading column and the plus has a rotation transition', async ({ page }) => {
+  for (const width of [749, 1280, 390]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/')
+    const button = page.getByRole('button', { name: 'Read the story' })
+    await button.click()
+    const story = page.locator('#caldor-story')
+    await expect(story).toBeVisible()
+    const box = await story.boundingBox()
+    expect(box!.width).toBeGreaterThan(width < 700 ? width - 60 : 450)
+    const rotation = await button.locator('span').evaluate(element => getComputedStyle(element).transitionProperty)
+    expect(rotation).toContain('transform')
+    await button.click()
+    await expect(story).toBeHidden()
+  }
+})
+
+test('glass shadow follows the pointer and resets for reduced motion', async ({ page }) => {
+  await page.goto('/')
+  const button = page.getByRole('link', { name: 'Get in touch', exact: true })
+  const box = await button.boundingBox()
+  await page.mouse.move(box!.x + box!.width * .2, box!.y + box!.height * .4)
+  await expect.poll(() => button.evaluate(element => element.style.getPropertyValue('--shadow-x'))).not.toBe('')
+  const left = await button.evaluate(element => parseFloat(element.style.getPropertyValue('--shadow-x')))
+  await page.mouse.move(box!.x + box!.width * .8, box!.y + box!.height * .6)
+  await expect.poll(() => button.evaluate(element => parseFloat(element.style.getPropertyValue('--shadow-x')))).toBeGreaterThan(left)
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await expect.poll(() => button.evaluate(element => element.style.getPropertyValue('--shadow-x'))).toBe('')
 })
